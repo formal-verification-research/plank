@@ -24,6 +24,14 @@ import matplotlib.backends.backend_pdf
 def simulation(numTimeSteps, xSteps, ySteps, occupied, occupiedOld, totNumCells, xPos, yPos, deathTime, pro, proOld,
                densityScale, lamda, k, fib, vegf, ySubstrate, vegfOld, tolerance, h, xLength, fibOld, xVector, yVector,
                movement, maxCell, birthTime, divideTime):
+#####
+    # Start data vector with spaces for all cells, and 9 extra per cell (to account for dividing)
+    celltrackingvector = celltrackingvector = [[[], [], []] for i in range(totNumCells * 10)]
+    # v0 = 0.04
+    v0 = 0.2
+    Dv = 3.6 * (10 ** -5)
+#####
+
     densityMax = 6
     k18 = 0.55555555
     k20 = 0.0496031736
@@ -31,8 +39,8 @@ def simulation(numTimeSteps, xSteps, ySteps, occupied, occupiedOld, totNumCells,
     k26 = .00001859
     m1 = 2
     # child = 0.25      # 12 hours iteration 5400
-    child = 0.125     # 6 hours iteration 2700
-    # child = 0.0625      # 3 hours iteration 1350
+    # child = 0.125     # 6 hours iteration 2700
+    child = 0.0625      # 3 hours iteration 1350
     fibThreshold = 0.6
     workspace = zeros((ySteps, xSteps))
     file = open("tracking_backtracks.txt", "w")
@@ -51,6 +59,13 @@ def simulation(numTimeSteps, xSteps, ySteps, occupied, occupiedOld, totNumCells,
             y = yPos[cell][time]
             xPos[cell][time+1] = x
             yPos[cell][time+1] = y
+
+#####
+            # Add the time, x, y to the celltrackingvector
+            celltrackingvector[cell][0].append(time)
+            celltrackingvector[cell][1].append(x)
+            celltrackingvector[cell][2].append(y)
+#####
 
             # If cell has left the capillary
             # not including dividing and death right now because it doesn't work with anastomosis
@@ -214,15 +229,19 @@ def simulation(numTimeSteps, xSteps, ySteps, occupied, occupiedOld, totNumCells,
                 total += 1
         if total == totNumCells:
             print("ALL OF THE CELLS ARE DEAD")
-            break
+#####
+            return celltrackingvector  # Changed so we always get data output
+#####
 
         updateVEGF(ySubstrate, xSteps, densityScale, occupiedOld, vegf, vegfOld, k, tolerance, h, xLength)
-        updateFib(ySubstrate, xSteps, densityScale, occupiedOld, fib, fibOld, k, pro, tolerance, h)
+        # updateFib(ySubstrate, xSteps, densityScale, occupiedOld, fib, fibOld, k, pro, tolerance, h)
         updatePro(ySubstrate, xSteps, densityScale, occupiedOld, pro, proOld, k, vegfOld)
 
         print("time = " + str(time))
 
-        if time % 500 == 0:
-            createGraph(ySubstrate, xSteps, vegf, fib, pro, xVector, yVector, workspace, time)
+        #if time % 500 == 0:
+        #    createGraph(ySubstrate, xSteps, vegf, fib, pro, xVector, yVector, workspace, time)
 
-    return
+#####
+        return celltrackingvector
+#####
