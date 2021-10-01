@@ -1,6 +1,6 @@
 from math import exp
 from random import random
-from heaviside import heaviside
+from Heaviside import heaviside
 from pStay import pStay
 from pMove import pMove
 from move import move
