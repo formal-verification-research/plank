@@ -3,7 +3,7 @@ from random import random
 from Heaviside import heaviside
 from pStay import pStay
 from pMove import pMove
-from move import move
+from Move import move
 from updatePro import updatePro
 from updateVEGF import updateVEGF
 from updateFib import updateFib
