@@ -2,7 +2,7 @@ from numpy import zeros
 from numpy import ones
 
 from timePerStep import timePerStep
-from init import init
+from StartUp import init
 from stepSize import stepSize
 from lamda import lamda
 from simulation import simulation
