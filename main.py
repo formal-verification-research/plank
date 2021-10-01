@@ -17,8 +17,8 @@ def main():
     start = time.time()
     yLength = 0.5
     xLength = 1
-    xSteps = 201
-    # xSteps = 21
+    # xSteps = 201
+    xSteps = 21
     ySteps = int(xSteps * (yLength/xLength) + 0.5)  # need to add the 0.5 so that it rounds to the correct number
     ySubstrate = ySteps * 2 - 1
     # totNumCells must be less than or equal to xStep so there will be a place to put all the cells
