@@ -1,13 +1,22 @@
+# Description
+'''
+The purpose of Graph is to turn the difference substrate matrices and the workspace matrix into a graph for better
+visual interpretation of the results
+'''
+
+
+# Imports
 from numpy import linspace
 from matplotlib import pyplot
-from mpl_toolkits import mplot3d            # Still need this even though is seems unnecessary
+from mpl_toolkits import mplot3d
 from matplotlib import cm
 
 
-def createGraph(ySubstrate, xSteps, vegf, fib, pro, xVector, yVector, workspace, time):
+# Function
+def createGraph(ySubstrate, xSteps, vegf, fibronectin, protease, xVector, yVector, workspace, currentTimeStep):
 
+    # Create the vegf height data for the 3D graph
     VEGFzVector = []
-
     for y in range(ySubstrate):
         if y % 2 == 0:
             for x in range(xSteps-1):
@@ -16,49 +25,52 @@ def createGraph(ySubstrate, xSteps, vegf, fib, pro, xVector, yVector, workspace,
             for x in range(xSteps):
                 VEGFzVector.append(vegf[y][x])
 
-    FIBROzVector = []
-
+    # Create the fibronectin height data for the 3D graph
+    FIBRONECTINzVector = []
     for y in range(ySubstrate):
         if y % 2 == 0:
             for x in range(xSteps-1):
-                FIBROzVector.append(fib[y][x])
+                FIBRONECTINzVector.append(fibronectin[y][x])
         else:
             for x in range(xSteps):
-                FIBROzVector.append(fib[y][x])
+                FIBRONECTINzVector.append(fibronectin[y][x])
 
-    PROzVector = []
-
+    # Create the protease height data for the 3D graph
+    PROTEASEzVector = []
     for y in range(ySubstrate):
         if y % 2 == 0:
             for x in range(xSteps - 1):
-                PROzVector.append(pro[y][x])
+                PROTEASEzVector.append(protease[y][x])
         else:
             for x in range(xSteps):
-                PROzVector.append(pro[y][x])
+                PROTEASEzVector.append(protease[y][x])
 
-    fileName = "Time = " + str(time) + ".pdf"
+    # Create the overall file
+    fileName = "Time = " + str(currentTimeStep) + ".pdf"
     file = open(fileName, "a+")
+    fig = pyplot.figure(figsize=pyplot.figaspect(4.0))
 
-    fig = pyplot.figure(figsize=pyplot.figaspect(2.7))
+    # Create the EC color map
+    ax = fig.add_subplot(5, 1, 1)
+    ax.imshow(workspace, cmap='Purples')
 
-    ax = fig.add_subplot(4, 1, 1)
-    ax.imshow(workspace)
-    cm.get_cmap("jet")
+    # Create the vegf 3D graph
+    ax = fig.add_subplot(5, 1, 2, projection='3d')
+    ax.plot_trisurf(xVector, yVector, VEGFzVector, cmap='hot', edgecolor='none')
 
-    ax = fig.add_subplot(4, 1, 2, projection='3d')
-    ax.plot_trisurf(xVector, yVector, VEGFzVector, cmap='viridis', edgecolor='none')
+    # Create the fibronectin 3D graph
+    ax = fig.add_subplot(5, 1, 3, projection='3d')
+    ax.plot_trisurf(xVector, yVector, FIBRONECTINzVector, cmap='plasma', edgecolor='none')
 
-    ax = fig.add_subplot(4, 1, 3, projection='3d')
-    ax.plot_trisurf(xVector, yVector, FIBROzVector, cmap='viridis', edgecolor='none')
-
-    ax = fig.add_subplot(4, 1, 4, projection='3d')
-    ax.plot_trisurf(xVector, yVector, PROzVector, cmap='viridis', edgecolor='none')
+    # Create the protease 3D graph
+    ax = fig.add_subplot(5, 1, 4, projection='3d')
+    ax.plot_trisurf(xVector, yVector, PROTEASEzVector, cmap='viridis', edgecolor='none')
 
     # 2D VEGF graph
-    # ax = fig.add_subplot(5, 1, 5)
-    # ax.imshow(vegf)
-    # cm.get_cmap("jet")
+    ax = fig.add_subplot(5, 1, 5)
+    ax.imshow(vegf, cmap='hot')
 
+    # Save and close the file so the program can run unattended
     pyplot.savefig(fileName)
     file.close()
 
