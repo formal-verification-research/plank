@@ -8,7 +8,7 @@ from updatePro import updatePro
 from updateVEGF import updateVEGF
 from updateFib import updateFib
 from numpy import zeros
-from graph import createGraph
+from Graph import createGraph
 
 from scipy import spatial
 import math
