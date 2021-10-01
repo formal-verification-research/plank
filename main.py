@@ -4,7 +4,7 @@ from numpy import ones
 from timePerStep import timePerStep
 from StartUp import init
 from stepSize import stepSize
-from lamda import lamda
+from Lamda import lamda
 from simulation import simulation
 
 import time
