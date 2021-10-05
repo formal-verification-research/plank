@@ -16,7 +16,7 @@ def updateProtease(ySubstrate, xSteps, densityScale, occupiedOld, protease, prot
     for x in range(xSteps -1):
 
         # Average density at cell meshpoints to the right and left of substrate meshpoint at time j
-        density = densityScale * (occupiedOld[0][x] + occupiedOld[0][ x +1]) / 2
+        density = densityScale * (occupiedOld[0][x] + occupiedOld[0][x+1]) / 2
         proteaseOld[0][x] = protease[0][x]
 
         # Use equation 47 to update protease concentration in the capillary
@@ -29,7 +29,7 @@ def updateProtease(ySubstrate, xSteps, densityScale, occupiedOld, protease, prot
     for x in range(xSteps):
 
         # don't take into account cells still in the capillary
-        density = densityScale * (ySubstrate / 2 -1) * occupiedOld[1][x]
+        density = densityScale * (ySubstrate / 2 - 1) * occupiedOld[1][x]
         proteaseOld[1][x] = protease[1][x]
 
         # use equation 54 (same as 47 but for the ECM instead of the capillary)
@@ -45,7 +45,7 @@ def updateProtease(ySubstrate, xSteps, densityScale, occupiedOld, protease, prot
             for x in range(xSteps -1):
 
                 # Average density at cell meshpoints to the right and left of substrate meshpoint at time j
-                density = densityScale * (ySubstrate / 2 -1) * (occupiedOld[y // 2][x] + occupiedOld[y // 2][x + 1]) / 2
+                density = densityScale * (ySubstrate / 2 - 1) * (occupiedOld[y // 2][x] + occupiedOld[y // 2][x + 1]) / 2
                 proteaseOld[y][x] = protease[y][x]
 
                 # Use equation 54 (same as 47 but for the ECM instead of the capillary)
