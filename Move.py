@@ -9,7 +9,6 @@ def move(cell, time, stay, left, right, up, randomNumber, yPosition, xPosition, 
 
     # Don't need to update xPosition because I assumed in the beginning that
     # xPosition[cell][time+1] = xPosition[cell][time]
-
     # Down
     if randomNumber > stay + left + right + up:
         yPosition[cell][time+1] = yPosition[cell][time] + 1

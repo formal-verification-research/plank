@@ -1,0 +1,5 @@
+
+
+Time: 6815
+Cell: 0
+Probability of Division: 0.00012874452088358426

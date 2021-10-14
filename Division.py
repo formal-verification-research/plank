@@ -6,7 +6,7 @@ The purpose of Division is to divide the cells in a cross pattern like is descri
 
 # Function
 def division(x, y, xPosition, yPosition, occupied, deathTime, birthTime, divideTime, numberOfCells, cell, currentTimeStep,
-             totalNumberOfTimeSteps, divideProbability, file2, cellLine):
+             totalNumberOfTimeSteps, divideProbability, fileDivisions, cellLine):
 
     # Divide the cell and create a new one
     xPosition[numberOfCells][currentTimeStep + 1] = x
@@ -20,8 +20,8 @@ def division(x, y, xPosition, yPosition, occupied, deathTime, birthTime, divideT
     numberOfCells += 1
 
     # Get some data into the divison file
-    file2.write("\n\nTime: " + str(currentTimeStep) + "\n")
-    file2.write("Cell: " + str(cell) + "\n")
-    file2.write("Probability of Division: " + str(divideProbability) + "\n")
+    fileDivisions.write("\n\nTime: " + str(currentTimeStep) + "\n")
+    fileDivisions.write("Cell: " + str(cell) + "\n")
+    fileDivisions.write("Probability of Division: " + str(divideProbability) + "\n")
 
     return

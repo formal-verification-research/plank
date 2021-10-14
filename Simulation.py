@@ -36,11 +36,7 @@ from Values import K18, K20, K25, K26, m1
 def simulation(totalNumberOfTimeSteps, xSteps, ySteps, occupied, occupiedOld, numberOfCells, xPosition, yPosition,
                deathTime, protease, proteaseOld, densityScale, lam, k, fibronectin, vegf, ySubstrate, vegfOld,
                tolerance, h, xLength, fibronectinOld, xVector, yVector, maxCellsAllowed, birthTime, divideTime,
-               fibronectinThreshold, graphTime, child, anastomotic, cellLine):
-
-    # Create the death and division files
-    file1 = open("Tracking_Deaths.txt", "w")
-    file2 = open("Tracking_Divisions.txt", "w")
+               fibronectinThreshold, graphTime, child, anastomotic, cellLine, fileDeaths, fileDivisions, cellTrackingVector):
 
     # Create the EC matrix
     workspace = np.zeros((ySteps, xSteps))
@@ -60,6 +56,11 @@ def simulation(totalNumberOfTimeSteps, xSteps, ySteps, occupied, occupiedOld, nu
             y = yPosition[cell][currentTimeStep]
             xPosition[cell][currentTimeStep + 1] = x
             yPosition[cell][currentTimeStep + 1] = y
+
+            # Add the time, x, y to the cell tracking vector
+            cellTrackingVector[cell][0].append(currentTimeStep)
+            cellTrackingVector[cell][1].append(x)
+            cellTrackingVector[cell][2].append(y)
 
             # If cell has left the capillary
             # Determine if the cell has divided or died
@@ -125,9 +126,10 @@ def simulation(totalNumberOfTimeSteps, xSteps, ySteps, occupied, occupiedOld, nu
                 if randomNumber < deathProbability:
                     deathTime[cell] = currentTimeStep
                     occupied[y][x] -= 1
-                    file1.write("\n\nTime: " + str(currentTimeStep) + "\n")
-                    file1.write("Cell: " + str(cell) + "\n")
-                    file1.write("Probability of Death: " + str(deathProbability) + "\n")
+                    workspace[y][x] = cellLine[cell]
+                    fileDeaths.write("\n\nTime: " + str(currentTimeStep) + "\n")
+                    fileDeaths.write("Cell: " + str(cell) + "\n")
+                    fileDeaths.write("Probability of Death: " + str(deathProbability) + "\n")
 
                 # Find out if cell divided and split it
                 elif randomNumber < deathProbability + divideProbability:
@@ -135,7 +137,7 @@ def simulation(totalNumberOfTimeSteps, xSteps, ySteps, occupied, occupiedOld, nu
                         print("The max cell limit has been reached, no more divisions")
                     elif numberOfCells < maxCellsAllowed:
                         division(x, y, xPosition, yPosition, occupied, deathTime, birthTime, divideTime, numberOfCells,
-                                 cell, currentTimeStep, totalNumberOfTimeSteps, divideProbability, file2, cellLine)
+                                 cell, currentTimeStep, totalNumberOfTimeSteps, divideProbability, fileDivisions, cellLine)
 
             # Determine if the cell moves and where
             if deathTime[cell] == totalNumberOfTimeSteps - 1:
@@ -160,7 +162,7 @@ def simulation(totalNumberOfTimeSteps, xSteps, ySteps, occupied, occupiedOld, nu
                 move(cell, currentTimeStep, stay, left, right, up, randomNumber, yPosition, xPosition, occupied)
 
                 # Anastomosis and workspace
-                anastomosis(anastomotic, yPosition, workspace, file1, deathTime, occupied, cell, currentTimeStep,
+                anastomosis(anastomotic, yPosition, workspace, fileDeaths, deathTime, occupied, cell, currentTimeStep,
                     xPosition, cellLine)
 
         # Find out when all the EC have died, and end the program early

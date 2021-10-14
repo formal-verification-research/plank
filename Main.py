@@ -18,6 +18,7 @@ from mpl_toolkits import mplot3d
 from StartUp import startUp
 from Lamda import lamda
 from Simulation import simulation
+from DataOutput import dataOutput
 
 
 # Input variables, meaning variables the user is allowed to change based on requirements
@@ -30,7 +31,7 @@ tolerance = 0.001
 # How many total cells are allowed in the experiment
 maxCellsAllowed = 100
 # How often you want a graph created in amount of time steps
-graphTime = 250
+graphTime = 200
 # How long do you want the simulation to last
 # 694.4 hours = 28.9 days is the calculated time for which equals 1 when the simulation goes dimensionless
 # So to get 48 hours, the total time must be 0.06912
@@ -41,6 +42,7 @@ totalNumberOfTimeSteps = 21600
 fibronectinThreshold = 0.6
 # How long between divisions
 child = 0.125
+
 # Anastomosis
 anastomotic = False
 
@@ -56,6 +58,10 @@ def main(xSteps, numberOfCells, tolerance, maxCellsAllowed, graphTime, totalTime
     yLength = 0.5
     ySteps = int(xSteps * (yLength/xLength) + 0.5)    # need to add the 0.5 so that it rounds to the correct number
     ySubstrate = ySteps * 2 - 1
+
+    # Create the death and division files
+    fileDeaths = open("Tracking_Deaths.txt", "w")
+    fileDivisions = open("Tracking_Divisions.txt", "w")
 
     # Density of cells in the capillary
     densityScale = xSteps / numberOfCells
@@ -97,6 +103,9 @@ def main(xSteps, numberOfCells, tolerance, maxCellsAllowed, graphTime, totalTime
     # Create lam, the ratio between length and step size
     lam = lamda(xLength, h)
 
+    # Create the cell tracking vector
+    cellTrackingVector = [[[], [], []] for i in range(maxCellsAllowed)]
+
     # Create the x and y vectors used to create the 3D graphs
     xVector = []
     yVector = []
@@ -127,11 +136,17 @@ def main(xSteps, numberOfCells, tolerance, maxCellsAllowed, graphTime, totalTime
     simulation(totalNumberOfTimeSteps, xSteps, ySteps, occupied, occupiedOld, numberOfCells, xPosition, yPosition,
                deathTime, protease, proteaseOld, densityScale, lam, k, fibronectin, vegf, ySubstrate, vegfOld,
                tolerance, h, xLength, fibronectinOld, xVector, yVector, maxCellsAllowed, birthTime, divideTime,
-               fibronectinThreshold, graphTime, child, anastomotic, cellLine)
+               fibronectinThreshold, graphTime, child, anastomotic, cellLine, fileDeaths, fileDivisions, cellTrackingVector)
+
+    dataOutput(cellTrackingVector, xLength, xSteps, totalTime, totalNumberOfTimeSteps)
 
     # Print how much time it took to run
     print("Time it took to run:\n")
     print(str((time.time()-startTime)/60/60) + "hours")
+
+    # Close the files
+    fileDeaths.close()
+    fileDivisions.close()
 
     return
 
