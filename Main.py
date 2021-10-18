@@ -23,7 +23,7 @@ from DataOutput import dataOutput
 
 # Input variables, meaning variables the user is allowed to change based on requirements
 # Size of the matrix
-xSteps = 201
+xSteps = 21
 # How many EC to start with
 numberOfCells = 5    # numCells must be less than or equal to xStep so there will be a place to put all the cells
 # Accuracy tolerance of the substrate updaters
@@ -41,10 +41,10 @@ totalNumberOfTimeSteps = 21600
 # Level that fibronectin has to drop to before EC can leave the capillary
 fibronectinThreshold = 0.6
 # How long between divisions
-child = 0.125
+child = 0.125 / 10
 
 # Anastomosis
-anastomotic = False
+anastomotic = True
 
 # Function
 def main(xSteps, numberOfCells, tolerance, maxCellsAllowed, graphTime, totalTime, totalNumberOfTimeSteps,
@@ -138,7 +138,7 @@ def main(xSteps, numberOfCells, tolerance, maxCellsAllowed, graphTime, totalTime
                tolerance, h, xLength, fibronectinOld, xVector, yVector, maxCellsAllowed, birthTime, divideTime,
                fibronectinThreshold, graphTime, child, anastomotic, cellLine, fileDeaths, fileDivisions, cellTrackingVector)
 
-    dataOutput(cellTrackingVector, xLength, xSteps, totalTime, totalNumberOfTimeSteps)
+    #dataOutput(cellTrackingVector, xLength, xSteps, totalTime, totalNumberOfTimeSteps)
 
     # Print how much time it took to run
     print("Time it took to run:\n")

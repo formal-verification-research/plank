@@ -7,6 +7,8 @@ The purpose of Anastomosis is to kill the EC if they run into a different cell l
 # Function
 def anastomosis(anastomotic, yPosition, workspace, fileDeaths, deathTime, occupied, cell, currentTimeStep, xPosition, cellLine):
 
+    workspace[yPosition[cell][currentTimeStep]][xPosition[cell][currentTimeStep]] = cellLine[cell]
+
     if anastomotic is True:
         if yPosition[cell][currentTimeStep + 1] > 0:
             if workspace[yPosition[cell][currentTimeStep + 1]][xPosition[cell][currentTimeStep + 1]] != 0 and \
@@ -17,8 +19,8 @@ def anastomosis(anastomotic, yPosition, workspace, fileDeaths, deathTime, occupi
                 fileDeaths.write("Cell ran into another capillary" + "\n")
                 deathTime[cell] = currentTimeStep + 1
                 occupied[yPosition[cell][currentTimeStep + 1]][xPosition[cell][currentTimeStep + 1]] -= 1
+                workspace[yPosition[cell][currentTimeStep + 1]][xPosition[cell][currentTimeStep + 1]] = cellLine[cell]
 
-    workspace[yPosition[cell][currentTimeStep]][xPosition[cell][currentTimeStep]] = cellLine[cell]
     workspace[yPosition[cell][currentTimeStep + 1]][xPosition[cell][currentTimeStep + 1]] = 100
 
     return

@@ -184,4 +184,6 @@ def simulation(totalNumberOfTimeSteps, xSteps, ySteps, occupied, occupiedOld, nu
         if currentTimeStep % graphTime == 0:
             createGraph(ySubstrate, xSteps, vegf, fibronectin, protease, xVector, yVector, workspace, currentTimeStep)
 
+    createGraph(ySubstrate, xSteps, vegf, fibronectin, protease, xVector, yVector, workspace, currentTimeStep)
+
     return

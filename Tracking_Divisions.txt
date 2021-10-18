@@ -1,5 +1,40 @@
 
 
-Time: 6815
+Time: 1150
+Cell: 2
+Probability of Division: 0.9677648690495457
+
+
+Time: 1192
+Cell: 3
+Probability of Division: 0.029754209390141485
+
+
+Time: 1284
+Cell: 1
+Probability of Division: 0.9616482843905733
+
+
+Time: 1381
+Cell: 4
+Probability of Division: 0.9503656995405739
+
+
+Time: 1598
+Cell: 1
+Probability of Division: 0.0037307929010822333
+
+
+Time: 1664
+Cell: 4
+Probability of Division: 0.6284125164620379
+
+
+Time: 1957
+Cell: 4
+Probability of Division: 0.004634935586771946
+
+
+Time: 1966
 Cell: 0
-Probability of Division: 0.00012874452088358426
+Probability of Division: 0.948902852746066
