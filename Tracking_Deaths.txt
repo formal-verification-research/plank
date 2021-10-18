@@ -1,0 +1,25 @@
+
+
+Time: 1459
+Cell: 3
+Probability of Death: 0.009115966240412134
+
+
+Time: 1472
+Cell: 2
+Probability of Death: 0.006887829770989094
+
+
+Time: 1880
+Cell: 1
+Probability of Death: 0.008988719296523968
+
+
+Time: 2116
+Cell: 4
+Probability of Death: 0.00527651334673776
+
+
+Time: 2205
+Cell: 0
+Probability of Death: 0.006757620826008059
