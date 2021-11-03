@@ -11,16 +11,16 @@ from Values import gamma1, gamma2, gamma3, gamma4, gamma5, gamma6
 
 
 # Function
-def tau(p, f, v, y):
+def tau(c, f, v, p, y):
 
     # This is the active protease
-    activeP = p / (1 + K6 * f)
+    activeC = c / (1 + K6 * f)
 
     if y == 0:
         # equation 50
-        return (((activeP + K10) / (activeP + K11)) ** gamma1) * (((f + K12) / (f + K13)) ** gamma2) * (
-                    ((v + K14) / (v + K15)) ** gamma3)
+        return (((activeC + K10) / (activeC + K11)) ** gamma1) * (((f + K12) / (f + K13)) ** gamma2) * (
+                    (((v-p) + K14) / ((v-p) + K15)) ** gamma3)
     else:
         # equation 58
-        return (((activeP + K27) / (activeP + K28)) ** gamma4) * (((f + K29) / (f + K30)) ** gamma5) * (
-                    ((v + K31) / (v + K32)) ** gamma6)
+        return (((activeC + K27) / (activeC + K28)) ** gamma4) * (((f + K29) / (f + K30)) ** gamma5) * (
+                    (((v-p) + K31) / ((v-p) + K32)) ** gamma6)

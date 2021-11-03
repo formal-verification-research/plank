@@ -24,6 +24,7 @@ from pMove import pMove
 from Move import move
 from UpdateProtease import updateProtease
 from UpdateVEGF import updateVEGF
+from UpdatePEDF import updatePEDF
 from UpdateFibronectin import updateFibronectin
 from Graph import createGraph
 from Division import division
@@ -36,7 +37,8 @@ from Values import K18, K20, K25, K26, m1
 def simulation(totalNumberOfTimeSteps, xSteps, ySteps, occupied, occupiedOld, numberOfCells, xPosition, yPosition,
                deathTime, protease, proteaseOld, densityScale, lam, k, fibronectin, vegf, ySubstrate, vegfOld,
                tolerance, h, xLength, fibronectinOld, xVector, yVector, maxCellsAllowed, birthTime, divideTime,
-               fibronectinThreshold, graphTime, child, anastomotic, cellLine, fileDeaths, fileDivisions, cellTrackingVector):
+               fibronectinThreshold, graphTime, child, anastomotic, cellLine, fileDeaths, fileDivisions, cellTrackingVector,
+               pedf, pedfOld, injection):
 
     # Create the EC matrix
     workspace = np.zeros((ySteps, xSteps))
@@ -142,9 +144,9 @@ def simulation(totalNumberOfTimeSteps, xSteps, ySteps, occupied, occupiedOld, nu
             # Determine if the cell moves and where
             if deathTime[cell] == totalNumberOfTimeSteps - 1:
                 stay = pStay(y, lam, k)
-                left, T = pMove(x, y, 0, protease, fibronectin, vegf, xSteps, ySteps, lam, k)
-                right, T = pMove(x, y, 1, protease, fibronectin, vegf, xSteps, ySteps, lam, k)
-                up, T = pMove(x, y, 2, protease, fibronectin, vegf, xSteps, ySteps, lam, k)
+                left, T = pMove(x, y, 0, protease, fibronectin, vegf, pedf, xSteps, ySteps, lam, k)
+                right, T = pMove(x, y, 1, protease, fibronectin, vegf, pedf, xSteps, ySteps, lam, k)
+                up, T = pMove(x, y, 2, protease, fibronectin, vegf, pedf, xSteps, ySteps, lam, k)
                 randomNumber = random()
 
                 # Check if cell can escape the capillary
@@ -175,15 +177,17 @@ def simulation(totalNumberOfTimeSteps, xSteps, ySteps, occupied, occupiedOld, nu
             break
 
         updateVEGF(ySubstrate, xSteps, densityScale, occupiedOld, vegf, vegfOld, k, tolerance, h, xLength)
+        if currentTimeStep >= injection:
+            updatePEDF(ySubstrate, xSteps, densityScale, occupiedOld, pedf, pedfOld, k, tolerance, h, xLength)
         updateFibronectin(ySubstrate, xSteps, densityScale, occupiedOld, fibronectin, fibronectinOld, k, protease,
                           tolerance, h)
-        updateProtease(ySubstrate, xSteps, densityScale, occupiedOld, protease, proteaseOld, k, vegfOld)
+        updateProtease(ySubstrate, xSteps, densityScale, occupiedOld, protease, proteaseOld, k, vegfOld, pedfOld)
 
         print("Current Time Step = " + str(currentTimeStep))
 
         if currentTimeStep % graphTime == 0:
-            createGraph(ySubstrate, xSteps, vegf, fibronectin, protease, xVector, yVector, workspace, currentTimeStep)
+            createGraph(ySubstrate, xSteps, vegf, pedf, fibronectin, protease, xVector, yVector, workspace, currentTimeStep)
 
-    createGraph(ySubstrate, xSteps, vegf, fibronectin, protease, xVector, yVector, workspace, currentTimeStep)
+    createGraph(ySubstrate, xSteps, vegf, pedf, fibronectin, protease, xVector, yVector, workspace, currentTimeStep)
 
     return

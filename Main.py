@@ -41,14 +41,16 @@ totalNumberOfTimeSteps = 21600
 # Level that fibronectin has to drop to before EC can leave the capillary
 fibronectinThreshold = 0.6
 # How long between divisions
-child = 0.125 / 10
+child = 0.125
+# When to start PEDF
+injection = 600
 
 # Anastomosis
 anastomotic = True
 
 # Function
 def main(xSteps, numberOfCells, tolerance, maxCellsAllowed, graphTime, totalTime, totalNumberOfTimeSteps,
-         fibronectinThreshold, child, anastomotic):
+         fibronectinThreshold, child, anastomotic, injection):
 
     # Lock in the start time of the program
     startTime = time.time()
@@ -77,8 +79,10 @@ def main(xSteps, numberOfCells, tolerance, maxCellsAllowed, graphTime, totalTime
 
     # Substrate matrices
     vegf = zeros((ySubstrate, xSteps))
+    pedf = zeros((ySubstrate, xSteps))
     protease = zeros((ySubstrate, xSteps))
     fibronectin = ones((ySubstrate, xSteps))
+    pedfOld = zeros((ySubstrate, xSteps))
     vegfOld = zeros((ySubstrate, xSteps))
     proteaseOld = zeros((ySubstrate, xSteps))
     fibronectinOld = ones((ySubstrate, xSteps))
@@ -136,9 +140,10 @@ def main(xSteps, numberOfCells, tolerance, maxCellsAllowed, graphTime, totalTime
     simulation(totalNumberOfTimeSteps, xSteps, ySteps, occupied, occupiedOld, numberOfCells, xPosition, yPosition,
                deathTime, protease, proteaseOld, densityScale, lam, k, fibronectin, vegf, ySubstrate, vegfOld,
                tolerance, h, xLength, fibronectinOld, xVector, yVector, maxCellsAllowed, birthTime, divideTime,
-               fibronectinThreshold, graphTime, child, anastomotic, cellLine, fileDeaths, fileDivisions, cellTrackingVector)
+               fibronectinThreshold, graphTime, child, anastomotic, cellLine, fileDeaths, fileDivisions, cellTrackingVector,
+               pedf, pedfOld, injection)
 
-    #dataOutput(cellTrackingVector, xLength, xSteps, totalTime, totalNumberOfTimeSteps)
+    dataOutput(cellTrackingVector, xLength, xSteps, totalTime, totalNumberOfTimeSteps)
 
     # Print how much time it took to run
     print("Time it took to run:\n")
@@ -151,4 +156,4 @@ def main(xSteps, numberOfCells, tolerance, maxCellsAllowed, graphTime, totalTime
     return
 
 main(xSteps, numberOfCells, tolerance, maxCellsAllowed, graphTime, totalTime, totalNumberOfTimeSteps,
-     fibronectinThreshold, child, anastomotic)
+     fibronectinThreshold, child, anastomotic, injection)
