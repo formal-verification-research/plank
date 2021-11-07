@@ -43,7 +43,7 @@ fibronectinThreshold = 0.6
 # How long between divisions
 child = 0.125
 # When to start PEDF
-injection = 600
+injection = 2000
 
 # Anastomosis
 anastomotic = True

@@ -1,0 +1,25 @@
+
+
+Time: 1330
+Cell: 1
+Cell ran into another capillary
+
+
+Time: 1476
+Cell: 2
+Probability of Death: 0.006892598356926659
+
+
+Time: 1611
+Cell: 3
+Probability of Death: 0.005955576802476317
+
+
+Time: 2438
+Cell: 4
+Probability of Death: 0.004109193770477464
+
+
+Time: 3267
+Cell: 0
+Probability of Death: 0.003435655903673135
