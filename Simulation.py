@@ -177,8 +177,8 @@ def simulation(totalNumberOfTimeSteps, xSteps, ySteps, occupied, occupiedOld, nu
             break
 
         updateVEGF(ySubstrate, xSteps, densityScale, occupiedOld, vegf, vegfOld, k, tolerance, h, xLength)
-        if currentTimeStep >= injection:
-            updatePEDF(ySubstrate, xSteps, densityScale, occupiedOld, pedf, pedfOld, k, tolerance, h, xLength)
+        #if currentTimeStep >= injection:
+            #updatePEDF(ySubstrate, xSteps, densityScale, occupiedOld, pedf, pedfOld, k, tolerance, h, xLength)
         updateFibronectin(ySubstrate, xSteps, densityScale, occupiedOld, fibronectin, fibronectinOld, k, protease,
                           tolerance, h)
         updateProtease(ySubstrate, xSteps, densityScale, occupiedOld, protease, proteaseOld, k, vegfOld, pedfOld)
