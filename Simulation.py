@@ -27,7 +27,7 @@ from UpdateVEGF import updateVEGF
 from UpdatePEDF import updatePEDF
 from UpdateFibronectin import updateFibronectin
 from Graph import createGraph
-from proliferation import division
+from proliferation import proliferation
 from anastomosis import anastomosis
 
 # Values Imports
@@ -121,25 +121,9 @@ def simulation(totalNumberOfTimeSteps, xSteps, ySteps, occupied, occupiedOld, nu
                     divideProbability = k * K18 * heaviside(currentTimeStep - divideTime[cell] - child * totalNumberOfTimeSteps)
                     deathProbability = k * K20 - G * (proteaseMinus0 - proteaseMinus1)
 
-                # Create the random number for dividing or dying
-                randomNumber = random()
-
-                # Find out if it died and kill it
-                if randomNumber < deathProbability:
-                    deathTime[cell] = currentTimeStep
-                    occupied[y][x] -= 1
-                    workspace[y][x] = cellLine[cell]
-                    fileDeaths.write("\n\nTime: " + str(currentTimeStep) + "\n")
-                    fileDeaths.write("Cell: " + str(cell) + "\n")
-                    fileDeaths.write("Probability of Death: " + str(deathProbability) + "\n")
-
-                # Find out if cell divided and split it
-                elif randomNumber < deathProbability + divideProbability:
-                    if numberOfCells >= maxCellsAllowed:
-                        print("The max cell limit has been reached, no more divisions")
-                    elif numberOfCells < maxCellsAllowed:
-                        division(x, y, xPosition, yPosition, occupied, deathTime, birthTime, divideTime, numberOfCells,
-                                 cell, currentTimeStep, totalNumberOfTimeSteps, divideProbability, fileDivisions, cellLine)
+                proliferation(deathProbability, deathTime, cell, currentTimeStep, occupied, y, x, workspace, cellLine,
+                              fileDeaths, divideProbability, numberOfCells, maxCellsAllowed, xPosition, yPosition,
+                              totalNumberOfTimeSteps, birthTime, divideTime, fileDivisions)
 
             # Determine if the cell moves and where
             if deathTime[cell] == totalNumberOfTimeSteps - 1:
