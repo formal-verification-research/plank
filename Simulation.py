@@ -18,7 +18,7 @@ from matplotlib import pyplot
 import matplotlib.backends.backend_pdf
 
 # File Imports
-from Heaviside import heaviside
+from heaviside import heaviside
 from prob_stay import prob_stay
 from pMove import pMove
 from Move import move
