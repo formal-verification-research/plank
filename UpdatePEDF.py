@@ -14,7 +14,7 @@ from math import pi
 from xCoordinate import xCoordinate
 
 # Values Imports
-from Values import K1, K2, K35, K21, m0, K33, relax1
+from the_vault import K1, K2, K35, K21, M0, K33, RELAX1
 
 # Function
 def updatePEDF(ySubstrate, xSteps, densityScale, occupiedOld, pedf, pedfOld, k, tolerance, h, xLength):
@@ -69,7 +69,7 @@ def updatePEDF(ySubstrate, xSteps, densityScale, occupiedOld, pedf, pedfOld, k, 
             vOld = v[ySubstrate - 1][x]
 
             # Use EQ 65 and derivation on page 179 to update pedf concentration at upper boundary
-            v[ySubstrate - 1][x] = K35 * h * ((1 - cos(2 * pi * xCoordinate(x, ySubstrate - 1, xSteps, xLength))) ** m0) \
+            v[ySubstrate - 1][x] = K35 * h * ((1 - cos(2 * pi * xCoordinate(x, ySubstrate - 1, xSteps, xLength))) ** M0) \
                                    + v[ySubstrate - 3][x]
             if v[ySubstrate - 1][x] - vOld > tolerance or v[ySubstrate - 1][x] - vOld < -tolerance:
                 inTolerance = 0
@@ -90,7 +90,7 @@ def updatePEDF(ySubstrate, xSteps, densityScale, occupiedOld, pedf, pedfOld, k, 
         for x in range(1, xSteps - 1, 1):
             vOld = v[ySubstrate - 2][x]
             # Use EQ 65 and derivation on page 179 to update pedf concentration at upper boundary - 1
-            v[ySubstrate - 2][x] = K35 * h * ((1 - cos(2 * pi * xCoordinate(x, ySubstrate - 2, xSteps, xLength))) ** m0) \
+            v[ySubstrate - 2][x] = K35 * h * ((1 - cos(2 * pi * xCoordinate(x, ySubstrate - 2, xSteps, xLength))) ** M0) \
                                    + v[ySubstrate - 4][x]    # -4 because substrate points are at half mesh points
             if v[ySubstrate - 2][x] - vOld > tolerance or v[ySubstrate - 2][x] - vOld < -tolerance:
                 inTolerance = 0
@@ -118,9 +118,9 @@ def updatePEDF(ySubstrate, xSteps, densityScale, occupiedOld, pedf, pedfOld, k, 
                     vOld = v[y][x]
 
                     # Approximate equation 53 using the crank-nicolson method see derivation on page 178
-                    v[y][x] = relax1 / (h * h + 2 * K21 * k) * (0.5 * K21 * k * (v[y][x + 1] + v[y][x - 1] + v[y + 2][x] + \
+                    v[y][x] = RELAX1 / (h * h + 2 * K21 * k) * (0.5 * K21 * k * (v[y][x + 1] + v[y][x - 1] + v[y + 2][x] + \
                             v[y - 2][x] + pedf[y][x + 1] + pedf[y][x - 1] + pedf[y + 2][x] + pedf[y - 2][x]) + \
-                            (h * h - 2 * K21 * k - h * h * k * K1 * density / (1 + pedf[y][x])) * pedf[y][x]) + (1-relax1) * v[y][x]
+                            (h * h - 2 * K21 * k - h * h * k * K1 * density / (1 + pedf[y][x])) * pedf[y][x]) + (1-RELAX1) * v[y][x]
                     if v[y][x] - vOld > tolerance or v[y][x] - vOld < -tolerance:
                         inTolerance = 0
 
@@ -137,9 +137,9 @@ def updatePEDF(ySubstrate, xSteps, densityScale, occupiedOld, pedf, pedfOld, k, 
                     # y // 2 because there are twice as many points in the y direction because substrate meshpoints are at 1/2
                     density = densityScale * ((ySubstrate/2)-1) * (occupiedOld[(y - 1) // 2][x] + occupiedOld[(y + 1) // 2][x]) / 2
                     vOld = v[y][x]
-                    v[y][x] = relax1 / (h * h + 2 * K21 * k) * (0.5 * K21 * k * (v[y][x + 1] + v[y][x - 1] + v[y + 2][x] + \
+                    v[y][x] = RELAX1 / (h * h + 2 * K21 * k) * (0.5 * K21 * k * (v[y][x + 1] + v[y][x - 1] + v[y + 2][x] + \
                             v[y - 2][x] + pedf[y][x + 1] + pedf[y][x - 1] + pedf[y + 2][x] + pedf[y - 2][x]) + \
-                            (h * h - 2 * K21 * k - h * h * k * K1 * density / (1 + pedf[y][x])) * pedf[y][x]) + (1-relax1) * v[y][x]
+                            (h * h - 2 * K21 * k - h * h * k * K1 * density / (1 + pedf[y][x])) * pedf[y][x]) + (1-RELAX1) * v[y][x]
                     if v[y][x] - vOld > tolerance or v[y][x] - vOld < -tolerance:
                         inTolerance = 0
 

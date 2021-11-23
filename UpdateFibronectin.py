@@ -9,12 +9,12 @@ The purpose of UpdateFibronectin is to update the fibronectin substrate for each
 from numpy import zeros
 
 # Values Imports
-from Values import K4, K5, K6, K22, K23, relax2
+from the_vault import K4, K5, K6, K22, K23, RELAX2
 
 
 # Function
 def updateFibronectin(ySubstrate, xSteps, densityScale, occupiedOld, fibronectin, fibronectinOld, k, protease,
-                      tolerance, h):
+                      tolerance, h, pedfOld):
 
     # Substrate matrix used to iterate
     f = zeros((ySubstrate, xSteps))
@@ -30,7 +30,7 @@ def updateFibronectin(ySubstrate, xSteps, densityScale, occupiedOld, fibronectin
 
         # Calculate fibronectin concentration in capillary using equation 48 and equation 51
         fibronectin[0][x] = fibronectin[0][x] + k * (K4 * fibronectin[0][x] * (1 - fibronectin[0][x]) * density - K5 * \
-                            protease[0][x] * fibronectin[0][x] / (1 + K6 * fibronectin[0][x]))
+                            protease[0][x] * fibronectin[0][x] / (1 + pedfOld[0][x] + K6 * fibronectin[0][x]))
 
         # Make sure fibronectin never goes negative
         if fibronectin[0][x] < 0:
@@ -111,10 +111,10 @@ def updateFibronectin(ySubstrate, xSteps, densityScale, occupiedOld, fibronectin
                     fOld = f[y][x]
 
                     # Approximate equation 55 and equation 59 using the crank-nicolson method see derivation on page 179
-                    f[y][x] = relax2 * k / (h*h+2*K22*k) * (0.5*K22 * (f[y][x+1]+f[y][x-1]+f[y+2][x]+f[y-2][x] + \
+                    f[y][x] = RELAX2 * k / (h*h+2*K22*k) * (0.5*K22 * (f[y][x+1]+f[y][x-1]+f[y+2][x]+f[y-2][x] + \
                             fibronectin[y][x+1]+fibronectin[y][x-1]+fibronectin[y+2][x]+fibronectin[y-2][x]) + \
                             (h*h/k - 2*K22 + K23*h*h*(1-fibronectin[y][x]) - K5*h*h*protease[y][x]/\
-                             (1+K6*fibronectin[y][x])) * fibronectin[y][x]) + (1-relax2) * f[y][x]
+                             (1+pedfOld[y][x]+K6*fibronectin[y][x])) * fibronectin[y][x]) + (1-RELAX2) * f[y][x]
 
                     if f[y][x] - fOld > tolerance or f[y][x] - fOld < -tolerance:
                         inTolerance = 0
@@ -131,10 +131,10 @@ def updateFibronectin(ySubstrate, xSteps, densityScale, occupiedOld, fibronectin
                     fOld = f[y][x]
 
                     # Approximate equation 55 and equation 59 using the crank-nicolson method see derivation on page 179
-                    f[y][x] = relax2 * k / (h * h + 2 * K22 * k) * (0.5 * K22 * (f[y][x+1] + f[y][x-1] + f[y+2][x] + f[y-2][x] \
+                    f[y][x] = RELAX2 * k / (h * h + 2 * K22 * k) * (0.5 * K22 * (f[y][x+1] + f[y][x-1] + f[y+2][x] + f[y-2][x] \
                             + fibronectin[y][x+1] + fibronectin[y][x-1] + fibronectin[y+2][x] + fibronectin[y-2][x]) \
                             + (h * h / k - 2 * K22 + K23 * h * h * (1 - fibronectin[y][x]) - K5 * h * h * \
-                            protease[y][x] / (1 + K6 * fibronectin[y][x]))* fibronectin[y][x]) + (1-relax2) * f[y][x]
+                            protease[y][x] / (1 + pedfOld[y][x] + K6 * fibronectin[y][x]))* fibronectin[y][x]) + (1-RELAX2) * f[y][x]
 
                     if f[y][x] - fOld > tolerance or f[y][x] - fOld < -tolerance:
                         inTolerance = 0

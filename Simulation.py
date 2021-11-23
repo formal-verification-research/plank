@@ -31,7 +31,7 @@ from proliferation import proliferation
 from anastomosis import anastomosis
 
 # Values Imports
-from Values import K18, K20, K25, K26, m1
+from the_vault import K6, K18, K20, K25, K26, M1
 
 # Function
 def simulation(totalNumberOfTimeSteps, xSteps, ySteps, occupied, occupiedOld, numberOfCells, xPosition, yPosition,
@@ -81,34 +81,34 @@ def simulation(totalNumberOfTimeSteps, xSteps, ySteps, occupied, occupiedOld, nu
 
                 # Left
                 if x > 0:
-                    proteaseMinus0 = proteaseMinus0 + protease[2 * y][x - 1]
-                    proteaseMinus1 = proteaseMinus1 + proteaseOld[2 * y][x - 1]
+                    proteaseMinus0 += protease[2 * y][x - 1] / (1 + pedf[2 * y][x - 1] + K6 * fibronectin[2 * y][x - 1])
+                    proteaseMinus1 += proteaseOld[2 * y][x - 1] / (1 + pedfOld[2 * y][x - 1] + K6 * fibronectinOld[2 * y][x - 1])
                     surroundingPoints += 1
 
                 # Right
                 if x < xSteps - 1:
-                    proteaseMinus0 = proteaseMinus0 + protease[2 * y][x]
-                    proteaseMinus1 = proteaseMinus1 + proteaseOld[2 * y][x]
+                    proteaseMinus0 += protease[2 * y][x] / (1 + pedf[2 * y][x] + K6 * fibronectin[2 * y][x])
+                    proteaseMinus1 += proteaseOld[2 * y][x] / (1 + pedfOld[2 * y][x] + K6 * fibronectinOld[2 * y][x])
                     surroundingPoints += 1
 
                 # Up
                 if y > 0:
-                    proteaseMinus0 = proteaseMinus0 + protease[2 * y - 1][x]
-                    proteaseMinus1 = proteaseMinus1 + proteaseOld[2 * y - 1][x]
+                    proteaseMinus0 += protease[2 * y - 1][x] / (1 + pedf[2 * y - 1][x] + K6 * fibronectin[2 * y - 1][x])
+                    proteaseMinus1 += proteaseOld[2 * y - 1][x] / (1 + pedfOld[2 * y - 1][x] + K6 * fibronectinOld[2 * y - 1][x])
                     surroundingPoints += 1
 
                 # Down
                 if y < ySteps - 1:
-                    proteaseMinus0 = proteaseMinus0 + protease[2 * y + 1][x - 1]
-                    proteaseMinus1 = proteaseMinus1 + proteaseOld[2 * y + 1][x - 1]
+                    proteaseMinus0 += protease[2 * y + 1][x - 1] / (1 + pedf[2 * y + 1][x - 1] + K6 * fibronectin[2 * y + 1][x - 1])
+                    proteaseMinus1 += proteaseOld[2 * y + 1][x - 1] / (1 + pedfOld[2 * y + 1][x - 1] + K6 * fibronectinOld[2 * y + 1][x - 1])
                     surroundingPoints += 1
 
                 proteaseMinus0 = proteaseMinus0 / surroundingPoints
                 proteaseMinus1 = proteaseMinus1 / surroundingPoints
 
                 # Find G, used for divide probabilities
-                G = K25 * (math.exp(-K26 * proteaseMinus0 ** m1) * (1 - K26 * m1 * proteaseMinus0 ** m1)) / \
-                    (1 + K25 * proteaseMinus0 * math.exp(-K26 * proteaseMinus0 ** m1))
+                G = K25 * (math.exp(-K26 * proteaseMinus0 ** M1) * (1 - K26 * M1 * proteaseMinus0 ** M1)) / \
+                    (1 + K25 * proteaseMinus0 * math.exp(-K26 * proteaseMinus0 ** M1))
 
                 # Find the protease dependant term for divide and death probabilities
                 proteaseDependent = G * (proteaseMinus0 - proteaseMinus1) / k
@@ -161,10 +161,9 @@ def simulation(totalNumberOfTimeSteps, xSteps, ySteps, occupied, occupiedOld, nu
             break
 
         updateVEGF(ySubstrate, xSteps, densityScale, occupiedOld, vegf, vegfOld, k, tolerance, h, xLength)
-        #if currentTimeStep >= injection:
-            #updatePEDF(ySubstrate, xSteps, densityScale, occupiedOld, pedf, pedfOld, k, tolerance, h, xLength)
+        updatePEDF(ySubstrate, xSteps, densityScale, occupiedOld, pedf, pedfOld, k, tolerance, h, xLength)
         updateFibronectin(ySubstrate, xSteps, densityScale, occupiedOld, fibronectin, fibronectinOld, k, protease,
-                          tolerance, h)
+                          tolerance, h, pedfOld)
         updateProtease(ySubstrate, xSteps, densityScale, occupiedOld, protease, proteaseOld, k, vegfOld, pedfOld)
 
         print("Current Time Step = " + str(currentTimeStep))
