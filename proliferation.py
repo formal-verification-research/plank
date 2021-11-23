@@ -12,7 +12,6 @@ def proliferation(death_prob, death_time, cell, current_time_step, occupied, y, 
                 divide_prob, number_of_cells, max_cells_allowed, x_position, y_position, total_number_time_steps,
                 birth_time, divide_time, file_divisions):
 
-
     random_prob = random()  # Random number for dividing or dying
 
     # Find out if it died and kill it
