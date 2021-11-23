@@ -18,7 +18,7 @@ from mpl_toolkits import mplot3d
 from StartUp import startUp
 from Lamda import lamda
 from Simulation import simulation
-from DataOutput import dataOutput
+from data_outputs import data_outputs
 
 
 # Input variables, meaning variables the user is allowed to change based on requirements
@@ -143,7 +143,7 @@ def main(xSteps, numberOfCells, tolerance, maxCellsAllowed, graphTime, totalTime
                fibronectinThreshold, graphTime, child, anastomotic, cellLine, fileDeaths, fileDivisions, cellTrackingVector,
                pedf, pedfOld, injection)
 
-    dataOutput(cellTrackingVector, xLength, xSteps, totalTime, totalNumberOfTimeSteps)
+    data_outputs(cellTrackingVector, xLength, xSteps, L)
 
     # Print how much time it took to run
     print("Time it took to run:\n")
