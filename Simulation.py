@@ -19,7 +19,7 @@ import matplotlib.backends.backend_pdf
 
 # File Imports
 from Heaviside import heaviside
-from pStay import pStay
+from prob_stay import prob_stay
 from pMove import pMove
 from Move import move
 from UpdateProtease import updateProtease
@@ -143,7 +143,7 @@ def simulation(totalNumberOfTimeSteps, xSteps, ySteps, occupied, occupiedOld, nu
 
             # Determine if the cell moves and where
             if deathTime[cell] == totalNumberOfTimeSteps - 1:
-                stay = pStay(y, lam, k)
+                stay = prob_stay(y, lam, k)
                 left, T = pMove(x, y, 0, protease, fibronectin, vegf, pedf, xSteps, ySteps, lam, k)
                 right, T = pMove(x, y, 1, protease, fibronectin, vegf, pedf, xSteps, ySteps, lam, k)
                 up, T = pMove(x, y, 2, protease, fibronectin, vegf, pedf, xSteps, ySteps, lam, k)
