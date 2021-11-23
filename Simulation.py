@@ -28,7 +28,7 @@ from UpdatePEDF import updatePEDF
 from UpdateFibronectin import updateFibronectin
 from Graph import createGraph
 from Division import division
-from Anastomosis import anastomosis
+from anastomosis import anastomosis
 
 # Values Imports
 from Values import K18, K20, K25, K26, m1
