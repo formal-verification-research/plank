@@ -27,7 +27,7 @@ from UpdateVEGF import updateVEGF
 from UpdatePEDF import updatePEDF
 from UpdateFibronectin import updateFibronectin
 from Graph import createGraph
-from Division import division
+from proliferation import division
 from anastomosis import anastomosis
 
 # Values Imports
