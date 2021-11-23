@@ -1,12 +1,12 @@
 # Description
-# anastomosis kills the EC if they run into a different cell line
+# anastomosis kills the EC if it runs into a different cell line
 
 
 # Function
 def anastomosis(anastomotic, y_position, workspace, file_deaths, death_time, occupied, cell, current_time_step,
                 x_position, cell_line):
 
-    # Set some position values for easier indexing
+    # Set some position values for easier indexing within this function
     y = y_position[cell][current_time_step]
     x = x_position[cell][current_time_step]
     y1 = y_position[cell][current_time_step + 1]
@@ -28,10 +28,10 @@ def anastomosis(anastomotic, y_position, workspace, file_deaths, death_time, occ
                 file_deaths.write("Cell: " + str(cell) + "\n")
                 file_deaths.write("Cell ran into another capillary" + "\n")
                 death_time[cell] = current_time_step + 1
-                occupied[1][y1][x1] -= 1
+                occupied[y1][x1] -= 1
                 workspace[y1][x1] = cell_line[cell]
 
     # Set the EC back so it can be distinguished from the capillary
-    workspace[y_position[cell][current_time_step + 1]][x_position[cell][current_time_step + 1]] = 100
+    workspace[y1][x1] = 100
 
-    return workspace, file_deaths, death_time, occupied
+    return

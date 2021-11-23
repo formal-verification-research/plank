@@ -8,7 +8,7 @@ coefficeints for calculating probabilities
 # Dimensionless Coefficients
 
 # Length of Domain
-L = 0.05
+L = 0.02
 # EC Diffusion Coefficient
 Dp = 3.6 * 10 ** -6
 # VEGF Diffusion Coefficient
