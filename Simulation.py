@@ -59,14 +59,14 @@ def simulation(totalNumberOfTimeSteps, xSteps, ySteps, occupied, occupiedOld, nu
             xPosition[cell][currentTimeStep + 1] = x
             yPosition[cell][currentTimeStep + 1] = y
 
-            # Add the time, x, y to the cell tracking vector
-            cellTrackingVector[cell][0].append(currentTimeStep)
-            cellTrackingVector[cell][1].append(x)
-            cellTrackingVector[cell][2].append(y)
-
             # If cell has left the capillary
             # Determine if the cell has divided or died
             if deathTime[cell] == totalNumberOfTimeSteps - 1 and y > 0:
+
+                # Add the time, x, y to the cell tracking vector
+                cellTrackingVector[cell][0].append(currentTimeStep)
+                cellTrackingVector[cell][1].append(x)
+                cellTrackingVector[cell][2].append(y)
 
                 # The cell dies/leaves simulation if it reaches the tumour
                 if y == ySteps - 1:

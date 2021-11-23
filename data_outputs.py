@@ -14,20 +14,9 @@ def data_outputs(cell_tracker, x_length, x_steps, L):
     # Get individual data for each active EC
     for cell in range(len(cell_tracker)):
 
-        # If the EC was never created, skip it. This goes through all max_cells_allowed.
-        if len(cell_tracker[cell][0]) == 0:
+        # If the EC was never created or didn't grow more than 1 space, skip it. This goes through all max_cells_allowed.
+        if len(cell_tracker[cell][0]) < 2:
             continue
-
-        # Find the moment when the EC leaves the parent capillary
-        for i in range(len(cell_tracker[cell][0])):
-            if cell_tracker[cell][2][i] != 0:
-                index = i
-                break
-
-        # Remove the data from when the cells are still in the parent vessel
-        del cell_tracker[cell][0][:index]
-        del cell_tracker[cell][1][:index]
-        del cell_tracker[cell][2][:index]
 
         distances = []  # Initialize vector to collect distance moved each time step
 
@@ -57,6 +46,7 @@ def data_outputs(cell_tracker, x_length, x_steps, L):
         file_outputs.write('Euclidian Distance (um): ' + str(dist_euclid_dimensionalized) + "\r\n")
         file_outputs.write('Euclidian Velocity (um/min): ' + str(velocity_euclidean) + "\r\n")
         file_outputs.write('Time (min): ' + str(time_dimensionalized) + "\r\n\r\n")
-        file_outputs.close()
+
+    file_outputs.close()  # Close the file
 
     return
