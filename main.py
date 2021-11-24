@@ -1,160 +1,60 @@
-# General Description
-'''
-This program predicts the movement of EC cells exposed to a VEGF source, and then predicts changes caused by the
-introduction of PEDF
-'''
+# Description
+# main starts the program and runs all other files. This experiment predicts the movement of EC cells exposed to a
+# vegf source, and then predicts changes caused by the introduction of pedf to the model.
 
 
 # Imports
-# Library Imports
-from numpy import zeros
-from numpy import ones
-import time
-from numpy import linspace
-from matplotlib import pyplot
-from mpl_toolkits import mplot3d
-
-# File Imports
-from StartUp import startUp
-from Lamda import lamda
-from Simulation import simulation
-from data_outputs import data_outputs
-from the_vault import L
+from start import terms
+from start import arrays
+from start import parent_vessel
+from simulation import simulation
+from end import end
 
 
-# Input variables, meaning variables the user is allowed to change based on requirements
-# Size of the matrix
-xSteps = 21
-# How many EC to start with
-numberOfCells = 5    # numCells must be less than or equal to xStep so there will be a place to put all the cells
-# Accuracy tolerance of the substrate updaters
-tolerance = 0.001
-# How many total cells are allowed in the experiment
-maxCellsAllowed = 100
-# How often you want a graph created in amount of time steps
-graphTime = 200
-# How long do you want the simulation to last
-# 694.4 hours = 28.9 days is the calculated time for which equals 1 when the simulation goes dimensionless
-# So to get 48 hours, the total time must be 0.06912
-totalTime = 0.06912
-# How many time steps
-totalNumberOfTimeSteps = 21600
-# Level that fibronectin has to drop to before EC can leave the capillary
-fibronectinThreshold = 0.6
-# How long between divisions
-child = 0.125
-# When to start PEDF
-injection = 2000
+# This control_center lists the variables that are allowed to be modified by the user. The variables are passed into
+# the main function. These variables are changeable because the user might want to test different ideas.
+from the_vault import L  # Double check L
+x_steps = 21  # Size of the matrix
+number_of_cells = 5  # How many EC to start with
+tolerance = 0.001  # Accuracy tolerance of the substrate updaters
+max_cells_allowed = 100  # How many total cells are allowed in the experiment
+graph_time = 200  # How often you want a graph created in amount of time steps
+total_time = 0.06912  # How long do you want the simulation to last. To get 48 hours, the total time must be 0.06912
+total_number_time_steps = 21600  # How many time steps
+threshold = 0.6  # Level that fib has to drop to before EC can leave the parent capillary
+child = 450  # How long between divisions, in time steps
+anastomotic = True  # Anastomosis
 
-# Anastomosis
-anastomotic = True
 
 # Function
-def main(xSteps, numberOfCells, tolerance, maxCellsAllowed, graphTime, totalTime, totalNumberOfTimeSteps,
-         fibronectinThreshold, child, anastomotic, injection):
+def main(x_steps, number_of_cells, tolerance, max_cells_allowed, graph_time, total_time, total_number_time_steps,
+         threshold, child, anastomotic, L):
 
-    # Lock in the start time of the program
-    startTime = time.time()
+    # Create the starting terms and parameters
+    start_time, x_length, y_length, y_steps, y_substrate, file_events, k, h, lam, x_vector, y_vector \
+        = terms(x_steps, total_time, total_number_time_steps)
 
-    # Dimensionless size of the matrix
-    xLength = 1
-    yLength = 0.5
-    ySteps = int(xSteps * (yLength/xLength) + 0.5)    # need to add the 0.5 so that it rounds to the correct number
-    ySubstrate = ySteps * 2 - 1
+    # Create the starting arrays
+    x_position, y_position, death_time, birth_time, divide_time, vegf, pedf, pro, fib, vegf_old, pedf_old, pro_old, \
+    fib_old, workspace \
+        = arrays(max_cells_allowed, total_number_time_steps, y_substrate, x_steps, y_steps)
 
-    # Create the death and division files
-    fileDeaths = open("Tracking_Deaths.txt", "w")
-    fileDivisions = open("Tracking_Divisions.txt", "w")
+    # Create the starting capillary
+    occupied, occupied_old, density_scale, cell_line, cell_tracker, cell_number \
+        = parent_vessel(y_steps, x_steps, number_of_cells, max_cells_allowed, x_position, y_position, death_time,
+                  total_number_time_steps)
 
-    # Density of cells in the capillary
-    densityScale = xSteps / numberOfCells
+    # Run simulation
+    simulation(total_number_time_steps, x_steps, y_steps, occupied, number_of_cells, x_position, y_position,
+               death_time, pro, density_scale, lam, k, fib, vegf, y_substrate, tolerance, h, x_length, x_vector,
+               y_vector, max_cells_allowed, birth_time, divide_time, threshold, graph_time, child, anastomotic,
+               cell_line, file_events, cell_tracker, pedf, vegf_old, pedf_old, pro_old, fib_old, occupied_old,
+               workspace)
 
-    # Set up x position and y positions
-    xPosition = zeros((maxCellsAllowed, totalNumberOfTimeSteps), dtype=int)
-    yPosition = zeros((maxCellsAllowed, totalNumberOfTimeSteps), dtype=int)
-
-    # Death, birth, and divide times
-    deathTime = zeros(maxCellsAllowed, dtype=int)
-    birthTime = zeros(maxCellsAllowed, dtype=int)
-    divideTime = zeros(maxCellsAllowed, dtype=int)
-
-    # Substrate matrices
-    vegf = zeros((ySubstrate, xSteps))
-    pedf = zeros((ySubstrate, xSteps))
-    protease = zeros((ySubstrate, xSteps))
-    fibronectin = ones((ySubstrate, xSteps))
-    pedfOld = zeros((ySubstrate, xSteps))
-    vegfOld = zeros((ySubstrate, xSteps))
-    proteaseOld = zeros((ySubstrate, xSteps))
-    fibronectinOld = ones((ySubstrate, xSteps))
-
-    # To tell if that space has an EC in it or not
-    occupied = zeros((ySteps, xSteps), dtype=int)
-    occupiedOld = zeros((ySteps, xSteps), dtype=int)
-
-    # Try and create different cell line colors
-    cellLine = zeros(maxCellsAllowed)
-    cl = 20
-    for i in range(numberOfCells):
-        cellLine[i] = cl
-        cl += 15
-
-    # Create k, the time step interval variable
-    k = totalTime / totalNumberOfTimeSteps
-
-    # Create h, the distance between mesh points variable
-    h = xLength / xSteps
-
-    # Create lam, the ratio between length and step size
-    lam = lamda(xLength, h)
-
-    # Create the cell tracking vector
-    cellTrackingVector = [[[], [], []] for i in range(maxCellsAllowed)]
-
-    # Create the x and y vectors used to create the 3D graphs
-    xVector = []
-    yVector = []
-
-    # Place the values inside the vectors based on if they are an odd or even row
-    xEvenVector = []
-    for x in linspace(0.5, xSteps - 1.5, num=xSteps - 1):
-        xEvenVector.append(x)
-
-    xOddVector = []
-    for x in linspace(0, xSteps - 1, num=xSteps):
-        xOddVector.append(x)
-
-    for y in range(ySubstrate):
-        if y % 2 == 0:
-            for i in xEvenVector:
-                xVector.append(i)
-                yVector.append(y)
-        else:
-            for j in xOddVector:
-                xVector.append(j)
-                yVector.append(y)
-
-    # Run StartUp, which will place all the EC and set up the matrices
-    startUp(xSteps, numberOfCells, xPosition, yPosition, occupied, deathTime, totalNumberOfTimeSteps)
-
-    # Run Simulation, which will go until all cells are dead
-    simulation(totalNumberOfTimeSteps, xSteps, ySteps, occupied, occupiedOld, numberOfCells, xPosition, yPosition,
-               deathTime, protease, proteaseOld, densityScale, lam, k, fibronectin, vegf, ySubstrate, vegfOld,
-               tolerance, h, xLength, fibronectinOld, xVector, yVector, maxCellsAllowed, birthTime, divideTime,
-               fibronectinThreshold, graphTime, child, anastomotic, cellLine, fileDeaths, fileDivisions, cellTrackingVector,
-               pedf, pedfOld, injection)
-
-    data_outputs(cellTrackingVector, xLength, xSteps, L)
-
-    # Print how much time it took to run
-    print("Time it took to run:\n")
-    print(str((time.time()-startTime)/60/60) + "hours")
-
-    # Close the files
-    fileDeaths.close()
-    fileDivisions.close()
+    # Finish up and the end
+    end(cell_tracker, x_length, x_steps, L, start_time, file_events)
 
     return
 
-main(xSteps, numberOfCells, tolerance, maxCellsAllowed, graphTime, totalTime, totalNumberOfTimeSteps,
-     fibronectinThreshold, child, anastomotic, injection)
+main(x_steps, number_of_cells, tolerance, max_cells_allowed, graph_time, total_time, total_number_time_steps,
+         threshold, child, anastomotic, L)

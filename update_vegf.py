@@ -11,13 +11,13 @@ from math import cos
 from math import pi
 
 # File Imports
-from xCoordinate import xCoordinate
+from x_coordinate import x_coordinate
 
 # Values Imports
 from the_vault import K1, K2, K35, K21, M0, K33, RELAX1
 
 # Function
-def updateVEGF(ySubstrate, xSteps, densityScale, occupiedOld, vegf, vegfOld, k, tolerance, h, xLength):
+def update_vegf(ySubstrate, xSteps, densityScale, occupiedOld, vegf, vegfOld, k, tolerance, h, xLength):
 
     # Substrate matrix used to iterate
     v = zeros((ySubstrate, xSteps))
@@ -69,7 +69,7 @@ def updateVEGF(ySubstrate, xSteps, densityScale, occupiedOld, vegf, vegfOld, k, 
             vOld = v[ySubstrate - 1][x]
 
             # Use EQ 65 and derivation on page 179 to update VEGF concentration at upper boundary
-            v[ySubstrate - 1][x] = K35 * h * ((1 - cos(2 * pi * xCoordinate(x, ySubstrate - 1, xSteps, xLength))) ** M0) \
+            v[ySubstrate - 1][x] = K35 * h * ((1 - cos(2 * pi * x_coordinate(x, ySubstrate - 1, xSteps, xLength))) ** M0) \
                                    + v[ySubstrate - 3][x]
             if v[ySubstrate - 1][x] - vOld > tolerance or v[ySubstrate - 1][x] - vOld < -tolerance:
                 inTolerance = 0
@@ -90,7 +90,7 @@ def updateVEGF(ySubstrate, xSteps, densityScale, occupiedOld, vegf, vegfOld, k, 
         for x in range(1, xSteps - 1, 1):
             vOld = v[ySubstrate - 2][x]
             # Use EQ 65 and derivation on page 179 to update VEGF concentration at upper boundary - 1
-            v[ySubstrate - 2][x] = K35 * h * ((1 - cos(2 * pi * xCoordinate(x, ySubstrate - 2, xSteps, xLength))) ** M0) \
+            v[ySubstrate - 2][x] = K35 * h * ((1 - cos(2 * pi * x_coordinate(x, ySubstrate - 2, xSteps, xLength))) ** M0) \
                                    + v[ySubstrate - 4][x]    # -4 because substrate points are at half mesh points
             if v[ySubstrate - 2][x] - vOld > tolerance or v[ySubstrate - 2][x] - vOld < -tolerance:
                 inTolerance = 0

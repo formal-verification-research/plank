@@ -13,7 +13,7 @@ from the_vault import K4, K5, K6, K22, K23, RELAX2
 
 
 # Function
-def updateFibronectin(ySubstrate, xSteps, densityScale, occupiedOld, fibronectin, fibronectinOld, k, protease,
+def update_fib(ySubstrate, xSteps, densityScale, occupiedOld, fibronectin, fibronectinOld, k, protease,
                       tolerance, h, pedfOld):
 
     # Substrate matrix used to iterate

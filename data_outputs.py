@@ -1,5 +1,5 @@
 # Description
-# data_outputs records the output values directness, distance, and velocitry to be compared to in vitro experiments
+# data_outputs records the output values directness, distance, and velocity to be compared to in-vitro experiments
 
 
 # Imports
@@ -10,18 +10,12 @@ from numpy import sqrt
 def data_outputs(cell_tracker, x_length, x_steps, L):
 
     file_outputs = open("Data_Outputs.txt", "w")  # Create the file
-
-    # Get individual data for each active EC
-    for cell in range(len(cell_tracker)):
-
-        # If the EC was never created or didn't grow more than 1 space, skip it. This goes through all max_cells_allowed.
-        if len(cell_tracker[cell][0]) < 2:
+    for cell in range(len(cell_tracker)):  # Get individual data for each active EC
+        if len(cell_tracker[cell][0]) < 2:  # Skip if EC didn't go more than 1 space
             continue
 
         distances = []  # Initialize vector to collect distance moved each time step
-
-        # Calculate the distance at each time step using the pythagorean formula
-        for time in range(1, len(cell_tracker[cell][0])):
+        for time in range(1, len(cell_tracker[cell][0])):  # Calculate distance with pythagorean formula
             distances.append(sqrt((cell_tracker[cell][1][time] - cell_tracker[cell][1][time - 1]) ** 2
                                   + (cell_tracker[cell][2][time] - cell_tracker[cell][2][time - 1]) ** 2))
 
@@ -38,7 +32,7 @@ def data_outputs(cell_tracker, x_length, x_steps, L):
         velocity_euclidean = dist_euclid_dimensionalized / time_dimensionalized
         velocity_accumulated = dist_accum_dimensionalized / time_dimensionalized
 
-        # Add outputs to the file file
+        # Add outputs to the file
         file_outputs.write('Cell Number: ' + str(cell) + "\r\n")
         file_outputs.write('Directness: ' + str(directness) + "\r\n")
         file_outputs.write('Accumulated Distance (um): ' + str(dist_accum_dimensionalized) + "\r\n")

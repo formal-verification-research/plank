@@ -12,17 +12,13 @@ def anastomosis(anastomotic, y_position, workspace, file_deaths, death_time, occ
     y1 = y_position[cell][current_time_step + 1]
     x1 = x_position[cell][current_time_step + 1]
 
-    workspace[y][x] = cell_line[cell]  # Set the EC to the current cell_line so it doesn't kill itself
+    # Set the EC to the current cell_line so it doesn't kill itself
+    workspace[y][x] = cell_line[cell]
 
-    # anastomotic is turned on
-    if anastomotic is True:
-
-        # It must be outside the parent capillary
-        if y1 > 0:
-
+    if anastomotic is True:  # anastomotic is turned on
+        if y1 > 0:  # It must be outside the parent capillary
             # Keeps it from killing itself on its own cell_line or ECM
             if workspace[y1][x1] != 0 and workspace[y1][x1] != cell_line[cell]:
-
                 # Kill it; it ran into a different capillary
                 file_deaths.write("\n\nTime: " + str(current_time_step) + "\n")
                 file_deaths.write("Cell: " + str(cell) + "\n")

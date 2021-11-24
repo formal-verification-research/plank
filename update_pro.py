@@ -10,7 +10,7 @@ from the_vault import K1, K3
 
 
 # Function
-def updateProtease(ySubstrate, xSteps, densityScale, occupiedOld, protease, proteaseOld, k, vegfOld, pedfOld):
+def update_pro(ySubstrate, xSteps, densityScale, occupiedOld, protease, proteaseOld, k, vegfOld, pedfOld):
 
     # Update protease concentration in capillary
     for x in range(xSteps -1):
