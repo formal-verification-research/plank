@@ -5,16 +5,13 @@ The purpose of Updatepedf is to update the pedf substrate for each new time step
 
 
 # Imports
-# Library Imports
 from numpy import zeros
 from math import cos
 from math import pi
-
-# File Imports
+from the_vault import V0
 from x_coordinate import x_coordinate
-
-# Values Imports
 from the_vault import K1, K2, K35, K21, M0, K33, RELAX1
+
 
 # Function
 def update_pedf(ySubstrate, xSteps, densityScale, occupiedOld, pedf, pedfOld, k, tolerance, h, xLength):
@@ -69,7 +66,7 @@ def update_pedf(ySubstrate, xSteps, densityScale, occupiedOld, pedf, pedfOld, k,
             vOld = v[ySubstrate - 1][x]
 
             # Use EQ 65 and derivation on page 179 to update pedf concentration at upper boundary
-            v[ySubstrate - 1][x] = 400
+            v[ySubstrate - 1][x] = V0 * 10000
             if v[ySubstrate - 1][x] - vOld > tolerance or v[ySubstrate - 1][x] - vOld < -tolerance:
                 inTolerance = 0
 
@@ -89,7 +86,7 @@ def update_pedf(ySubstrate, xSteps, densityScale, occupiedOld, pedf, pedfOld, k,
         for x in range(1, xSteps - 1, 1):
             vOld = v[ySubstrate - 2][x]
             # Use EQ 65 and derivation on page 179 to update pedf concentration at upper boundary - 1
-            v[ySubstrate - 2][x] = 400    # -4 because substrate points are at half mesh points
+            v[ySubstrate - 2][x] = V0 * 10000    # -4 because substrate points are at half mesh points
             if v[ySubstrate - 2][x] - vOld > tolerance or v[ySubstrate - 2][x] - vOld < -tolerance:
                 inTolerance = 0
 

@@ -8,9 +8,9 @@ from the_vault import GAMMA1, GAMMA2, GAMMA3, GAMMA4, GAMMA5, GAMMA6
 
 
 # Function
-def tau(c, f, v, p, y):
+def tau(c, f, v, y):
 
-    ACTIVEC = c / (1 + p + K6 * f)  # Active protease
+    ACTIVEC = c / (1 + K6 * f)  # Active protease
 
     if y == 0:  # plank eq 50
         return (((ACTIVEC + K10) / (ACTIVEC + K11)) ** GAMMA1) * (((f + K12) / (f + K13)) ** GAMMA2) \

@@ -61,28 +61,28 @@ def simulation(total_number_time_steps, x_steps, y_steps, occupied, number_of_ce
             # Determine if the cell moves and where
             if death_time[cell] == total_number_time_steps - 1:
                 stay = prob_stay(y, lam, k)
-                left, T = prob_move(x, y, 0, pro, fib, vegf, pedf, x_steps, y_steps, lam, k)
-                right, T = prob_move(x, y, 1, pro, fib, vegf, pedf, x_steps, y_steps, lam, k)
-                up, T = prob_move(x, y, 2, pro, fib, vegf, pedf, x_steps, y_steps, lam, k)
-                randomNumber = random()
+                left, T = prob_move(x, y, 0, pro, fib, vegf, x_steps, y_steps, lam, k)
+                right, T = prob_move(x, y, 1, pro, fib, vegf, x_steps, y_steps, lam, k)
+                up, T = prob_move(x, y, 2, pro, fib, vegf, x_steps, y_steps, lam, k)
+                random_num = random()
 
                 # Check if cell can escape the capillary
                 if y == 0:
                     if x == 0:
-                        fibCapillary = fib[0][0]
+                        fib_cap = fib[0][0]
                     elif x == x_steps - 1:
-                        fibCapillary = fib[0][x_steps - 2]
+                        fib_cap = fib[0][x_steps - 2]
                     else:
-                        fibCapillary = (fib[0][x - 1] + fib[0][x]) / 2
-                    if fibCapillary < threshold:
-                        randomNumber = 2
+                        fib_cap = (fib[0][x - 1] + fib[0][x]) / 2
+                    if fib_cap < threshold:
+                        random_num = 2
 
                 # Move the EC
-                move(cell, current_time_step, stay, left, right, up, randomNumber, y_position, x_position, occupied)
+                move(cell, current_time_step, stay, left, right, up, random_num, y_position, x_position, occupied)
 
                 # Anastomosis and workspace
-                anastomosis(anastomotic, y_position, workspace, file_events, death_time, occupied, cell, current_time_step,
-                    x_position, cell_line)
+                anastomosis(anastomotic, y_position, workspace, file_events, death_time, occupied, cell,
+                            current_time_step, x_position, cell_line)
 
         # Find out when all the EC have died, and end the program early
         deaths = 0
