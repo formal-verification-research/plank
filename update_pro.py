@@ -21,7 +21,7 @@ def update_pro(ySubstrate, xSteps, densityScale, occupiedOld, protease, protease
 
         # Use equation 47 to update protease concentration in the capillary
         # Use vegfOld because vegf has already been updated this time step
-        protease[0][x] = protease[0][x] + k * (K1 * (vegfOld[0][x]) * density / ((vegfOld[0][x]+1)) - K3 * protease[0][x] - pedf_old[0][x])
+        protease[0][x] = protease[0][x] + k * (K1 * (vegfOld[0][x] - pedf_old[0][x]) * density / ((vegfOld[0][x]+1)) - K3 * protease[0][x])
         if protease[0][x] < 0:
             protease[0][x] = 0
 
@@ -33,7 +33,7 @@ def update_pro(ySubstrate, xSteps, densityScale, occupiedOld, protease, protease
         proteaseOld[1][x] = protease[1][x]
 
         # use equation 54 (same as 47 but for the ECM instead of the capillary)
-        protease[1][x] = protease[1][x] + k * (K1 * (vegfOld[1][x]) * density / ((vegfOld[1][x]+1)) - K3 * protease[1][x] - pedf_old[1][x])
+        protease[1][x] = protease[1][x] + k * (K1 * (vegfOld[1][x] - pedf_old[1][x]) * density / ((vegfOld[1][x]+1)) - K3 * protease[1][x])
         if protease[1][x] < 0:
             protease[1][x] = 0
 
@@ -49,7 +49,7 @@ def update_pro(ySubstrate, xSteps, densityScale, occupiedOld, protease, protease
                 proteaseOld[y][x] = protease[y][x]
 
                 # Use equation 54 (same as 47 but for the ECM instead of the capillary)
-                protease[y][x] = protease[y][x] + k * (K1 * (vegfOld[y][x]) * density / (vegfOld[y][x] + 1) - K3 * protease[y][x] - pedf_old[y][x])
+                protease[y][x] = protease[y][x] + k * (K1 * (vegfOld[y][x] - pedf_old[y][x]) * density / (vegfOld[y][x] + 1) - K3 * protease[y][x])
                 if protease[y][x] < 0:
                     protease[y][x] = 0
 
@@ -61,7 +61,7 @@ def update_pro(ySubstrate, xSteps, densityScale, occupiedOld, protease, protease
                 proteaseOld[y][x] = protease[y][x]
 
                 # use equation 54 (same as 47 but for the ECM instead of the capillary)
-                protease[y][x] = protease[y][x] + k * (K1 * (vegfOld[y][x]) * density / ((vegfOld[y][x]) + 1) - K3 * protease[y][x] - pedf_old[y][x])
+                protease[y][x] = protease[y][x] + k * (K1 * (vegfOld[y][x] - pedf_old[y][x]) * density / ((vegfOld[y][x]) + 1) - K3 * protease[y][x])
                 if protease[y][x] < 0:
                     protease[y][x] = 0
 

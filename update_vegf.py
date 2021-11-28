@@ -91,7 +91,7 @@ def update_vegf(ySubstrate, xSteps, densityScale, occupiedOld, vegf, vegfOld, k,
             vOld = v[ySubstrate - 2][x]
             # Use EQ 65 and derivation on page 179 to update VEGF concentration at upper boundary - 1
             v[ySubstrate - 2][x] = K35 * h * ((1 - cos(2 * pi * x_coordinate(x, ySubstrate - 2, xSteps, xLength))) ** M0) \
-                                   + v[ySubstrate - 4][x]    # -4 because substrate points are at half mesh points
+                                   + v[ySubstrate - 4][x]  # -4 because substrate points are at half mesh points
             if v[ySubstrate - 2][x] - vOld > tolerance or v[ySubstrate - 2][x] - vOld < -tolerance:
                 inTolerance = 0
 
