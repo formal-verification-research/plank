@@ -68,7 +68,7 @@ def update_pedf(ySubstrate, xSteps, densityScale, occupiedOld, pedf, pedfOld, k,
             vOld = v[ySubstrate - 1][x]
 
             # Use EQ 65 and derivation on page 179 to update pedf concentration at upper boundary
-            v[ySubstrate - 1][x] = K35 * h * (1 - heaviside(current_time_step - 400)) * 0
+            v[ySubstrate - 1][x] = 1
             if v[ySubstrate - 1][x] - vOld > tolerance or v[ySubstrate - 1][x] - vOld < -tolerance:
                 inTolerance = 0
 
@@ -88,7 +88,7 @@ def update_pedf(ySubstrate, xSteps, densityScale, occupiedOld, pedf, pedfOld, k,
         for x in range(1, xSteps - 1, 1):
             vOld = v[ySubstrate - 2][x]
             # Use EQ 65 and derivation on page 179 to update pedf concentration at upper boundary - 1
-            v[ySubstrate - 2][x] = K35 * h * (1 - heaviside(current_time_step - 400)) * 0  # -4 because substrate points are at half mesh points
+            v[ySubstrate - 2][x] = 1  # -4 because substrate points are at half mesh points
             if v[ySubstrate - 2][x] - vOld > tolerance or v[ySubstrate - 2][x] - vOld < -tolerance:
                 inTolerance = 0
 
