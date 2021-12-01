@@ -7,8 +7,13 @@ def anastomosis(anastomotic, y_position, workspace, file_deaths, death_time, occ
                 x_position, cell_line):
 
     # Set some position values for easier indexing within this function
+    y = y_position[cell][current_time_step]
+    x = x_position[cell][current_time_step]
     y1 = y_position[cell][current_time_step + 1]
     x1 = x_position[cell][current_time_step + 1]
+
+    # Set the EC to the current cell_line so it doesn't kill itself
+    workspace[y][x] = cell_line[cell]
 
     if anastomotic is True:  # anastomotic is turned on
         if y1 > 0:  # It must be outside the parent capillary
@@ -21,5 +26,8 @@ def anastomosis(anastomotic, y_position, workspace, file_deaths, death_time, occ
                 death_time[cell] = current_time_step + 1
                 occupied[y1][x1] -= 1
                 workspace[y1][x1] = cell_line[cell]
+
+    # Set the EC back so it can be distinguished from the capillary
+    workspace[y1][x1] = 100
 
     return
