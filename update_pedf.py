@@ -1,7 +1,5 @@
 # Description
-'''
-The purpose of Updatepedf is to update the pedf substrate for each new time step
-'''
+# update_pedf updates the pedf substrate for each new time step
 
 
 # Imports
@@ -15,195 +13,187 @@ from heaviside import heaviside
 
 
 # Function
-def update_pedf(ySubstrate, xSteps, densityScale, occupiedOld, pedf, pedfOld, k, tolerance, h, xLength,
-                current_time_step):
+def update_pedf(y_substrate, x_steps, density_scale, occupied_old, pedf, pedf_old, k, tolerance, h, x_length):
+    
+    p = zeros((y_substrate, x_steps))  # Substrate matrix used to iterate
 
-    # Substrate matrix used to iterate
-    v = zeros((ySubstrate, xSteps))
+    # Initialize p: value of the previous time step
+    for y in range(1, y_substrate, 1):
+        if y % 2 == 0:
+            for x in range(x_steps - 1):
+                p[y][x] = pedf[y][x]
+        else:
+            for x in range(x_steps):
+                p[y][x] = pedf[y][x]
 
-    # Update pedf concentration in capillary
-    for x in range(xSteps - 1):
-
-        # Scaled by densityScale to get density instead of the number of cells
-        # Average density at cell mesh points to the right and left of the substrate mesh point
-        # Use occupiedOld because occupied has already been updated this time step
-        density = densityScale * (occupiedOld[0][x] + occupiedOld[0][x + 1]) / 2
-
-        # Average pedf concentration on capillary wall at time j
-        wallpedfatJ = (pedf[1][x] + pedf[1][x + 1]) / 2
-        pedfdifference = wallpedfatJ - pedf[0][x]
-        if pedfdifference < 0:
-            pedfdifference = 0
-        pedfOld[0][x] = pedf[0][x]
-
-        # Update pedf concentration in capillary using equation 46
-        pedf[0][x] = pedf[0][x] + k * (-K1 * pedf[0][x] * density / (1 + pedf[0][x]) + K2 * pedfdifference)
+    # Capillary
+    for x in range(x_steps - 1):
+        density = density_scale * (occupied_old[0][x] + occupied_old[0][x + 1]) / 2  # Ave density right and left
+        wall_pedf = (pedf[1][x] + pedf[1][x + 1]) / 2  # Average pedf concentration on capillary wall at time j
+        pedf_difference = wall_pedf - pedf[0][x]
+        if pedf_difference < 0:
+            pedf_difference = 0
+        pedf_old[0][x] = pedf[0][x]
+        pedf[0][x] = pedf[0][x] + k * (-K1 * pedf[0][x] * density
+                                       / (1 + pedf[0][x]) + K2 * pedf_difference)  # plank eq 46
         if pedf[0][x] < 0:
             pedf[0][x] = 0
 
-    # Initialize v: value of the previous time step
-    for y in range(1, ySubstrate, 1):
-        if y % 2 == 0:
-            for x in range(xSteps - 1):
-                v[y][x] = pedf[y][x]
-        else:
-            for x in range(xSteps):
-                v[y][x] = pedf[y][x]
+    # ECM
+    in_tol = 0
+    while in_tol == 0:
+        in_tol = 1
 
-    # Keep iterating until the value of v at each mesh point changes by less than a certain tolerance
-    inTolerance = 0
-    while inTolerance == 0:
-        inTolerance = 1
+        # Y = Max, includes source
 
-    # Update pedf concentration at boundary at maximum y. Includes source
-        # Using equation 70 derivation on page 179 calculate pedf at x = 0
-        vOld = v[ySubstrate - 1][0]
-        v[ySubstrate - 1][0] = v[ySubstrate - 1][1]
+        # X = 0
+        p_old = p[y_substrate - 1][0]
+        p[y_substrate - 1][0] = p[y_substrate - 1][1]  # plank pg 179 eq 70
+        if p[y_substrate - 1][0] - p_old > tolerance or p[y_substrate - 1][0] - p_old < -tolerance:
+            in_tol = 0
 
-        # If the change in any v and vOld is greater than the tolerance then this loop will continue to run
-        if v[ySubstrate - 1][0] - vOld > tolerance or v[ySubstrate - 1][0] - vOld < -tolerance:
-            inTolerance = 0
+        # Body
+        for x in range(1, x_steps - 2, 1):
+            p_old = p[y_substrate - 1][x]
+            p[y_substrate - 1][x] = K35 * h \
+                                    * ((1 - cos(2 * pi * x_coordinate(x, y_substrate - 1, x_steps, x_length))) ** M0) \
+                                    + p[y_substrate - 3][x]  # plank pg 179 eq 65
+            if p[y_substrate - 1][x] - p_old > tolerance or p[y_substrate - 1][x] - p_old < -tolerance:
+                in_tol = 0
 
-        for x in range(1, xSteps - 2, 1):
-            vOld = v[ySubstrate - 1][x]
+        # X = Max
+        p_old = p[y_substrate - 1][x_steps - 2]
+        p[y_substrate - 1][x_steps - 2] = p[y_substrate - 1][x_steps - 3]  # minus 3 because row is even
+        if p[y_substrate - 1][x_steps - 2] - p_old > tolerance or p[y_substrate - 1][x_steps - 2] - p_old < -tolerance:
+            in_tol = 0
 
-            # Use EQ 65 and derivation on page 179 to update pedf concentration at upper boundary
-            v[ySubstrate - 1][x] = K35 * h * ((1 - cos(2 * pi * x_coordinate(x, ySubstrate - 1, xSteps, xLength))) ** M0) \
-                                   + v[ySubstrate - 3][x]
-            if v[ySubstrate - 1][x] - vOld > tolerance or v[ySubstrate - 1][x] - vOld < -tolerance:
-                inTolerance = 0
+        # Y = Max - 1
 
-        # Using equation 70 derivation on page 179 calculate pedf at x = max
-        vOld = v[ySubstrate - 1][xSteps - 2]
-        v[ySubstrate - 1][xSteps - 2] = v[ySubstrate - 1][xSteps - 3]    # minus 3 because row is even
-        if v[ySubstrate - 1][xSteps - 2] - vOld > tolerance or v[ySubstrate - 1][xSteps - 2] - vOld < -tolerance:
-            inTolerance = 0
+        # X = 0
+        p_old = p[y_substrate - 2][0]
+        p[y_substrate - 2][0] = p[y_substrate - 2][1]  # plank pg 179 eq 70
+        if p[y_substrate - 2][0] - p_old > tolerance or p[y_substrate - 2][0] - p_old < -tolerance:
+            in_tol = 0
 
-    # Update pedf concentration at boundary at maximum y - 1
-        # Using equation 70 derivation on page 179 calculate pedf at x = 0
-        vOld = v[ySubstrate - 2][0]
-        v[ySubstrate - 2][0] = v[ySubstrate - 2][1]
-        if v[ySubstrate - 2][0] - vOld > tolerance or v[ySubstrate - 2][0] - vOld < -tolerance:
-            inTolerance = 0
+        # Body
+        for x in range(1, x_steps - 1, 1):
+            p_old = p[y_substrate - 2][x]
+            p[y_substrate - 2][x] = K35 * h \
+                                    * ((1 - cos(2 * pi * x_coordinate(x, y_substrate - 2, x_steps, x_length))) ** M0) \
+                                    + p[y_substrate - 4][x]  # -4 because substrate points are at half mesh points
+            if p[y_substrate - 2][x] - p_old > tolerance or p[y_substrate - 2][x] - p_old < -tolerance:
+                in_tol = 0  # plank pg 179 eq 65
 
-        for x in range(1, xSteps - 1, 1):
-            vOld = v[ySubstrate - 2][x]
-            # Use EQ 65 and derivation on page 179 to update pedf concentration at upper boundary - 1
-            v[ySubstrate - 2][x] = K35 * h * ((1 - cos(2 * pi * x_coordinate(x, ySubstrate - 2, xSteps, xLength))) ** M0) \
-                                   + v[ySubstrate - 4][x]  # -4 because substrate points are at half mesh points
-            if v[ySubstrate - 2][x] - vOld > tolerance or v[ySubstrate - 2][x] - vOld < -tolerance:
-                inTolerance = 0
+        # X = Max
+        p_old = p[y_substrate - 2][x_steps - 1]
+        p[y_substrate - 2][x_steps - 1] = p[y_substrate - 2][x_steps - 2]  # plank pg 179 eq 70
+        if p[y_substrate - 2][x_steps - 1] - p_old > tolerance or p[y_substrate - 2][x_steps - 1] - p_old < -tolerance:
+            in_tol = 0
 
-        # Using equation 70 derivation on page 179 calculate pedf at x = max
-        vOld = v[ySubstrate - 2][xSteps - 1]
-        v[ySubstrate - 2][xSteps - 1] = v[ySubstrate - 2][xSteps - 2]
-        if v[ySubstrate - 2][xSteps - 1] - vOld > tolerance or v[ySubstrate - 2][xSteps - 1] - vOld < -tolerance:
-            inTolerance = 0
+        # Interior nodes
+        for y in range(y_substrate - 3, 2, -1):
 
-    # Cycle through interior rows and calculate new pedf concentration
-        for y in range(ySubstrate - 3, 2, -1):
-            # Using equation 70 derivation on page 179 calculate pedf at x = 0
-            vOld = v[y][0]
-            v[y][0] = v[y][1]
-            if v[y][0] - vOld > tolerance or v[y][0] - vOld < -tolerance:
-                inTolerance = 0
+            # X = 0
+            p_old = p[y][0]
+            p[y][0] = p[y][1]  # plank pg 179 eq 70
+            if p[y][0] - p_old > tolerance or p[y][0] - p_old < -tolerance:
+                in_tol = 0
 
-            # If row is even number of substrate meshpoints in x is xsteps-1
-            if y % 2 == 0:
-                for x in range(1, xSteps - 2, 1):    # minus 2 because last meshpoint has a boundary condition
-                    # DensityScale is squared because density in ECM is per unit area not length
-                    # Average density of cell meshpoint to the right and left
-                    density = densityScale * ((ySubstrate/2)-1) * (occupiedOld[y // 2][x] + occupiedOld[y // 2][x + 1]) / 2
-                    vOld = v[y][x]
+            # Body
+            if y % 2 == 0:  # If row is even number of substrate mesh points in x is x_steps-1
+                for x in range(1, x_steps - 2, 1):  # minus 2 because last mesh point has a boundary condition
+                    density = density_scale * ((y_substrate / 2) - 1) \
+                              * (occupied_old[y // 2][x] + occupied_old[y // 2][x + 1]) / 2  # Av density right and left
+                    p_old = p[y][x]
+                    p[y][x] = RELAX1 / (h * h + 2 * K21 * k) \
+                              * (0.5 * K21 * k * (p[y][x + 1] + p[y][x - 1] + p[y + 2][x] + p[y - 2][x]
+                                                  + pedf[y][x + 1] + pedf[y][x - 1] + pedf[y + 2][x] + pedf[y - 2][x])
+                                 + (h * h - 2 * K21 * k - h * h * k * K1 * density / (1 + pedf[y][x])) * pedf[y][x]) \
+                              + (1 - RELAX1) * p[y][x]  # plank pg 178 eq 53 crank-nicolson approximation
+                    if p[y][x] - p_old > tolerance or p[y][x] - p_old < -tolerance:
+                        in_tol = 0
 
-                    # Approximate equation 53 using the crank-nicolson method see derivation on page 178
-                    v[y][x] = RELAX1 / (h * h + 2 * K21 * k) * (0.5 * K21 * k * (v[y][x + 1] + v[y][x - 1] + v[y + 2][x] + \
-                            v[y - 2][x] + pedf[y][x + 1] + pedf[y][x - 1] + pedf[y + 2][x] + pedf[y - 2][x]) + \
-                            (h * h - 2 * K21 * k - h * h * k * K1 * density / (1 + pedf[y][x])) * pedf[y][x]) + (1-RELAX1) * v[y][x]
-                    if v[y][x] - vOld > tolerance or v[y][x] - vOld < -tolerance:
-                        inTolerance = 0
+                # X = Max
+                p_old = p[y][x_steps - 2]
+                p[y][x_steps - 2] = p[y][x_steps - 3]  # plank pg 179 eq 70
+                if p[y][x_steps - 2] - p_old > tolerance or p[y][x_steps - 2] - p_old < -tolerance:
+                    in_tol = 0
 
-                # Using equation 70 derivation on page 179 calculate pedf at x = max
-                vOld = v[y][xSteps - 2]
-                v[y][xSteps - 2] = v[y][xSteps - 3]
-                if v[y][xSteps - 2] - vOld > tolerance or v[y][xSteps - 2] - vOld < -tolerance:
-                    inTolerance = 0
-
+            # Body
             else:
-                # If row is odd number of substrate meshpoints in x is nn
-                for x in range(1, xSteps - 1, 1):
-                    # Average density of cell meshpoints above and below
-                    # y // 2 because there are twice as many points in the y direction because substrate meshpoints are at 1/2
-                    density = densityScale * ((ySubstrate/2)-1) * (occupiedOld[(y - 1) // 2][x] + occupiedOld[(y + 1) // 2][x]) / 2
-                    vOld = v[y][x]
-                    v[y][x] = RELAX1 / (h * h + 2 * K21 * k) * (0.5 * K21 * k * (v[y][x + 1] + v[y][x - 1] + v[y + 2][x] + \
-                            v[y - 2][x] + pedf[y][x + 1] + pedf[y][x - 1] + pedf[y + 2][x] + pedf[y - 2][x]) + \
-                            (h * h - 2 * K21 * k - h * h * k * K1 * density / (1 + pedf[y][x])) * pedf[y][x]) + (1-RELAX1) * v[y][x]
-                    if v[y][x] - vOld > tolerance or v[y][x] - vOld < -tolerance:
-                        inTolerance = 0
+                for x in range(1, x_steps - 1, 1):  # If row is odd number of substrate mesh points in x is nn
+                    density = density_scale * ((y_substrate / 2) - 1) \
+                              * (occupied_old[(y - 1) // 2][x] + occupied_old[(y + 1) // 2][
+                        x]) / 2  # Ave den above and below
+                    p_old = p[y][x]
+                    p[y][x] = RELAX1 / (h * h + 2 * K21 * k) \
+                              * (0.5 * K21 * k * (p[y][x + 1] + p[y][x - 1] + p[y + 2][x] + p[y - 2][x]
+                                                  + pedf[y][x + 1] + pedf[y][x - 1] + pedf[y + 2][x] + pedf[y - 2][x])
+                                 + (h * h - 2 * K21 * k - h * h * k * K1 * density / (1 + pedf[y][x])) * pedf[y][x]) \
+                              + (1 - RELAX1) * p[y][x]
+                    if p[y][x] - p_old > tolerance or p[y][x] - p_old < -tolerance:
+                        in_tol = 0
 
-                # Using equation 70 derivation on page 179 calculate pedf at x = max
-                vOld = v[y][xSteps - 1]
-                v[y][xSteps - 1] = v[y][xSteps - 2]
-                if v[y][xSteps - 1] - vOld > tolerance or v[y][xSteps - 1] - vOld < -tolerance:
-                    inTolerance = 0
+                # X = Max
+                p_old = p[y][x_steps - 1]
+                p[y][x_steps - 1] = p[y][x_steps - 2]  # plank pg 179 eq 70
+                if p[y][x_steps - 1] - p_old > tolerance or p[y][x_steps - 1] - p_old < -tolerance:
+                    in_tol = 0
 
-    # Calculate pedf concentration at boundary row y = 2
-        # Using equation 70 derivation on page 179 calculate pedf at x = 0
-        vOld = v[2][0]
-        v[2][0] = v[2][1]
-        if v[2][0] - vOld > tolerance or v[2][0] - vOld < -tolerance:
-            inTolerance = 0
+        # Y = 2
 
-        for x in range(1, xSteps - 2, 1):
-            vOld = v[2][x]
-            # Use equation 61 see derivation on page 179 of paper and pg 137 of notes
-            # Use pedfOld because capillary values have already been updated
-            v[2][x] = 1 / (K33 + h) * (K33 * v[4][x] + h * pedfOld[0][x])
-            if v[2][x] - vOld > tolerance or v[2][x] - vOld < -tolerance:
-                inTolerance = 0
+        # X = 0
+        p_old = p[2][0]
+        p[2][0] = p[2][1]  # plank pg 179 eq 70
+        if p[2][0] - p_old > tolerance or p[2][0] - p_old < -tolerance:
+            in_tol = 0
 
-        # Using equation 70 derivation on page 179 calculate pedf at x = max
-        vOld = v[2][xSteps - 2]
-        v[2][xSteps - 2] = v[2][xSteps - 3]
-        if v[2][xSteps - 2] - vOld > tolerance or v[2][xSteps - 2] - vOld < -tolerance:
-            inTolerance = 0
+        # Body
+        for x in range(1, x_steps - 2, 1):
+            p_old = p[2][x]
+            p[2][x] = 1 / (K33 + h) * (K33 * p[4][x] + h * pedf_old[0][x])  # plank pg 179, 137 eq 61
+            if p[2][x] - p_old > tolerance or p[2][x] - p_old < -tolerance:
+                in_tol = 0
 
-    # Calculate pedf concentratin at boundary row y = 1: capillary wall
-        vOld = v[1][0]
-        v[1][0] = v[1][1]
+        # X = Max
+        p_old = p[2][x_steps - 2]
+        p[2][x_steps - 2] = p[2][x_steps - 3]  # plank pg 179 eq 70
+        if p[2][x_steps - 2] - p_old > tolerance or p[2][x_steps - 2] - p_old < -tolerance:
+            in_tol = 0
 
-        if v[1][0] - vOld > tolerance or v[1][0] - vOld < -tolerance:
-            inTolerance = 0
-        for x in range(1, xSteps - 1, 1):
-            vOld = v[1][x]
+        # Y = 1: capillary wall
 
-            # Take average because there is no mesh point in the capillary directly below
-            v[1][x] = 1 / (K33 + h) * (K33 * v[3][x] + h * (pedfOld[0][x - 1] + pedfOld[0][x]) / 2)
-            if v[1][x] - vOld > tolerance or v[1][x] - vOld < -tolerance:
-                inTolerance = 0
+        # X = 0
+        p_old = p[1][0]
+        p[1][0] = p[1][1]
+        if p[1][0] - p_old > tolerance or p[1][0] - p_old < -tolerance:
+            in_tol = 0
 
-        # Using equation 70 derivation on page 179 calculate pedf at x = max
-        vOld = v[1][xSteps - 1]
-        v[1][xSteps - 1] = v[1][xSteps - 2]
-        if v[1][xSteps - 1] - vOld > tolerance or v[1][xSteps - 1] - vOld < -tolerance:
-            inTolerance = 0
+        # Body
+        for x in range(1, x_steps - 1, 1):
+            p_old = p[1][x]
+            p[1][x] = 1 / (K33 + h) * (K33 * p[3][x] + h * (pedf_old[0][x - 1] + pedf_old[0][x]) / 2)  # Ave
+            if p[1][x] - p_old > tolerance or p[1][x] - p_old < -tolerance:
+                in_tol = 0
+
+        # X = Max
+        p_old = p[1][x_steps - 1]
+        p[1][x_steps - 1] = p[1][x_steps - 2]  # plank pg 179 eq 70
+        if p[1][x_steps - 1] - p_old > tolerance or p[1][x_steps - 1] - p_old < -tolerance:
+            in_tol = 0
 
     # Cycle through pedf mesh points and set pedf at time step j+1
-    for y in range(1, ySubstrate, 1):
-        # If y is even: number of substrate mesh points in x is xSteps - 1
+    for y in range(1, y_substrate, 1):  # If y is even: number of substrate mesh points in x is x_steps - 1
         if y % 2 == 0:
-            for x in range(xSteps - 1):
-                pedfOld[y][x] = pedf[y][x]
-                pedf[y][x] = v[y][x]
+            for x in range(x_steps - 1):
+                pedf_old[y][x] = pedf[y][x]
+                pedf[y][x] = p[y][x]
                 if pedf[y][x] < 0:
                     pedf[y][x] = 0
-
-        # If y is odd: number of substrate mesh points in x is xSteps
-        else:
-            for x in range(xSteps):
-                pedfOld[y][x] = pedf[y][x]
-                pedf[y][x] = v[y][x]
+        else:  # If y is odd: number of substrate mesh points in x is x_steps
+            for x in range(x_steps):
+                pedf_old[y][x] = pedf[y][x]
+                pedf[y][x] = p[y][x]
                 if pedf[y][x] < 0:
                     pedf[y][x] = 0
 

@@ -8,7 +8,7 @@ from the_vault import K4, K5, K6, K22, K23, RELAX2
 
 
 # Function
-def update_fib(y_substrate, x_steps, density_scale, occupied_old, fib, fib_old, k, pro, tolerance, h):
+def update_fib(y_substrate, x_steps, density_scale, occupied_old, fib, fib_old, k, pro, tolerance, h, pedf_old):
 
     # Initialize f
     f = zeros((y_substrate, x_steps))
