@@ -44,7 +44,6 @@ def update_pro(y_substrate, x_steps, density_scale, occupied_old, pro, pro_old, 
 
         else:  # If y is odd, number of substrate mesh points in x-direction is x_steps
             for x in range(x_steps):
-                # Average density at cell mesh points above and below substrate mesh point at time j
                 density = density_scale * (y_substrate / 2 - 1) \
                           * (occupied_old[(y-1) // 2][x] + occupied_old[(y+1) // 2][x]) / 2  # Av density right and left
                 pro_old[y][x] = pro[y][x]

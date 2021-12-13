@@ -37,17 +37,20 @@ def update_fib(y_substrate, x_steps, density_scale, occupied_old, fib, fib_old, 
         in_tol = 1
 
         # Y = Max
+
         # X = 0
         f_old = f[y_substrate - 1][0]
         f[y_substrate - 1][0] = f[y_substrate - 1][1]  # plank pg 179 eq 71
         if f[y_substrate - 1][0] - f_old > tolerance or f[y_substrate - 1][0] - f_old < -tolerance:  # tolerance check
             in_tol = 0
+
         # Body
         for x in range(1, x_steps-2, 1):
             f_old = f[y_substrate - 1][x]
             f[y_substrate - 1][x] = f[y_substrate - 3][x]  # plank pg 179 eq 66
             if f[y_substrate - 1][x] - f_old > tolerance or f[y_substrate - 1][x] - f_old < -tolerance:  # tolerance check
                 in_tol = 0
+
         # X = Max
         f_old = f[y_substrate - 1][x_steps - 2]
         f[y_substrate - 1][x_steps - 2] = f[y_substrate - 1][x_steps - 3]  # plank pg 179 eq 71
@@ -55,17 +58,20 @@ def update_fib(y_substrate, x_steps, density_scale, occupied_old, fib, fib_old, 
             in_tol = 0  # tolerance check
 
         # Y = Max - 1
+
         # X = 0
         f_old = f[y_substrate-2][0]
         f[y_substrate-2][0] = f[y_substrate-2][1]  # plank pg 179 eq 71
         if f[y_substrate-2][0] - f_old > tolerance or f[y_substrate-2][0] - f_old < -tolerance:
             in_tol = 0
+
         # Body
         for x in range(1, x_steps-1, 1):
             f_old = f[y_substrate-2][x]
             f[y_substrate-2][x] = f[y_substrate-4][x]  # plank pg 179 eq 66
             if f[y_substrate-2][x] - f_old > tolerance or f[y_substrate-2][x] - f_old < -tolerance:
                 in_tol = 0
+
         # X = Max
         f_old = f[y_substrate-2][x_steps-1]
         f[y_substrate-2][x_steps-1] = f[y_substrate-2][x_steps-2]  # plank pg 179 eq 71
@@ -74,11 +80,13 @@ def update_fib(y_substrate, x_steps, density_scale, occupied_old, fib, fib_old, 
 
         # Interior Nodes
         for y in range(y_substrate-3, 2, -1):
+
             # X = 0
             f_old = f[y][0]
             f[y][0] = f[y][1]  # plank pg 179 eq 71
             if f[y][0] - f_old > tolerance or f[y][0] - f_old < -tolerance:
                 in_tol = 0
+
             # Body
             if y % 2 == 0:  # If row is even number of substrate nodes in x is nn-1
                 for x in range(1, x_steps-2, 1):
@@ -90,11 +98,14 @@ def update_fib(y_substrate, x_steps, density_scale, occupied_old, fib, fib_old, 
                                     / (1 + K6 * fib[y][x])) * fib[y][x]) + (1 - RELAX2) * f[y][x]  # plank pg 179 eq 55, 59
                     if f[y][x] - f_old > tolerance or f[y][x] - f_old < -tolerance:
                         in_tol = 0
+
                 # X = Max
                 f_old = f[y][x_steps-2]
                 f[y][x_steps-2] = f[y][x_steps-3]  # plank pg 179 eq 71
                 if f[y][x_steps-2] - f_old > tolerance or f[y][x_steps-2] - f_old < -tolerance:
                     in_tol = 0
+
+            # Body
             else:  # If row is odd number of substrate nodes in x is nn
                 for x in range(1, x_steps-1, 1):
                     f_old = f[y][x]
@@ -105,6 +116,7 @@ def update_fib(y_substrate, x_steps, density_scale, occupied_old, fib, fib_old, 
                                     / (1 + K6 * fib[y][x])) * fib[y][x]) + (1-RELAX2) * f[y][x]  # plank pg 179 eq 55, 59
                     if f[y][x] - f_old > tolerance or f[y][x] - f_old < -tolerance:
                         in_tol = 0
+
                 # X = Max
                 f_old = f[y][x_steps-1]
                 f[y][x_steps-1] = f[y][x_steps-2]  # plank pg 179 eq 71
@@ -112,17 +124,20 @@ def update_fib(y_substrate, x_steps, density_scale, occupied_old, fib, fib_old, 
                     in_tol = 0
 
         # Y = 2
+
         # X = 0
         f_old = f[2][0]
         f[2][0] = f[2][1]  # plank pg 179 eq 71
         if f[2][0] - f_old > tolerance or f[2][0] - f_old < -tolerance:
             in_tol = 0
+
         # Body
         for x in range(1, x_steps-2, 1):
             f_old = f[2][x]
             f[2][x] = f[4][x]  # plank pg 179 eq 62
             if f[2][x] - f_old > tolerance or f[2][x] - f_old < -tolerance:
                 in_tol = 0
+
         # X = Max
         f_old = f[2][x_steps-2]
         f[2][x_steps-2] = f[2][x_steps-3]  # plank pg 179 eq 71
@@ -130,17 +145,20 @@ def update_fib(y_substrate, x_steps, density_scale, occupied_old, fib, fib_old, 
             in_tol = 0
 
         # Y = 1
+
         # X = 0
         f_old = f[1][0]
         f[1][0] = f[1][1]  # plank pg 179 eq 71
         if f[1][0] - f_old > tolerance or f[1][0] - f_old < -tolerance:
             in_tol = 0
+
         # Body
         for x in range(1, x_steps-1, 1):
             f_old = f[1][x]
             f[1][x] = f[3][x]  # plank pg 179 eq 62
             if f[1][x] - f_old > tolerance or f[1][x] - f_old < -tolerance:
                 in_tol = 0
+
         # X = Max
         f_old = f[1][x_steps-1]
         f[1][x_steps-1] = f[1][x_steps-2]  # plank pg 179 eq 71
