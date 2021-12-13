@@ -1,68 +1,56 @@
 # Description
-'''
-The purpose of UpdateProtease is to update the protease substrate for each new time step
-'''
+# update_pro updates the pro substrate for each new time step
 
 
 # Imports
-# Values Imports
 from the_vault import K1, K3
 
 
 # Function
-def update_pro(ySubstrate, xSteps, densityScale, occupiedOld, protease, proteaseOld, k, vegfOld, pedf_old):
+def update_pro(y_substrate, x_steps, density_scale, occupied_old, pro, pro_old, k, vegf_old, pedf_old):
 
-    # Update protease concentration in capillary
-    for x in range(xSteps -1):
+    # Capillary
+    for x in range(x_steps - 1):
+        density = density_scale * (occupied_old[0][x] + occupied_old[0][x+1]) / 2  # Ave density at right and left nodes
+        pro_old[0][x] = pro[0][x]
+        pro[0][x] = pro[0][x] + k * (K1 * (vegf_old[0][x] - pedf_old[0][x])  # plank eq 47
+                                     * density / (vegf_old[0][x] + 1) - K3 * pro[0][x])
+        if pro[0][x] < 0:
+            pro[0][x] = 0
 
-        # Average density at cell meshpoints to the right and left of substrate meshpoint at time j
-        density = densityScale * (occupiedOld[0][x] + occupiedOld[0][x+1]) / 2
-        proteaseOld[0][x] = protease[0][x]
+    # ECM
 
-        # Use equation 47 to update protease concentration in the capillary
-        # Use vegfOld because vegf has already been updated this time step
-        protease[0][x] = protease[0][x] + k * (K1 * (vegfOld[0][x] - pedf_old[0][x]) * density / ((vegfOld[0][x]+1)) - K3 * protease[0][x])
-        if protease[0][x] < 0:
-            protease[0][x] = 0
+    # Y = 1
+    for x in range(x_steps):
+        density = density_scale * (y_substrate / 2 - 1) * occupied_old[1][x]
+        pro_old[1][x] = pro[1][x]
+        pro[1][x] = pro[1][x] + k * (K1 * (vegf_old[1][x] - pedf_old[1][x])  # plank eq 57
+                                     * density / (vegf_old[1][x] + 1) - K3 * pro[1][x])
+        if pro[1][x] < 0:
+            pro[1][x] = 0
 
-    # Update protease concentration at boundary y = 1
-    for x in range(xSteps):
+    # Interior Nodes
+    for y in range(2, y_substrate, 1):
 
-        # don't take into account cells still in the capillary
-        density = densityScale * (ySubstrate / 2 - 1) * occupiedOld[1][x]
-        proteaseOld[1][x] = protease[1][x]
+        if y % 2 == 0:  # If y is even, number of substrate mesh points in x-direction is x_steps-1
+            for x in range(x_steps - 1):
+                density = density_scale * (y_substrate / 2 - 1) \
+                          * (occupied_old[y // 2][x] + occupied_old[y // 2][x + 1]) / 2  # Ave density right and left
+                pro_old[y][x] = pro[y][x]
+                pro[y][x] = pro[y][x] + k * (K1 * (vegf_old[y][x] - pedf_old[y][x])  # plank eq 54
+                                             * density / (vegf_old[y][x] + 1) - K3 * pro[y][x])
+                if pro[y][x] < 0:
+                    pro[y][x] = 0
 
-        # use equation 54 (same as 47 but for the ECM instead of the capillary)
-        protease[1][x] = protease[1][x] + k * (K1 * (vegfOld[1][x] - pedf_old[1][x]) * density / ((vegfOld[1][x]+1)) - K3 * protease[1][x])
-        if protease[1][x] < 0:
-            protease[1][x] = 0
-
-    # Cycle through substrate meshpoints
-    for y in range(2, ySubstrate, 1):
-
-        # If y is even, number of substrate meshpoints in x-direction is xSteps-1
-        if y % 2 == 0:
-            for x in range(xSteps -1):
-
-                # Average density at cell meshpoints to the right and left of substrate meshpoint at time j
-                density = densityScale * (ySubstrate / 2 - 1) * (occupiedOld[y // 2][x] + occupiedOld[y // 2][x + 1]) / 2
-                proteaseOld[y][x] = protease[y][x]
-
-                # Use equation 54 (same as 47 but for the ECM instead of the capillary)
-                protease[y][x] = protease[y][x] + k * (K1 * (vegfOld[y][x] - pedf_old[y][x]) * density / (vegfOld[y][x] + 1) - K3 * protease[y][x])
-                if protease[y][x] < 0:
-                    protease[y][x] = 0
-
-        # If y is odd, number of substrate meshpoints in x-direction is xSteps
-        else:
-            for x in range(xSteps):
-                # Average density at cell meshpoints above and below substrate meshpoint at time j
-                density = densityScale * (ySubstrate / 2 - 1) * (occupiedOld[(y - 1) // 2][x] + occupiedOld[(y + 1) // 2][x]) / 2
-                proteaseOld[y][x] = protease[y][x]
-
-                # use equation 54 (same as 47 but for the ECM instead of the capillary)
-                protease[y][x] = protease[y][x] + k * (K1 * (vegfOld[y][x] - pedf_old[y][x]) * density / ((vegfOld[y][x]) + 1) - K3 * protease[y][x])
-                if protease[y][x] < 0:
-                    protease[y][x] = 0
+        else:  # If y is odd, number of substrate mesh points in x-direction is x_steps
+            for x in range(x_steps):
+                # Average density at cell mesh points above and below substrate mesh point at time j
+                density = density_scale * (y_substrate / 2 - 1) \
+                          * (occupied_old[(y-1) // 2][x] + occupied_old[(y+1) // 2][x]) / 2  # Av density right and left
+                pro_old[y][x] = pro[y][x]
+                pro[y][x] = pro[y][x] + k * (K1 * (vegf_old[y][x] - pedf_old[y][x])
+                                             * density / (vegf_old[y][x] + 1) - K3 * pro[y][x])  # plank eq 54
+                if pro[y][x] < 0:
+                    pro[y][x] = 0
 
     return

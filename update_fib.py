@@ -9,7 +9,6 @@ from the_vault import K4, K5, K6, K22, K23, RELAX2
 
 # Function
 def update_fib(y_substrate, x_steps, density_scale, occupied_old, fib, fib_old, k, pro, tolerance, h):
-    
 
     # Initialize f
     f = zeros((y_substrate, x_steps))
@@ -21,9 +20,8 @@ def update_fib(y_substrate, x_steps, density_scale, occupied_old, fib, fib_old, 
             for x in range(x_steps):
                 f[y][x] = fib[y][x]
 
-
     # Capillary
-    for x in range(x_steps-1):
+    for x in range(x_steps - 1):
         density = density_scale * (occupied_old[0][x] + occupied_old[0][x+1]) / 2  # Ave density at right and left nodes 
         fib_old[0][x] = fib[0][x]
         fib[0][x] = fib[0][x] + k * (K4 * fib[0][x] * (1 - fib[0][x]) * density - K5 * pro[0][x]  # plank paper eq 48
@@ -33,12 +31,10 @@ def update_fib(y_substrate, x_steps, density_scale, occupied_old, fib, fib_old, 
         if fib[0][x] > 1:
             fib[0][x] = 1  # fib doesn't rise above 1
 
-
     # ECM
     in_tol = 0  # tolerance key for the while loop
     while in_tol == 0:
         in_tol = 1
-
 
         # Y = Max
         # X = 0
@@ -58,7 +54,6 @@ def update_fib(y_substrate, x_steps, density_scale, occupied_old, fib, fib_old, 
         if f[y_substrate - 1][x_steps - 2] - f_old > tolerance or f[y_substrate - 1][x_steps - 2] - f_old < -tolerance:
             in_tol = 0  # tolerance check
 
-
         # Y = Max - 1
         # X = 0
         f_old = f[y_substrate-2][0]
@@ -76,7 +71,6 @@ def update_fib(y_substrate, x_steps, density_scale, occupied_old, fib, fib_old, 
         f[y_substrate-2][x_steps-1] = f[y_substrate-2][x_steps-2]  # plank pg 179 eq 71
         if f[y_substrate-2][x_steps-1] - f_old > tolerance or f[y_substrate-2][x_steps-1] - f_old < -tolerance:
             in_tol = 0
-
 
         # Interior Nodes
         for y in range(y_substrate-3, 2, -1):
@@ -117,7 +111,6 @@ def update_fib(y_substrate, x_steps, density_scale, occupied_old, fib, fib_old, 
                 if f[y][x_steps-1] - f_old > tolerance or f[y][x_steps-1] - f_old < -tolerance:
                     in_tol = 0
 
-
         # Y = 2
         # X = 0
         f_old = f[2][0]
@@ -135,7 +128,6 @@ def update_fib(y_substrate, x_steps, density_scale, occupied_old, fib, fib_old, 
         f[2][x_steps-2] = f[2][x_steps-3]  # plank pg 179 eq 71
         if f[2][x_steps-2] - f_old > tolerance or f[2][x_steps-2] - f_old < -tolerance:
             in_tol = 0
-
 
         # Y = 1
         # X = 0
@@ -155,7 +147,6 @@ def update_fib(y_substrate, x_steps, density_scale, occupied_old, fib, fib_old, 
         if f[1][x_steps-1] - f_old > tolerance or f[1][x_steps-1] - f_old < -tolerance:
             in_tol = 0
 
-
     # Cycle through substrate mesh points and set fib at time step j+1
     for y in range(1, y_substrate, 1):
         if y % 2 == 0:
@@ -174,6 +165,5 @@ def update_fib(y_substrate, x_steps, density_scale, occupied_old, fib, fib_old, 
                     fib[y][x] = 0
                 if fib[y][x] > 1:
                     fib[y][x] = 1
-
 
     return
