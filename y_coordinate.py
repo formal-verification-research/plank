@@ -1,5 +1,5 @@
 # Description
-# x_coordinate gives the dimensionless value of the distance along the y direction
+# y_coordinate gives the dimensionless value of the distance along the y direction
 
 
 # Function

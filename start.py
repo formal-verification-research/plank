@@ -13,10 +13,10 @@ from numpy import linspace
 # Function
 def terms(x_steps, total_time, total_number_time_steps):
     start_time = time.time()  # Lock in the start time of the program
-    x_length = 1  # Nondimensionalize the length
-    y_length = 0.5  # Height is 1/2 the length
-    y_steps = int(x_steps * (y_length / x_length) + 0.5)  # Half the steps, used for the EC
-    y_substrate = y_steps * 2 - 1  # Full steps, used for substrates
+    x_length = 1  # Non-dimensionalize the length
+    y_length = 0.5  # Non-dimensionalized, height is 1/2 the length
+    y_steps = int(x_steps * (y_length / x_length) + 0.5)  # 1/2 nodes in the y domain for the EC, (occupied, workspace)
+    y_substrate = y_steps * 2 - 1  # 1/1 nodes in the y domain, used for substrates
     file_events = open("EC_Events.txt", "w")  # To write deaths and divisions to
     k = total_time / total_number_time_steps  # The time step interval
     h = x_length / x_steps  # Create h, the distance between mesh points variable
