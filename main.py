@@ -36,7 +36,7 @@ def main(x_steps, number_of_cells, tolerance, max_cells_allowed, graph_time, tot
 
     # Create the starting arrays
     x_position, y_position, death_time, birth_time, divide_time, vegf, pedf, pro, fib, vegf_old, pedf_old, pro_old, \
-    fib_old, workspace \
+        fib_old, workspace \
         = arrays(max_cells_allowed, total_number_time_steps, y_substrate, x_steps, y_steps)
 
     # Create the starting capillary
@@ -56,5 +56,6 @@ def main(x_steps, number_of_cells, tolerance, max_cells_allowed, graph_time, tot
 
     return
 
+
 main(x_steps, number_of_cells, tolerance, max_cells_allowed, graph_time, total_time, total_number_time_steps,
-         threshold, child, anastomotic, L)
+     threshold, child, anastomotic, L)
