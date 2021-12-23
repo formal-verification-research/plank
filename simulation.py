@@ -21,7 +21,7 @@ def simulation(total_number_time_steps, x_steps, y_steps, occupied, number_of_ce
                death_time, pro, density_scale, lam, k, fib, vegf, y_substrate, tolerance, h, x_length, x_vector,
                y_vector, max_cells_allowed, birth_time, divide_time, threshold, graph_time, child, anastomotic,
                cell_line, file_events, cell_tracker, pedf, vegf_old, pedf_old, pro_old, fib_old, occupied_old, 
-               workspace):
+               workspace, total_time):
 
     # Cycle through time steps
     for current_time_step in range(total_number_time_steps - 1):
@@ -101,8 +101,10 @@ def simulation(total_number_time_steps, x_steps, y_steps, occupied, number_of_ce
         print("Current Time Step = " + str(current_time_step))
 
         if current_time_step % graph_time == 0:
-            graph(y_substrate, x_steps, vegf, pedf, fib, pro, x_vector, y_vector, workspace, current_time_step)
+            graph(y_substrate, x_steps, vegf, pedf, fib, pro, x_vector, y_vector, workspace, current_time_step,
+                  total_number_time_steps, total_time)
 
-    graph(y_substrate, x_steps, vegf, pedf, fib, pro, x_vector, y_vector, workspace, current_time_step)
+    graph(y_substrate, x_steps, vegf, pedf, fib, pro, x_vector, y_vector, workspace, current_time_step,
+          total_number_time_steps, total_time)
 
     return

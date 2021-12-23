@@ -49,7 +49,7 @@ def main(x_steps, number_of_cells, tolerance, max_cells_allowed, graph_time, tot
                death_time, pro, density_scale, lam, k, fib, vegf, y_substrate, tolerance, h, x_length, x_vector,
                y_vector, max_cells_allowed, birth_time, divide_time, threshold, graph_time, child, anastomotic,
                cell_line, file_events, cell_tracker, pedf, vegf_old, pedf_old, pro_old, fib_old, occupied_old,
-               workspace)
+               workspace, total_time)
 
     # Finish up and the end
     end(cell_tracker, x_length, x_steps, L, start_time, file_events)
