@@ -79,4 +79,4 @@ def proliferation(death_time, cell, current_time_step, occupied, y, x, workspace
             file_events.write("Probability of Division: " + str(divide_prob) + "\n")
             file_events.write("Random Number: " + str(random_prob))
 
-    return
+    return number_of_cells

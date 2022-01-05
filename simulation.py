@@ -53,10 +53,11 @@ def simulation(total_number_time_steps, x_steps, y_steps, occupied, number_of_ce
                     death_time[cell] = current_time_step
                     occupied[y][x] -= 1
 
-                proliferation(death_time, cell, current_time_step, occupied, y, x, workspace, cell_line, file_events,
-                              number_of_cells, max_cells_allowed, x_position, y_position, total_number_time_steps,
-                              birth_time, divide_time, pro, pedf, fib, pro_old, pedf_old, fib_old, x_steps, y_steps,
-                              k, child)
+                number_of_cells = \
+                    proliferation(death_time, cell, current_time_step, occupied, y, x, workspace, cell_line,
+                                  file_events, number_of_cells, max_cells_allowed, x_position, y_position,
+                                  total_number_time_steps, birth_time, divide_time, pro, pedf, fib, pro_old, pedf_old,
+                                  fib_old, x_steps, y_steps, k, child)
 
             # Determine if the cell moves and where
             if death_time[cell] == total_number_time_steps - 1:
