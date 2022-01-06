@@ -1,0 +1,128 @@
+Cell Number: 0
+Directness: 0.3333333333333333
+Accumulated Distance (um): 7.500000000000002
+Accumulated Velocity (um/min): 0.2770935960591134
+Euclidian Distance (um): 2.5000000000000004
+Euclidian Velocity (um/min): 0.09236453201970445
+Time (min): 27.066666666666666
+
+Cell Number: 1
+Directness: 1.0
+Accumulated Distance (um): 2.5000000000000004
+Accumulated Velocity (um/min): 0.12583892617449666
+Euclidian Distance (um): 2.5000000000000004
+Euclidian Velocity (um/min): 0.12583892617449666
+Time (min): 19.866666666666667
+
+Cell Number: 2
+Directness: 0.7071067811865476
+Accumulated Distance (um): 10.000000000000002
+Accumulated Velocity (um/min): 0.08600917431192662
+Euclidian Distance (um): 7.071067811865477
+Euclidian Velocity (um/min): 0.060817670400219126
+Time (min): 116.26666666666667
+
+Cell Number: 3
+Directness: nan
+Accumulated Distance (um): 0.0
+Accumulated Velocity (um/min): 0.0
+Euclidian Distance (um): 0.0
+Euclidian Velocity (um/min): 0.0
+Time (min): 4.4
+
+Cell Number: 4
+Directness: nan
+Accumulated Distance (um): 0.0
+Accumulated Velocity (um/min): 0.0
+Euclidian Distance (um): 0.0
+Euclidian Velocity (um/min): 0.0
+Time (min): 12.933333333333334
+
+Cell Number: 5
+Directness: 0.282842712474619
+Accumulated Distance (um): 25.0
+Accumulated Velocity (um/min): 0.21904205607476634
+Euclidian Distance (um): 7.071067811865477
+Euclidian Velocity (um/min): 0.06195444928620453
+Time (min): 114.13333333333334
+
+Cell Number: 6
+Directness: 1.0
+Accumulated Distance (um): 2.5000000000000004
+Accumulated Velocity (um/min): 0.11645962732919257
+Euclidian Distance (um): 2.5000000000000004
+Euclidian Velocity (um/min): 0.11645962732919257
+Time (min): 21.466666666666665
+
+Cell Number: 7
+Directness: 0.31943828249996997
+Accumulated Distance (um): 17.5
+Accumulated Velocity (um/min): 0.12085635359116022
+Euclidian Distance (um): 5.590169943749475
+Euclidian Velocity (um/min): 0.038606146020369304
+Time (min): 144.8
+
+Cell Number: 8
+Directness: 0.39528470752104744
+Accumulated Distance (um): 20.000000000000004
+Accumulated Velocity (um/min): 0.10737294201861132
+Euclidian Distance (um): 7.90569415042095
+Euclidian Velocity (um/min): 0.04244288198150116
+Time (min): 186.26666666666668
+
+Cell Number: 9
+Directness: nan
+Accumulated Distance (um): 0.0
+Accumulated Velocity (um/min): 0.0
+Euclidian Distance (um): 0.0
+Euclidian Velocity (um/min): 0.0
+Time (min): 4.933333333333334
+
+Cell Number: 10
+Directness: 1.0
+Accumulated Distance (um): 2.5000000000000004
+Accumulated Velocity (um/min): 0.05296610169491526
+Euclidian Distance (um): 2.5000000000000004
+Euclidian Velocity (um/min): 0.05296610169491526
+Time (min): 47.2
+
+Cell Number: 11
+Directness: nan
+Accumulated Distance (um): 0.0
+Accumulated Velocity (um/min): 0.0
+Euclidian Distance (um): 0.0
+Euclidian Velocity (um/min): 0.0
+Time (min): 23.6
+
+Cell Number: 12
+Directness: 1.0
+Accumulated Distance (um): 2.5000000000000004
+Accumulated Velocity (um/min): 0.041946308724832224
+Euclidian Distance (um): 2.5000000000000004
+Euclidian Velocity (um/min): 0.041946308724832224
+Time (min): 59.6
+
+Cell Number: 13
+Directness: 0.6666666666666666
+Accumulated Distance (um): 15.000000000000004
+Accumulated Velocity (um/min): 0.09517766497461931
+Euclidian Distance (um): 10.000000000000002
+Euclidian Velocity (um/min): 0.0634517766497462
+Time (min): 157.6
+
+Cell Number: 14
+Directness: 1.0
+Accumulated Distance (um): 5.000000000000001
+Accumulated Velocity (um/min): 0.12096774193548389
+Euclidian Distance (um): 5.000000000000001
+Euclidian Velocity (um/min): 0.12096774193548389
+Time (min): 41.333333333333336
+
+Cell Number: 15
+Directness: 0.0
+Accumulated Distance (um): 5.000000000000001
+Accumulated Velocity (um/min): 0.15625000000000003
+Euclidian Distance (um): 0.0
+Euclidian Velocity (um/min): 0.0
+Time (min): 32.0
+
