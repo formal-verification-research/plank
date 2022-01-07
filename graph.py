@@ -77,7 +77,7 @@ def graph(y_substrate, x_steps, vegf, pedf, fib, pro, x_vector, y_vector, worksp
 
     # Create the fib 3D graph
     ax = fig.add_subplot(5, 1, 4, projection='3d')
-    ax.plot_trisurf(x_graph, y_graph, fib_z, cmap='Purples', edgecolor='none')
+    ax.plot_trisurf(x_graph, y_graph, fib_z, cmap='viridis', edgecolor='none')
     ax.set_zlim3d(0, 0.01)
     ax.title.set_text('Fibronectin')
     ax.set_xlabel('mm', labelpad=12)

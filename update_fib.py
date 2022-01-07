@@ -8,180 +8,94 @@ from the_vault import K4, K5, K6, K22, K23, RELAX2
 
 
 # Function
-def update_fib(y_substrate, x_steps, density_scale, occupied_old, fib, fib_old, k, pro, tolerance, h, pedf_old):
+def update_fib(y_substrate, x_steps, density_scale, occupied_old, fib, fib_old, k, pro, tolerance, h):
 
-    # Initialize f
+    # Initialize f, the matrix used for iteration
     f = zeros((y_substrate, x_steps))
-    for y in range(1, y_substrate, 1):
-        if y % 2 == 0:
-            for x in range(x_steps-1):
-                f[y][x] = fib[y][x]
-        else:
-            for x in range(x_steps):
-                f[y][x] = fib[y][x]
+    f_old = zeros((y_substrate, x_steps))
+    for y in range(y_substrate):
+        for x in range(x_steps):
+            f[y][x] = fib[y][x]
+            fib_old[y][x] = fib[y][x]
 
     # Capillary
     for x in range(x_steps - 1):
-        density = density_scale * (occupied_old[0][x] + occupied_old[0][x+1]) / 2  # Ave density at right and left nodes 
-        fib_old[0][x] = fib[0][x]
-        fib[0][x] = fib[0][x] + k * (K4 * fib[0][x] * (1 - fib[0][x]) * density - K5 * pro[0][x]  # plank paper eq 48
-                                     * fib[0][x] / (1 + K6 * fib[0][x]))  # plank paper eq 51
-        if fib[0][x] < 0:  
-            fib[0][x] = 0  # fib doesn't drop below 0
-        if fib[0][x] > 1:
-            fib[0][x] = 1  # fib doesn't rise above 1
+        density = density_scale * (occupied_old[0][x] + occupied_old[0][x+1]) / 2  # Average density
+        ca = pro[0][x] / (1 + K6 * fib[0][x])  # plank pg 151 eq 51
+        fib[0][x] = fib[0][x] + k * ((K4 * fib[0][x]
+                                      * (1 - fib[0][x]) * density) - (K5 * ca * fib[0][x]))  # plank pg 150 eq 48
 
-    # ECM
-    in_tol = 0  # tolerance key for the while loop
+    # ECM iteration loop
+    in_tol = 0  # Tolerance key for the while loop
     while in_tol == 0:
-        in_tol = 1
+        in_tol = 1  # Set the key to free the loop unless it gets flipped
 
-        # Y = Max
+        # Reset f_old
+        for y in range(y_substrate):
+            for x in range(x_steps):
+                f_old[y][x] = f[y][x]
 
-        # X = 0
-        f_old = f[y_substrate - 1][0]
-        f[y_substrate - 1][0] = f[y_substrate - 1][1]  # plank pg 179 eq 71
-        if f[y_substrate - 1][0] - f_old > tolerance or f[y_substrate - 1][0] - f_old < -tolerance:  # tolerance check
-            in_tol = 0
+        # Source
+        f[y_substrate-1][0] = f[y_substrate-1][1]  # plank pg 179 eq 71, x=0
+        for x in range(1, x_steps - 2):
+            f[y_substrate-1][x] = f[y_substrate-3][x]  # plank pg 179 eq 66, body
+        f[y_substrate - 1][x_steps - 2] = f[y_substrate - 1][x_steps - 3]  # plank pg 179 eq 71, x=max
 
-        # Body
-        for x in range(1, x_steps-2, 1):
-            f_old = f[y_substrate - 1][x]
-            f[y_substrate - 1][x] = f[y_substrate - 3][x]  # plank pg 179 eq 66
-            if f[y_substrate - 1][x] - f_old > tolerance or f[y_substrate - 1][x] - f_old < -tolerance:  # tolerance check
-                in_tol = 0
-
-        # X = Max
-        f_old = f[y_substrate - 1][x_steps - 2]
-        f[y_substrate - 1][x_steps - 2] = f[y_substrate - 1][x_steps - 3]  # plank pg 179 eq 71
-        if f[y_substrate - 1][x_steps - 2] - f_old > tolerance or f[y_substrate - 1][x_steps - 2] - f_old < -tolerance:
-            in_tol = 0  # tolerance check
-
-        # Y = Max - 1
-
-        # X = 0
-        f_old = f[y_substrate-2][0]
-        f[y_substrate-2][0] = f[y_substrate-2][1]  # plank pg 179 eq 71
-        if f[y_substrate-2][0] - f_old > tolerance or f[y_substrate-2][0] - f_old < -tolerance:
-            in_tol = 0
-
-        # Body
-        for x in range(1, x_steps-1, 1):
-            f_old = f[y_substrate-2][x]
-            f[y_substrate-2][x] = f[y_substrate-4][x]  # plank pg 179 eq 66
-            if f[y_substrate-2][x] - f_old > tolerance or f[y_substrate-2][x] - f_old < -tolerance:
-                in_tol = 0
-
-        # X = Max
-        f_old = f[y_substrate-2][x_steps-1]
-        f[y_substrate-2][x_steps-1] = f[y_substrate-2][x_steps-2]  # plank pg 179 eq 71
-        if f[y_substrate-2][x_steps-1] - f_old > tolerance or f[y_substrate-2][x_steps-1] - f_old < -tolerance:
-            in_tol = 0
+        # Source wall (Y = max - 1)
+        f[y_substrate-2][0] = f[y_substrate-2][1]  # plank pg 179 eq 71, x=0
+        for x in range(1, x_steps - 1):
+            f[y_substrate-2][x] = f[y_substrate-4][x]  # plank pg 179 eq 66, x=body
+        f[y_substrate-2][x_steps-1] = f[y_substrate-2][x_steps-2]  # plank pg 179 eq 71, x=max
 
         # Interior Nodes
-        for y in range(y_substrate-3, 2, -1):
-
-            # X = 0
-            f_old = f[y][0]
-            f[y][0] = f[y][1]  # plank pg 179 eq 71
-            if f[y][0] - f_old > tolerance or f[y][0] - f_old < -tolerance:
-                in_tol = 0
-
-            # Body
-            if y % 2 == 0:  # If row is even number of substrate nodes in x is nn-1
-                for x in range(1, x_steps-2, 1):
-                    f_old = f[y][x]
+        for y in range(y_substrate - 3, 2, -1):
+            f[y][0] = f[y][1]  # plank pg 179 eq 71, x=0
+            if y % 2 == 0:  # Even rows, body
+                for x in range(1, x_steps - 2, 1):
                     f[y][x] = RELAX2 * k / (h * h + 2 * K22 * k) \
                               * (0.5 * K22 * (f[y][x+1] + f[y][x-1] + f[y+2][x] + f[y-2][x]
                                               + fib[y][x+1] + fib[y][x-1] + fib[y+2][x] + fib[y-2][x])
-                                 + (h * h / k - 2 * K22 + K23 * h * h * (1 - fib[y][x]) - K5 * h * h * pro[y][x]
-                                    / (1 + K6 * fib[y][x])) * fib[y][x]) + (1 - RELAX2) * f[y][x]  # plank pg 179 eq 55, 59
-                    if f[y][x] - f_old > tolerance or f[y][x] - f_old < -tolerance:
-                        in_tol = 0
-
-                # X = Max
-                f_old = f[y][x_steps-2]
-                f[y][x_steps-2] = f[y][x_steps-3]  # plank pg 179 eq 71
-                if f[y][x_steps-2] - f_old > tolerance or f[y][x_steps-2] - f_old < -tolerance:
-                    in_tol = 0
-
-            # Body
-            else:  # If row is odd number of substrate nodes in x is nn
-                for x in range(1, x_steps-1, 1):
-                    f_old = f[y][x]
+                                 + (h * h / k - 2 * K22 + K23 * h * h * (1 - fib[y][x])
+                                    - K5 * h * h * pro[y][x] / (1 + K6 * fib[y][x])) * fib[y][x]) \
+                              + (1 - RELAX2) * f[y][x]  # plank pg 179 eq 55, 59
+                f[y][x_steps-2] = f[y][x_steps-3]  # plank pg 179 eq 71, x=max
+            else:  # Odd rows, body
+                for x in range(1, x_steps - 1, 1):
                     f[y][x] = RELAX2 * k / (h * h + 2 * K22 * k) \
                               * (0.5 * K22 * (f[y][x+1] + f[y][x-1] + f[y+2][x] + f[y-2][x]
                                               + fib[y][x+1] + fib[y][x-1] + fib[y+2][x] + fib[y-2][x])
-                                 + (h * h / k - 2 * K22 + K23 * h * h * (1 - fib[y][x]) - K5 * h * h * pro[y][x]
-                                    / (1 + K6 * fib[y][x])) * fib[y][x]) + (1-RELAX2) * f[y][x]  # plank pg 179 eq 55, 59
-                    if f[y][x] - f_old > tolerance or f[y][x] - f_old < -tolerance:
-                        in_tol = 0
+                                 + (h * h / k - 2 * K22 + K23 * h * h * (1 - fib[y][x])
+                                    - K5 * h * h * pro[y][x] / (1 + K6 * fib[y][x])) * fib[y][x]) \
+                              + (1-RELAX2) * f[y][x]  # plank pg 179 eq 55, 59
+                f[y][x_steps-1] = f[y][x_steps-2]  # plank pg 179 eq 71, x=max
 
-                # X = Max
-                f_old = f[y][x_steps-1]
-                f[y][x_steps-1] = f[y][x_steps-2]  # plank pg 179 eq 71
-                if f[y][x_steps-1] - f_old > tolerance or f[y][x_steps-1] - f_old < -tolerance:
-                    in_tol = 0
+        # Capillary wall (Y = 2, 1)
+        f[2][0] = f[2][1]  # plank pg 179 eq 71, x=0
+        for x in range(1, x_steps - 2, 1):
+            f[2][x] = f[4][x]  # plank pg 179 eq 62, x=body
+        f[2][x_steps-2] = f[2][x_steps-3]  # plank pg 179 eq 71, x=max
+        f[1][0] = f[1][1]  # plank pg 179 eq 71, x=0
+        for x in range(1, x_steps - 1, 1):
+            f[1][x] = f[3][x]  # plank pg 179 eq 62, x=body
+        f[1][x_steps-1] = f[1][x_steps-2]  # plank pg 179 eq 71, x=max
 
-        # Y = 2
-
-        # X = 0
-        f_old = f[2][0]
-        f[2][0] = f[2][1]  # plank pg 179 eq 71
-        if f[2][0] - f_old > tolerance or f[2][0] - f_old < -tolerance:
-            in_tol = 0
-
-        # Body
-        for x in range(1, x_steps-2, 1):
-            f_old = f[2][x]
-            f[2][x] = f[4][x]  # plank pg 179 eq 62
-            if f[2][x] - f_old > tolerance or f[2][x] - f_old < -tolerance:
-                in_tol = 0
-
-        # X = Max
-        f_old = f[2][x_steps-2]
-        f[2][x_steps-2] = f[2][x_steps-3]  # plank pg 179 eq 71
-        if f[2][x_steps-2] - f_old > tolerance or f[2][x_steps-2] - f_old < -tolerance:
-            in_tol = 0
-
-        # Y = 1
-
-        # X = 0
-        f_old = f[1][0]
-        f[1][0] = f[1][1]  # plank pg 179 eq 71
-        if f[1][0] - f_old > tolerance or f[1][0] - f_old < -tolerance:
-            in_tol = 0
-
-        # Body
-        for x in range(1, x_steps-1, 1):
-            f_old = f[1][x]
-            f[1][x] = f[3][x]  # plank pg 179 eq 62
-            if f[1][x] - f_old > tolerance or f[1][x] - f_old < -tolerance:
-                in_tol = 0
-
-        # X = Max
-        f_old = f[1][x_steps-1]
-        f[1][x_steps-1] = f[1][x_steps-2]  # plank pg 179 eq 71
-        if f[1][x_steps-1] - f_old > tolerance or f[1][x_steps-1] - f_old < -tolerance:
-            in_tol = 0
-
-    # Cycle through substrate mesh points and set fib at time step j+1
-    for y in range(1, y_substrate, 1):
-        if y % 2 == 0:
-            for x in range(x_steps-1):
-                fib_old[y][x] = fib[y][x]
-                fib[y][x] = f[y][x]
-                if fib[y][x] < 0:
-                    fib[y][x] = 0
-                if fib[y][x] > 1:
-                    fib[y][x] = 1
-        else:
+        # Tolerance Check
+        for y in range(y_substrate):
             for x in range(x_steps):
-                fib_old[y][x] = fib[y][x]
-                fib[y][x] = f[y][x]
-                if fib[y][x] < 0:
-                    fib[y][x] = 0
-                if fib[y][x] > 1:
-                    fib[y][x] = 1
+                if f[y][x] - f_old[y][x] > tolerance or f[y][x] - f_old[y][x] < tolerance:
+                    in_tol = 0
+
+    # Set fib at time step j + 1
+    for y in range(1, y_substrate, 1):
+        for x in range(x_steps):
+            fib[y][x] = f[y][x]
+
+    # Fib cannot rise above 1 or go below 0
+    for y in range(y_substrate):
+        for x in range(x_steps):
+            if fib[y][x] > 1:
+                fib[y][x] = 1
+            if fib[y][x] < 0:
+                fib[y][x] = 0
 
     return
