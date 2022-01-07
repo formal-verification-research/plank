@@ -31,7 +31,7 @@ def update_fib(y_substrate, x_steps, density_scale, occupied_old, fib, fib_old, 
         in_tol = 1  # Set the key to free the loop unless it gets flipped
 
         # Reset f_old
-        for y in range(y_substrate):
+        for y in range(1, y_substrate):
             for x in range(x_steps):
                 f_old[y][x] = f[y][x]
 
@@ -80,9 +80,9 @@ def update_fib(y_substrate, x_steps, density_scale, occupied_old, fib, fib_old, 
         f[1][x_steps-1] = f[1][x_steps-2]  # plank pg 179 eq 71, x=max
 
         # Tolerance Check
-        for y in range(y_substrate):
+        for y in range(1, y_substrate):
             for x in range(x_steps):
-                if f[y][x] - f_old[y][x] > tolerance or f[y][x] - f_old[y][x] < tolerance:
+                if f[y][x] - f_old[y][x] > tolerance or f[y][x] - f_old[y][x] < -tolerance:
                     in_tol = 0
 
     # Set fib at time step j + 1
