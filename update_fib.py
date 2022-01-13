@@ -47,7 +47,7 @@ def update_fib(y_substrate, x_steps, density_scale, occupied_old, fib, fib_old, 
             f[y_substrate-2][x] = f[y_substrate-4][x]  # plank pg 179 eq 66, x=body
         f[y_substrate-2][x_steps-1] = f[y_substrate-2][x_steps-2]  # plank pg 179 eq 71, x=max
 
-        # Interior Nodes
+        # Interior nodes
         for y in range(y_substrate - 3, 2, -1):
             f[y][0] = f[y][1]  # plank pg 179 eq 71, x=0
             if y % 2 == 0:  # Even rows, body
@@ -60,7 +60,7 @@ def update_fib(y_substrate, x_steps, density_scale, occupied_old, fib, fib_old, 
                               + (1 - RELAX2) * f[y][x]  # plank pg 179 eq 55, 59
                 f[y][x_steps-2] = f[y][x_steps-3]  # plank pg 179 eq 71, x=max
             else:  # Odd rows, body
-                for x in range(1, x_steps - 1, 1):
+                for x in range(1, x_steps - 1):
                     f[y][x] = RELAX2 * k / (h * h + 2 * K22 * k) \
                               * (0.5 * K22 * (f[y][x+1] + f[y][x-1] + f[y+2][x] + f[y-2][x]
                                               + fib[y][x+1] + fib[y][x-1] + fib[y+2][x] + fib[y-2][x])
