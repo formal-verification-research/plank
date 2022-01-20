@@ -97,10 +97,10 @@ def update_pedf(y_substrate, x_steps, density_scale, occupied_old, pedf, pedf_ol
                 if p[y][x] - p_old[y][x] > tolerance or p[y][x] - p_old[y][x] < -tolerance:
                     in_tol = 0
 
-        # Set pedf at time step j + 1
-        for y in range(1, y_substrate, 1):
-            for x in range(x_steps):
-                pedf[y][x] = p[y][x]
+    # Set pedf at time step j + 1
+    for y in range(1, y_substrate, 1):
+        for x in range(x_steps):
+            pedf[y][x] = p[y][x] * 0
 
     # PEDF can't go below 0
     for y in range(y_substrate):

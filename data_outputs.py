@@ -37,8 +37,8 @@ def data_outputs(cell_tracker, x_length, x_steps, L):
         file_outputs.write('Directness: ' + str(directness) + "\r\n")
         file_outputs.write('Accumulated Distance (um): ' + str(dist_accum_dimensionalized) + "\r\n")
         file_outputs.write('Accumulated Velocity (um/min): ' + str(velocity_accumulated) + "\r\n")
-        file_outputs.write('Euclidian Distance (um): ' + str(dist_euclid_dimensionalized) + "\r\n")
-        file_outputs.write('Euclidian Velocity (um/min): ' + str(velocity_euclidean) + "\r\n")
+        file_outputs.write('Euclidean Distance (um): ' + str(dist_euclid_dimensionalized) + "\r\n")
+        file_outputs.write('Euclidean Velocity (um/min): ' + str(velocity_euclidean) + "\r\n")
         file_outputs.write('Time (min): ' + str(time_dimensionalized) + "\r\n\r\n")
 
     file_outputs.close()  # Close the file

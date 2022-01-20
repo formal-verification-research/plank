@@ -16,14 +16,14 @@ def update_vegf(y_substrate, x_steps, density_scale, occupied_old, vegf, vegf_ol
     # Initialize v, the substrate matrix used to iterate
     v = zeros((y_substrate, x_steps))
     v_old = zeros((y_substrate, x_steps))
-    for y in range(1, y_substrate, 1):
+    for y in range(1, y_substrate):
         for x in range(x_steps):
             v[y][x] = vegf[y][x]
             vegf_old[y][x] = vegf[y][x]
 
     # Capillary
     for x in range(x_steps - 1):
-        density = density_scale * (occupied_old[0][x] + occupied_old[0][x + 1]) / 2  # Average density
+        density = density_scale * (occupied_old[0][x] + occupied_old[0][x+1]) / 2  # Average density
         wall_vegf = (vegf[1][x] + vegf[1][x+1]) / 2  # Average VEGF concentration on capillary wall at time j
         vegf_difference = wall_vegf - vegf[0][x]
         if vegf_difference < 0:
@@ -47,10 +47,10 @@ def update_vegf(y_substrate, x_steps, density_scale, occupied_old, vegf, vegf_ol
             v[y_substrate - 1][x] = K35 * h \
                                     * ((1 - cos(2 * pi * x_coordinate(x, y_substrate - 1, x_steps, x_length))) ** M0) \
                                     + v[y_substrate - 3][x]  # plank pg 179 eq 65, body
-        v[y_substrate - 1][x_steps - 2] = v[y_substrate - 1][x_steps - 3]  # plank pg 179 eq 70, x=max
+        v[y_substrate-1][x_steps-2] = v[y_substrate-1][x_steps-3]  # plank pg 179 eq 70, x=max
 
         # Source wall (Y = Max - 1)
-        v[y_substrate - 2][0] = v[y_substrate - 2][1]  # plank pg 179 eq 70, x=0
+        v[y_substrate-2][0] = v[y_substrate-2][1]  # plank pg 179 eq 70, x=0
         for x in range(1, x_steps - 1):
             v[y_substrate - 2][x] = K35 * h \
                                     * ((1 - cos(2 * pi * x_coordinate(x, y_substrate - 2, x_steps, x_length))) ** M0) \
@@ -97,10 +97,10 @@ def update_vegf(y_substrate, x_steps, density_scale, occupied_old, vegf, vegf_ol
                 if v[y][x] - v_old[y][x] > tolerance or v[y][x] - v_old[y][x] < -tolerance:
                     in_tol = 0
 
-        # Set vegf at time step j + 1
-        for y in range(1, y_substrate, 1):
-            for x in range(x_steps):
-                vegf[y][x] = v[y][x]
+    # Set vegf at time step j + 1
+    for y in range(1, y_substrate, 1):
+        for x in range(x_steps):
+            vegf[y][x] = v[y][x]
 
     # VEGF can't go below 0
     for y in range(y_substrate):
