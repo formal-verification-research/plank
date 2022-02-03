@@ -108,4 +108,4 @@ def update_vegf(y_substrate, x_steps, density_scale, occupied_old, vegf, vegf_ol
             if vegf[y][x] < 0:
                 vegf[y][x] = 0
 
-    return
+    return vegf, vegf_old

@@ -53,4 +53,4 @@ def update_pro(y_substrate, x_steps, density_scale, occupied_old, pro, pro_old, 
             if pro[y][x] < 0:
                 pro[y][x] = 0
 
-    return
+    return pro, pro_old

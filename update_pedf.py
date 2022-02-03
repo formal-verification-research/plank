@@ -108,4 +108,4 @@ def update_pedf(y_substrate, x_steps, density_scale, occupied_old, pedf, pedf_ol
             if pedf[y][x] < 0:
                 pedf[y][x] = 0
 
-    return
+    return pedf, pedf_old

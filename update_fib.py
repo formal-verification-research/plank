@@ -98,4 +98,4 @@ def update_fib(y_substrate, x_steps, density_scale, occupied_old, fib, fib_old, 
             if fib[y][x] < 0:
                 fib[y][x] = 0
 
-    return
+    return fib, fib_old
