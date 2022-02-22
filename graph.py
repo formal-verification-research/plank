@@ -46,8 +46,8 @@ def graph(y_substrate, x_steps, vegf, pedf, fib, pro, x_vector, y_vector, worksp
         y_graph.append(y_vector[i] / y_substrate * L)
 
     # Create the overall file
-    minutes = current_time_step / total_number_time_steps * total_time * L * L / DP * 60
-    file_name = "Time = " + str(floor(minutes)) + " Minutes" + ".png"
+    hours = current_time_step / total_number_time_steps * total_time * L * L / DP
+    file_name = "Time = " + str(floor(hours)) + " Hours" + ".png"
     file = open(file_name, "a+")
     fig = plt.figure(figsize=plt.figaspect(10))
 

@@ -77,6 +77,9 @@ def simulation(total_number_time_steps, x_steps, y_steps, occupied, number_of_ce
                         fib_cap = (fib[0][x - 1] + fib[0][x]) / 2
                     if fib_cap < threshold:
                         random_num = 2
+                        file_events.write("\n\nTime: " + str(current_time_step) + "\n")
+                        file_events.write("Cell: " + str(cell) + "\n")
+                        file_events.write("Left the capillary" + "\n")
 
                 # Move the EC
                 move(cell, current_time_step, stay, left, right, up, random_num, y_position, x_position, occupied)
