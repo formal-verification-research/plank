@@ -105,25 +105,25 @@ def update_pedf(y_substrate, x_steps, density_scale, occupied_old, pedf, pedf_ol
         for y in range(1, y_substrate, 1):
             if y % 2 == 0:
                 for x in range(x_steps - 1):
-                    if p[y][x] - p_old[y][x] > tolerance or p[y][x] - p_old < -tolerance:
+                    if p[y][x] - p_old[y][x] > tolerance or p[y][x] - p_old[y][x] < -tolerance:
                         in_tol = 0
             else:
                 for x in range(x_steps):
-                    if p[y][x] - p_old > tolerance or p[y][x] - p_old < -tolerance:
+                    if p[y][x] - p_old[y][x] > tolerance or p[y][x] - p_old[y][x] < -tolerance:
                         in_tol = 0
 
     # Cycle through pedf mesh points and set pedf at time step j+1
     for y in range(1, y_substrate, 1):  # If y is even: number of substrate mesh points in x is x_steps - 1
         if y % 2 == 0:
             for x in range(x_steps - 1):
-                pedf_old[y][x] = pedf[y][x]
-                pedf[y][x] = p[y][x]
+                pedf_old[y][x] = pedf[y][x] * 0
+                pedf[y][x] = p[y][x] * 0
                 if pedf[y][x] < 0:
                     pedf[y][x] = 0
         else:  # If y is odd: number of substrate mesh points in x is x_steps
             for x in range(x_steps):
-                pedf_old[y][x] = pedf[y][x]
-                pedf[y][x] = p[y][x]
+                pedf_old[y][x] = pedf[y][x] * 0
+                pedf[y][x] = p[y][x] * 0
                 if pedf[y][x] < 0:
                     pedf[y][x] = 0
 

@@ -14,7 +14,7 @@ from end import end
 # This control_center lists the variables that are allowed to be modified by the user. The variables are passed into
 # the main function. These variables are changeable because the user might want to test different ideas.
 from the_vault import L  # L can be changed; L must be in the_vault
-x_steps = 201  # Nodes in the x domain
+x_steps = 11  # Nodes in the x domain
 number_of_cells = 5  # How many EC to start with
 tolerance = 0.001  # Accuracy tolerance of the substrate updaters
 max_cells_allowed = 100  # How many total cells are allowed in the experiment

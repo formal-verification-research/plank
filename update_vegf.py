@@ -105,11 +105,11 @@ def update_vegf(y_substrate, x_steps, density_scale, occupied_old, vegf, vegf_ol
         for y in range(1, y_substrate, 1):
             if y % 2 == 0:
                 for x in range(x_steps - 1):
-                    if v[y][x] - v_old[y][x] > tolerance or v[y][x] - v_old < -tolerance:
+                    if v[y][x] - v_old[y][x] > tolerance or v[y][x] - v_old[y][x] < -tolerance:
                         in_tol = 0
             else:
                 for x in range(x_steps):
-                    if v[y][x] - v_old > tolerance or v[y][x] - v_old < -tolerance:
+                    if v[y][x] - v_old[y][x] > tolerance or v[y][x] - v_old[y][x] < -tolerance:
                         in_tol = 0
 
     # Cycle through VEGF mesh points and set VEGF at time step j+1
