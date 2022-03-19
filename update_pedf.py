@@ -53,13 +53,17 @@ def update_pedf(y_substrate, x_steps, density_scale, occupied_old, pedf, pedf_ol
         # Y = Max, Source
         p[y_substrate - 1][0] = p[y_substrate - 1][1]  # plank pg 179 eq 70
         for x in range(1, x_steps - 2, 1):
-            p[y_substrate - 1][x] = K38 * h + p[y_substrate - 3][x]  # plank pg 179 eq 65
+            p[y_substrate - 1][x] = K38 * h \
+                                    * ((1 - cos(2 * pi * x_coordinate(x, y_substrate - 1, x_steps, x_length))) ** M0) \
+                                    + p[y_substrate - 3][x]  # plank pg 179 eq 65
         p[y_substrate - 1][x_steps - 2] = p[y_substrate - 1][x_steps - 3]  # plank pg 179 eq 70
 
         # Y = Max - 1, Source
         p[y_substrate - 2][0] = p[y_substrate - 2][1]  # plank pg 179 eq 70
         for x in range(1, x_steps - 1, 1):
-            p[y_substrate - 2][x] = K38 * h + p[y_substrate - 4][x]  # plank pg 179 eq 65
+            p[y_substrate - 2][x] = K38 * h \
+                                    * ((1 - cos(2 * pi * x_coordinate(x, y_substrate - 2, x_steps, x_length))) ** M0) \
+                                    + p[y_substrate - 4][x]  # plank pg 179 eq 65
         p[y_substrate - 2][x_steps - 1] = p[y_substrate - 2][x_steps - 2]  # plank pg 179 eq 70
 
         # Interior

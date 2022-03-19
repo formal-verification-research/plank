@@ -54,13 +54,17 @@ def update_vegf(y_substrate, x_steps, density_scale, occupied_old, vegf, vegf_ol
         # Y = Max, Source
         v[y_substrate - 1][0] = v[y_substrate - 1][1]  # plank pg 179 eq 70
         for x in range(1, x_steps - 2, 1):
-            v[y_substrate - 1][x] = K35 * h + v[y_substrate - 3][x]  # plank pg 179 eq 65
+            v[y_substrate - 1][x] = K35 * h \
+                                    * ((1 - cos(2 * pi * x_coordinate(x, y_substrate - 1, x_steps, x_length))) ** M0) \
+                                    + v[y_substrate - 3][x]  # plank pg 179 eq 65
         v[y_substrate - 1][x_steps - 2] = v[y_substrate - 1][x_steps - 3]  # plank pg 179 eq 70
 
         # Y = Max - 1, Source
         v[y_substrate - 2][0] = v[y_substrate - 2][1]  # plank pg 179 eq 70
         for x in range(1, x_steps - 1, 1):
-            v[y_substrate - 2][x] = K35 * h + v[y_substrate - 4][x]  # plank pg 179 eq 65
+            v[y_substrate - 2][x] = K35 * h \
+                                    * ((1 - cos(2 * pi * x_coordinate(x, y_substrate - 2, x_steps, x_length))) ** M0) \
+                                    + v[y_substrate - 4][x]  # plank pg 179 eq 65
         v[y_substrate - 2][x_steps - 1] = v[y_substrate - 2][x_steps - 2]  # plank pg 179 eq 70
 
         # Interior
