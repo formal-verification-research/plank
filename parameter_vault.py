@@ -1,20 +1,61 @@
 # Description
-# the_vault stores all the constants taken from the plank paper to be used as coefficients for calculating
-# probabilities. Found in the plank paper, Appendix B. Pages 180-181.
+'''
+The parameter_vault file stores all the parameters entered into the simulation model. Most of these parameters are
+taken from the plank paper (Appendix B, pgs 180-181), but some have been decided by the Vargis lab.
+'''
 
 
-# Stored values
-L = 0.05  # Length of the x domain (mm)
+# Parameters (Ordered according to group and then alphabet)
+
+# Basic Parameters
+child = 1  # How many simulated hours must pass before an EC is permitted to divide again
+graph_time = 1  # How often a graph is created in simulated hours
+L = 0.201  # The physical length of the x domain in mm
+max_cells_allowed = 100  # How many total EC are allowed in the simulation
+number_of_cells = 5  # How many EC the model starts with in the parent blood vessel
+simulation_time = 48  # The maximum time the simulation will last in hours
+threshold = 60  # The percentage that the fib must drop to in the blood vessel wall before the EC can escape
+time_step_duration = 8  # How much time passes in each time step of the discrete model in seconds
+tolerance = 0.1  # A percentage, used to determine when the iteration method is close enough to the true value
+x_steps = 200  # How many mesh points lie along the x axis for the substrate and EC matrices
+
+# Kinetic Parameters
+# VEGF
+LAMDA1 = 74.769231  # 1/h
+V1 = 0.007692309  # 1/uM
+# PEDF
+LAMDA2 = 74.769231  # 1/h
+D1 = 0.007692309  # 1/uM
+# Fibronectin
+
+
+
+
+LAMDA3 = 19.277108  # 1/uM*h
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 DP = 3.6 * 10**-6  # EC Diffusion Coefficient (mm^2/h)
+
+
 DV = 3.6 * 10**-5  # VEGF Diffusion Coefficient (mm^2/h) plank=3.6 * 10**-5, skeletal muscle=0.374
 DF = 3.6 * 10**-10  # Fibronectin Diffusion Coefficient (mm^2/h)
 DA = 6.5 * 10**-5  # Angiostatin Diffusion Coefficient (mm^2/h)
 DD = 3.6 * 10**-5  # Assumed PEDF diffusion coefficient (mm^2/h)
-LAMDA1 = 74.769231  # Kinetic Parameters for VEGF (1/h)
-LAMDA2 = 74.769231  # Assumed Kinetic Parameters for PEDF (1/h)
-V1 = 0.007692309  # Kinetic Parameters for VEGF (1/uM)
-D1 = 0.007692309  # Assumed Kinetic Parameters for PEDF (1/uM)
-LAMDA3 = 19.277108  # Kinetic Parameters for Fibronectin (1/uM*h)
 V3 = 1.2048193  # Kinetic Parameters for Fibronectin (1/uM)
 VE = 1  # Protease Inhibitor Equilibrium Constant (1/uM)
 MU = 4.56  # Protease Decay Rate (1/h)

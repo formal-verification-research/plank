@@ -4,7 +4,7 @@
 
 # Imports
 from numpy import zeros
-from the_vault import K4, K5, K6, K22, K23, RELAX2
+from parameter_vault import K4, K5, K6, K22, K23, RELAX2
 
 
 # Function

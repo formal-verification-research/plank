@@ -6,7 +6,7 @@
 # Imports
 from random import random
 from math import exp
-from the_vault import K6, K18, K20, K25, K26, M1
+from parameter_vault import K6, K18, K20, K25, K26, M1
 from heaviside import heaviside
 
 

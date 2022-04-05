@@ -3,8 +3,8 @@
 
 
 # Imports
-from the_vault import K6, K10, K14, K27, K31, K11, K15, K28, K32, K12, K29, K13, K30
-from the_vault import GAMMA1, GAMMA2, GAMMA3, GAMMA4, GAMMA5, GAMMA6
+from parameter_vault import K6, K10, K14, K27, K31, K11, K15, K28, K32, K12, K29, K13, K30
+from parameter_vault import GAMMA1, GAMMA2, GAMMA3, GAMMA4, GAMMA5, GAMMA6
 
 
 # Function
