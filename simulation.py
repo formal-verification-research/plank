@@ -65,27 +65,27 @@ def simulation(start_time, x_length, y_length, y_steps, y_substrate, file_events
                 #                   total_number_time_steps, birth_time, divide_time, pro, pedf, fib, pro_old, pedf_old,
                 #                   fib_old, x_steps, y_steps, k, child)
 
-            # Determine if the cell moves and where
-            if death_time[cell] == total_number_time_steps - 1:
-                stay = prob_stay(y, lam, k)
-                left, T = prob_move(x, y, 0, pro, fib, vegf, x_steps, y_steps, lam, k)
-                right, T = prob_move(x, y, 1, pro, fib, vegf, x_steps, y_steps, lam, k)
-                up, T = prob_move(x, y, 2, pro, fib, vegf, x_steps, y_steps, lam, k)
-                random_num = random()
+            # # Determine if the cell moves and where
+            # if death_time[cell] == total_number_time_steps - 1:
+            #     stay = prob_stay(y, lam, k)
+            #     left, T = prob_move(x, y, 0, pro, fib, vegf, x_steps, y_steps, lam, k)
+            #     right, T = prob_move(x, y, 1, pro, fib, vegf, x_steps, y_steps, lam, k)
+            #     up, T = prob_move(x, y, 2, pro, fib, vegf, x_steps, y_steps, lam, k)
+            #     random_num = random()
 
-                # Check if cell can escape the capillary
-                if y == 0:
-                    if x == 0:
-                        fib_cap = fib[0][0]
-                    elif x == x_steps - 1:
-                        fib_cap = fib[0][x_steps - 2]
-                    else:
-                        fib_cap = (fib[0][x - 1] + fib[0][x]) / 2
-                    if fib_cap < threshold:
-                        random_num = 2
-                        file_events.write("\n\nTime: " + str(current_time_step) + "\n")
-                        file_events.write("Cell: " + str(cell) + "\n")
-                        file_events.write("Left the capillary" + "\n")
+                # # Check if cell can escape the capillary
+                # if y == 0:
+                #     if x == 0:
+                #         fib_cap = fib[0][0]
+                #     elif x == x_steps - 1:
+                #         fib_cap = fib[0][x_steps - 2]
+                #     else:
+                #         fib_cap = (fib[0][x - 1] + fib[0][x]) / 2
+                #     if fib_cap < threshold:
+                #         random_num = 2
+                #         file_events.write("\n\nTime: " + str(current_time_step) + "\n")
+                #         file_events.write("Cell: " + str(cell) + "\n")
+                #         file_events.write("Left the capillary" + "\n")
 
                 # Move the EC
                 move(cell, current_time_step, stay, left, right, up, random_num, y_position, x_position, occupied)

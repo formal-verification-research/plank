@@ -14,7 +14,8 @@ from prob_move import prob_move
 # Function
 def tip_cell(x_position, cell, current_time_step, y_position, ec_old, ec, death_time,
              total_number_time_steps, cell_tracker, y_steps, pro, pro_old, fib, fib_old, x_steps, k, divide_time,
-             child, model, cell_lineage, file_events, number_of_cells, max_cells_allowed, birth_time, lam, vegf):
+             child, model, cell_lineage, file_events, number_of_cells, max_cells_allowed, birth_time, lam, vegf,
+             threshold):
 
     # At first assume the EC will not move
     x = x_position[cell][current_time_step]
@@ -47,11 +48,24 @@ def tip_cell(x_position, cell, current_time_step, y_position, ec_old, ec, death_
                                 max_cells_allowed, x_position, y_position, total_number_time_steps, birth_time)
 
         # Find the probability that the EC will stay or move. Generate the random number that decides the EC outcome
-        if death_time[cell] == total_number_time_steps - 1:
-            stay = prob_stay(y, lam, k)
-            left, T = prob_move(x, y, 0, pro, fib, vegf, x_steps, y_steps, lam, k)
-            right, T = prob_move(x, y, 1, pro, fib, vegf, x_steps, y_steps, lam, k)
-            up, T = prob_move(x, y, 2, pro, fib, vegf, x_steps, y_steps, lam, k)
-            random_num = random()
+        stay = prob_stay(y, lam, k)
+        left, T = prob_move(x, y, 0, pro, fib, vegf, x_steps, y_steps, lam, k)
+        right, T = prob_move(x, y, 1, pro, fib, vegf, x_steps, y_steps, lam, k)
+        up, T = prob_move(x, y, 2, pro, fib, vegf, x_steps, y_steps, lam, k)
+        random_num = random()
 
+        # Perform the following action only if the EC is in the parent blood vessel
+        if y == 0:
 
+            # Check the Fibronectin levels in the capillary wall to see if the EC can escape the parent blood vessel
+            if x == 0:
+                fib_cap = fib[0][0]
+            elif x == x_steps - 1:
+                fib_cap = fib[0][x_steps - 2]
+            else:
+                fib_cap = (fib[0][x - 1] + fib[0][x]) / 2
+            if fib_cap < threshold:
+                random_num = 2
+                file_events.write("\n\nTime: " + str(current_time_step) + "\n")
+                file_events.write("Cell: " + str(cell) + "\n")
+                file_events.write("Left the capillary" + "\n")
