@@ -1,11 +1,28 @@
-# Description
 '''
+Description:
 The parameter_vault file stores all the parameters entered into the simulation model. Most of these parameters are
-taken from the plank paper (Appendix B, pgs 180-181), but some have been decided by the Vargis lab.
+taken from the Plank Paper (Appendix B, pgs 180-181), but some have been decided by the Vargis lab.
 '''
 
 
-# Parameters (Ordered according to group and then alphabet)
+'''
+Parameters (Ordered according to group and alphabet to make them simple to find and understand)
+'''
+
+
+# Anastomosis Toggle (True/False)
+anastomotic = True
+
+
+# AMD Source Parameters
+# Exponent for VEGF and PEDF
+M0 = 12
+# PEDF
+D0 = 6.8442 * 10**-4  # uM*mm^2/h
+# VEGF
+SIGMA = 4.97512 * 10**-3
+V0 = 6.8442 * 10**-6  # uM*mm^2/h
+
 
 # Basic Parameters
 child = 1  # How many simulated hours must pass before an EC is permitted to divide again
@@ -19,100 +36,106 @@ time_step_duration = 8  # How much time passes in each time step of the discrete
 tolerance = 0.1  # A percentage, used to determine when the iteration method is close enough to the true value
 x_steps = 200  # How many mesh points lie along the x axis for the substrate and EC matrices
 
+
+# Diffusion Parameters
+# EC
+DP = 3.6 * 10**-6  # mm^2/h
+# Fibronectin
+DF = 3.6 * 10**-10  # mm^2/h
+# PEDF
+DD = 6 * 10**-1  # mm^2/h
+# VEGF
+DV = 3.74 * 10**-1  # mm^2/h
+
+
+# Initial Factors
+DELTAE = 10**5  # Number of Receptors per Cell
+f0 = 10**-2  # Initial Fibronectin Level (uM)
+P0 = 10**-5  # Initial EC Density (uM)
+
+
 # Kinetic Parameters
+# Fibronectin
+LAMDA3 = 19.277108  # 1/(uM*hr)
+V3 = 1.2048193  # 1/uM
+# PEDF
+D1 = 0.007692309  # 1/uM
+LAMDA2 = 74.769231  # 1/h
+# Protease
+MU = 4.56  # 1/h, Protease Decay Rate
+VE = 1  # 1/uM, Inhibitor Equilibrium Constant
 # VEGF
 LAMDA1 = 74.769231  # 1/h
 V1 = 0.007692309  # 1/uM
-# PEDF
-LAMDA2 = 74.769231  # 1/h
-D1 = 0.007692309  # 1/uM
+
+
+# Over-relaxation Variables used for VEGF and PEDF Iteration
+RELAX1 = 1.45
+RELAX2 = 1
+
+
+# Production Parameters
+# Death Rate
+MU1 = 7.142857 * 10**-5  # 1/h
+# Fibronectin Production Time
+TF = 18  # h
+# Proliferation Rates
+A = 44.13  # 1/uM
+LAMDA0 = 1.1 * 10**-9  # uM^-2
+M1 = 2
+Q = 8 * 10**-4  # 1/h
+
+
+# Transition Probabilities
+# Exponents
+GAMMA1 = 100
+GAMMA2 = 100
+GAMMA3 = 40
+GAMMA4 = 50
+GAMMA5 = 37.5
+GAMMA6 = 20
 # Fibronectin
+BETA1 = 1
+BETA2 = 0.1
+BETA3 = 1
+BETA4 = 0.5
+# Protease
+ALPHA1 = 0.1
+ALPHA2 = 1
+ALPHA3 = 0.1
+ALPHA4 = 1
+# VEGF
+DELTA1 = 0.1
+DELTA2 = 1
+DELTA3 = 0.1
+DELTA4 = 1
 
 
+# Transmission Rate Parameters
+# VEGF
+B1 = 1  # 1/hr
+PSI = 2  # mm/hr
+# PEDF
+B2 = 1  # 1/h
+PSID = 2  # mm/h
+# Threshold Values
+F0 = 6 * 10**-3  # uM
+TIV = 4.5  # h
 
 
-LAMDA3 = 19.277108  # 1/uM*h
+'''
+Non-Dimensionalization (See Plank Paper Page 150 and 153)
+'''
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-DP = 3.6 * 10**-6  # EC Diffusion Coefficient (mm^2/h)
-
-
-DV = 3.6 * 10**-5  # VEGF Diffusion Coefficient (mm^2/h) plank=3.6 * 10**-5, skeletal muscle=0.374
-DF = 3.6 * 10**-10  # Fibronectin Diffusion Coefficient (mm^2/h)
-DA = 6.5 * 10**-5  # Angiostatin Diffusion Coefficient (mm^2/h)
-DD = 3.6 * 10**-5  # Assumed PEDF diffusion coefficient (mm^2/h)
-V3 = 1.2048193  # Kinetic Parameters for Fibronectin (1/uM)
-VE = 1  # Protease Inhibitor Equilibrium Constant (1/uM)
-MU = 4.56  # Protease Decay Rate (1/h)
-TF = 18  # Fibronectin Production Time (h)
-TA = 1  # Angiostatin Decay Time (h)
-Q = 8 * 10**-4  # Proliferation Rates (1/h)
-A = 44.13  # Proliferation Rates (1/uM)
-LAMDA0 = 1.1 * 10**-9  # Proliferation Rates (uM^-2), don't know why the -2
-M1 = 2  # Proliferation Rates (no units)
-MU1 = 7.142857 * 10**-5  # Death Rate (1/h)
-F0 = 6 * 10**-3  # Threshold Values (uM)
-TIV = 4.5  # Threshold Values (h)
-B1 = 1  # VEGF Transmission Rates (1/h)
-B2 = 1  # Assumed PEDF Transmission Rates (1/h)
-PSI = 2  # VEGF Transmission Rates (mm/h)
-PSID = 2  # Assumed PEDF Transmission Rates (mm/h)
-PSIS = 2  # Angiostatin Transmission Rate (mm/h)
-V0 = 0.04  # VEGF Source Term Constants (uM*mm^2/h) plank=0.04 lab says 6.8442*10**-6
-D0 = 0.04  # Assumed PEDF Source Term Constants (uM*mm^2/h)
-SIGMA = 1.514705513 * 10**-3  # VEGF Source Term Constants plank=1.514705513 * 10**-3, lab=4.97512*10**-3
-AR = 1700  # Angiostatin Source Term Constant (uM/h)
-P0 = 10**-5  # Initial EC Density (uM)
-F0 = 10**-2  # Initial Fibronectin Level (uM)
-M0 = 12  # Exponent for vegf and pedf sources
-RELAX1 = 1.45  # Over-relaxation Variable Used For VEGF and PEDF Iteration (Unit-less)
-RELAX2 = 1  # Over-relaxation Variable Used For Fibronectin Iteration (Unit-less)
-DELTAE = 10**5  # Number of Receptors per Cell
-ALPHA1 = 0.1  # Protease Transition Probability Parameters
-ALPHA2 = 1  # Protease Transition Probability Parameters
-ALPHA3 = 0.1  # Protease Transition Probability Parameters
-ALPHA4 = 1  # Protease Transition Probability Parameters
-BETA1 = 1  # Fibronectin Transition Probability Parameters
-BETA2 = 0.1  # Fibronectin Transition Probability Parameters
-BETA3 = 1  # Fibronectin Transition Probability Parameters
-BETA4 = 0.5  # Fibronectin Transition Probability Parameters
-DELTA1 = 0.1  # VEGF Transition Probability Parameters
-DELTA2 = 1  # VEGF Transition Probability Parameters
-DELTA3 = 0.1  # VEGF Transition Probability Parameters
-DELTA4 = 1  # VEGF Transition Probability Parameters
-GAMMA1 = 100  # Transition Probability Exponents
-GAMMA2 = 100  # Transition Probability Exponents
-GAMMA3 = 40  # Transition Probability Exponents
-GAMMA4 = 50  # Transition Probability Exponents
-GAMMA5 = 37.5  # Transition Probability Exponents
-GAMMA6 = 20  # Transition Probability Exponents
-
-
-# K values, Non-dimensionalized
+# K values
 K1 = L**2 * LAMDA1 * DELTAE * P0 / DP
 K2 = L**2 * B1 / DP
 K3 = L**2 * MU / DP
 K4 = 4 * L**2 / (DP * TF)
 K5 = L**2 * LAMDA3 / (DP * V1)
 K6 = F0 * V3
-K7 = VE * AR * L**2 / DP
 K8 = DP * TIV / L**2
-K9 = L**2 / (DP * TA)
 K10 = ALPHA1 * V1
 K11 = ALPHA2 * V1
 K12 = BETA1 / F0
@@ -125,7 +148,6 @@ K20 = L**2 * MU1 / DP
 K21 = DV / DP
 K22 = DF / DP
 K23 = 4 * L**2 / (DP * TF)
-K24 = DA / DP
 K25 = A / V1
 K26 = LAMDA0 / (V1 * M1)
 K27 = ALPHA3 * V1
@@ -135,7 +157,6 @@ K30 = BETA4 / F0
 K31 = DELTA3 * V1
 K32 = DELTA4 * V1
 K33 = DV / (L * PSI)
-K34 = DA / (L * PSIS)
 K35 = V0 * SIGMA * V1 / DV
 K36 = L**2 * LAMDA2 * DELTAE * P0 / DP
 K37 = L**2 * B2 / DP
