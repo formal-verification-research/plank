@@ -25,15 +25,15 @@ V0 = 6.8442 * 10**-6  # uM*mm^2/h
 
 
 # Basic Parameters
-child = 1  # How many simulated hours must pass before an EC is permitted to divide again
+division = 1  # How many simulated hours must pass before an EC is permitted to divide again
 graph_time = 1  # How often a graph is created in simulated hours
 L = 0.201  # The physical length of the x domain in mm
 max_cells_allowed = 100  # How many total EC are allowed in the simulation
 number_of_cells = 5  # How many EC the model starts with in the parent blood vessel
 simulation_time = 48  # The maximum time the simulation will last in hours
-threshold = 60  # The percentage that the fib must drop to in the blood vessel wall before the EC can escape
+threshold_perc = 60  # The percentage that the fib must drop to in the blood vessel wall before the EC can escape
 time_step_duration = 8  # How much time passes in each time step of the discrete model in seconds
-tolerance = 0.1  # A percentage, used to determine when the iteration method is close enough to the true value
+tolerance = 0.001  # Used to determine when the iteration method is close enough to the true value
 x_steps = 201  # How many mesh points lie along the x axis for the substrate and EC matrices
 
 
@@ -50,13 +50,13 @@ DV = 3.74 * 10**-1  # mm^2/h
 
 # Initial Factors
 DELTAE = 10**5  # Number of Receptors per Cell
-f0 = 10**-2  # Initial Fibronectin Level (uM)
-P0 = 10**-5  # Initial EC Density (uM)
+f0 = 10**-2  # Initial Fibronectin Level uM
+P0 = 10**-5  # Initial EC Density uM
 
 
 # Kinetic Parameters
 # Fibronectin
-LAMDA3 = 19.277108  # 1/(uM*hr)
+LAMDA3 = 19.277108  # 1/(uM*h)
 V3 = 1.2048193  # 1/uM
 # PEDF
 D1 = 0.007692309  # 1/uM
@@ -113,8 +113,8 @@ DELTA4 = 1
 
 # Transmission Rate Parameters
 # VEGF
-B1 = 1  # 1/hr
-PSI = 2  # mm/hr
+B1 = 1  # 1/h
+PSI = 2  # mm/h
 # PEDF
 B2 = 1  # 1/h
 PSID = 2  # mm/h

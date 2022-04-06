@@ -12,12 +12,13 @@ from parameter_vault import K6, K18, K20, K25, K26, M1
 from math import exp
 from heaviside import heaviside
 from random import random
+from parameter_vault import x_steps, max_cells_allowed
 
 
 # Function
-def proliferation(x, pro, pro_old, fib, fib_old, x_steps, y, y_steps, k, current_time_step, divide_time, cell, child,
-                  death_time, ec, model, cell_lineage, file_events, number_of_cells, max_cells_allowed, x_position,
-                  y_position, total_number_time_steps, birth_time):
+def proliferation(y_steps, file_events, total_number_time_steps, k, x_position, y_position, death_time, birth_time,
+                  divide_time, pro, fib, pro_old, fib_old, model, ec, cell_lineage, number_of_cells, child, cell,
+                  current_time_step, x, y):
 
     # Find the surrounding pro values at the current and previous time steps
     pro0 = 0  # pro values at current time step

@@ -6,10 +6,11 @@ The file prob_move calculates the probability of the EC traveling to each space 
 
 # Imports
 from tau import tau
+from parameter_vault import x_steps
 
 
 # Function
-def prob_move(x, y, direction, pro, fib, vegf, x_steps, y_steps, lam, k):
+def prob_move(x, y, direction, pro, fib, vegf, y_steps, lam, k):
 
     # The T vector stores the probabilities that the EC it will move left, right, up, and down, in that order
     T = [0, 0, 0, 0]
@@ -22,7 +23,7 @@ def prob_move(x, y, direction, pro, fib, vegf, x_steps, y_steps, lam, k):
     else:
         T[0] = 0
     # Right, don't need to add 1 because the x substrate is offset a half step from the cell matrix mesh points
-    if x < x_steps-1:
+    if x < x_steps - 1:
         T[1] = tau(pro[2*y][x], fib[2*y][x], vegf[2*y][x], y)
     else:
         T[1] = 0

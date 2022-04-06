@@ -9,13 +9,15 @@ from proliferation import proliferation
 from random import random
 from prob_stay import prob_stay
 from prob_move import prob_move
+from move import move
+from anastomosis import anastomosis
+from parameter_vault import x_steps
 
 
 # Function
-def tip_cell(x_position, cell, current_time_step, y_position, ec_old, ec, death_time,
-             total_number_time_steps, cell_tracker, y_steps, pro, pro_old, fib, fib_old, x_steps, k, divide_time,
-             child, model, cell_lineage, file_events, number_of_cells, max_cells_allowed, birth_time, lam, vegf,
-             threshold):
+def tip_cell(y_steps, file_events, total_number_time_steps, k, lam, x_position, y_position, death_time, birth_time,
+             divide_time, vegf, pro, fib, pro_old, fib_old, model, ec, ec_old, cell_lineage, cell_tracker,
+             number_of_cells, threshold, child, cell, current_time_step):
 
     # At first assume the EC will not move
     x = x_position[cell][current_time_step]
@@ -43,15 +45,15 @@ def tip_cell(x_position, cell, current_time_step, y_position, ec_old, ec, death_
             # Run the proliferation function to see if the EC will possibly divide or die
             death_time, ec, model, file_events, number_of_cells, x_position, y_position, cell_lineage, death_time, \
             birth_time, divide_time \
-                = proliferation(x, pro, pro_old, fib, fib_old, x_steps, y, y_steps, k, current_time_step, divide_time,
-                                cell, child, death_time, ec, model, cell_lineage, file_events, number_of_cells,
-                                max_cells_allowed, x_position, y_position, total_number_time_steps, birth_time)
+                = proliferation(y_steps, file_events, total_number_time_steps, k, x_position, y_position, death_time,
+                                birth_time, divide_time, pro, fib, pro_old, fib_old, model, ec, cell_lineage,
+                                number_of_cells, child, cell, current_time_step, x, y)
 
         # Find the probability that the EC will stay or move. Generate the random number that decides the EC outcome
         stay = prob_stay(y, lam, k)
-        left, T = prob_move(x, y, 0, pro, fib, vegf, x_steps, y_steps, lam, k)
-        right, T = prob_move(x, y, 1, pro, fib, vegf, x_steps, y_steps, lam, k)
-        up, T = prob_move(x, y, 2, pro, fib, vegf, x_steps, y_steps, lam, k)
+        left, T = prob_move(x, y, 0, pro, fib, vegf, y_steps, lam, k)
+        right, T = prob_move(x, y, 1, pro, fib, vegf, y_steps, lam, k)
+        up, T = prob_move(x, y, 2, pro, fib, vegf, y_steps, lam, k)
         random_num = random()
 
         # Perform the following action only if the EC is in the parent blood vessel
@@ -69,3 +71,15 @@ def tip_cell(x_position, cell, current_time_step, y_position, ec_old, ec, death_
                 file_events.write("\n\nTime: " + str(current_time_step) + "\n")
                 file_events.write("Cell: " + str(cell) + "\n")
                 file_events.write("Left the capillary" + "\n")
+
+        # Use the move function to carry out the move decision made by the random number generator
+        y_position, x_position, ec \
+            = move(cell, current_time_step, stay, left, right, up, random_num, y_position, x_position, ec)
+
+        # Use the anastomosis function to merge any capillaries if an EC happens to hit another capillary
+        model, file_events, death_time, ec \
+            = anastomosis(y_position, model, file_events, death_time, ec, cell, current_time_step, x_position,
+                          cell_lineage)
+
+    return ec, ec_old, cell_tracker, death_time, model, file_events, number_of_cells, x_position, y_position, \
+           cell_lineage, birth_time, divide_time

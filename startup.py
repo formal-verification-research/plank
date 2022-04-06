@@ -1,18 +1,21 @@
 '''
 Description:
-# The startup file takes the parameters and builds the model used for the simulation.
+# The startup file takes the parameters from the parameter vault and builds the model used for the simulation.
 '''
+
 
 # Imports
 import time
 from numpy import zeros
 from numpy import ones
 from numpy import linspace
-from parameter_vault import x_steps, simulation_time, DP, L, max_cells_allowed, number_of_cells
+from parameter_vault import x_steps, simulation_time, DP, L, max_cells_allowed, number_of_cells, threshold_perc, \
+    division, time_step_duration
 
 
 # Function
 def startup():
+
     # Define Important Non-dimensionalized Terms
     start_time = time.time()  # Time that the code started running
     x_length = 1  # L
@@ -21,10 +24,14 @@ def startup():
     y_substrate = x_steps  # y_substrate is used for substrate arrays, same amount of nodes as x_steps = 201
     file_events = open("EC_Events.txt", "w")  # Stores info on EC divisions, deaths, and leaving the parent blood vessel
     total_time = simulation_time * DP / (L ** 2)  # Time
-    total_number_time_steps = int(simulation_time * 3600 / 8)  # How many discrete time steps used in the simulation
+    total_number_time_steps = int(simulation_time * 3600 / time_step_duration)  # The time steps used in the simulation
     k = total_time / total_number_time_steps  # The time step interval
     h = x_length / x_steps  # The distance between mesh points
     lam = (x_length ** 2) / (h ** 2)  # Size ratio between simulation length and step size (Plank paper pg 150).
+    density_cap = x_steps / number_of_cells  # Density of cells in the capillary
+    density_ecm = x_steps * (y_steps - 1) / number_of_cells  # Density of cells in the ECM
+    threshold = threshold_perc / 100  # Threshold percentage as an amount of Fibronectin
+    child = division * 3600 / time_step_duration  # Minimum amount of time permitted between EC divisions in time steps
 
     # Create vectors used for 3D graphs
     x_vector = []
@@ -62,8 +69,6 @@ def startup():
     model = zeros((y_steps, x_steps))  # EC array for graphing
     ec = zeros((y_steps, x_steps))  # EC array
     ec_old = zeros((y_steps, x_steps))  # Old EC array
-    density_cap = x_steps / number_of_cells  # Density of cells in the capillary
-    density_ecm = x_steps * y_steps / number_of_cells  # Density of cells in the ECM
 
     # Trying to create different colors for the different starting EC
     cell_lineage = zeros(max_cells_allowed)
@@ -87,4 +92,4 @@ def startup():
     return start_time, x_length, y_length, y_steps, y_substrate, file_events, total_time, total_number_time_steps, k, \
            h, lam, x_vector, y_vector, x_position, y_position, death_time, birth_time, divide_time, vegf, pedf, pro, \
            fib, vegf_old, pedf_old, pro_old, fib_old, model, ec, ec_old, density_cap, density_ecm, cell_lineage, \
-           cell_tracker, cell_number
+           cell_tracker, cell_number, threshold, child
