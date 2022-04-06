@@ -1,5 +1,7 @@
-# Description
-# prob_move calculates the odds of the EC traveling to each space around it
+"""
+Description:
+The file prob_move calculates the probability of the EC traveling to each space around it
+"""
 
 
 # Imports
@@ -8,7 +10,8 @@ from tau import tau
 
 # Function
 def prob_move(x, y, direction, pro, fib, vegf, x_steps, y_steps, lam, k):
-    # T is the chance that it will go left, right, up, and down
+
+    # The T vector stores the probabilities that the EC it will move left, right, up, and down, in that order
     T = [0, 0, 0, 0]
 
     # Left

@@ -1,8 +1,8 @@
-'''
+"""
 Description:
 The parameter_vault file stores all the parameters entered into the simulation model. Most of these parameters are
 taken from the Plank Paper (Appendix B, pgs 180-181), but some have been decided by the Vargis lab.
-'''
+"""
 
 
 '''
@@ -34,7 +34,7 @@ simulation_time = 48  # The maximum time the simulation will last in hours
 threshold = 60  # The percentage that the fib must drop to in the blood vessel wall before the EC can escape
 time_step_duration = 8  # How much time passes in each time step of the discrete model in seconds
 tolerance = 0.1  # A percentage, used to determine when the iteration method is close enough to the true value
-x_steps = 200  # How many mesh points lie along the x axis for the substrate and EC matrices
+x_steps = 201  # How many mesh points lie along the x axis for the substrate and EC matrices
 
 
 # Diffusion Parameters
