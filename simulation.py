@@ -45,11 +45,11 @@ def simulation(start_time, x_length, y_length, y_steps, y_substrate, file_events
 
 
         vegf, vegf_old = \
-            update_vegf(y_substrate, x_steps, density_scale, occupied_old, vegf, vegf_old, k, tolerance, h, x_length)
+            update_vegf(y_substrate, density_cap, density_ecm, ec_old, vegf, vegf_old, k, h, x_length)
         pedf, pedf_old = \
-            update_pedf(y_substrate, x_steps, density_scale, occupied_old, pedf, pedf_old, k, tolerance, h, x_length)
+            update_pedf(y_substrate, density_cap, density_ecm, ec_old, pedf, pedf_old, k, h, x_length)
         fib, fib_old = \
-            update_fib(y_substrate, x_steps, density_scale, occupied_old, fib, fib_old, k, pro, tolerance, h)
+            update_fib(y_substrate, density_cap, ec_old, fib, fib_old, k, pro, h)
         pro, pro_old = \
             update_pro(y_substrate, x_steps, density_scale, occupied_old, pro, pro_old, k, vegf_old, pedf_old)
 

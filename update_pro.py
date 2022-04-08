@@ -1,13 +1,23 @@
-# Description
-# update_pro updates the pro substrate for each new time step
+"""
+Description
+The update_pro file updates the Protease substrate for each new time step
+"""
 
 
 # Imports
-from parameter_vault import K1, K3
+from parameter_vault import K1, K3, x_steps
 
 
 # Function
-def update_pro(y_substrate, x_steps, density_scale, occupied_old, pro, pro_old, k, vegf_old, pedf_old):
+def update_pro(y_substrate, density_cap, ec_old, pro, pro_old, k, vegf_old, pedf_old):
+
+
+
+
+
+
+
+
 
     # Set the previous time step
     for y in range(y_substrate):
