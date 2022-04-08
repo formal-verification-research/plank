@@ -67,8 +67,6 @@ def graph(y_substrate, vegf, pedf, fib, pro, x_vector, y_vector, model, current_
     ax.set_xlabel('mm', labelpad=12)
     ax.set_ylabel('mm', labelpad=12)
     ax.set_zlabel('uM', labelpad=12)
-    plt.xticks(np.arange(0, 0.2, 0.05))
-    plt.yticks(np.arange(0, 0.2, 0.05))
 
     # Create the pedf 3D graph
     ax = fig.add_subplot(5, 1, 3, projection='3d')
@@ -77,8 +75,6 @@ def graph(y_substrate, vegf, pedf, fib, pro, x_vector, y_vector, model, current_
     ax.set_xlabel('mm', labelpad=12)
     ax.set_ylabel('mm', labelpad=12)
     ax.set_zlabel('uM', labelpad=12)
-    plt.xticks(np.arange(0, 0.2, 0.05))
-    plt.yticks(np.arange(0, 0.2, 0.05))
 
     # Create the fib 3D graph
     ax = fig.add_subplot(5, 1, 4, projection='3d')
@@ -88,8 +84,6 @@ def graph(y_substrate, vegf, pedf, fib, pro, x_vector, y_vector, model, current_
     ax.set_xlabel('mm', labelpad=12)
     ax.set_ylabel('mm', labelpad=12)
     ax.set_zlabel('uM', labelpad=12)
-    plt.xticks(np.arange(0, 0.2, 0.05))
-    plt.yticks(np.arange(0, 0.2, 0.05))
 
     # Create the protease 3D graph
     ax = fig.add_subplot(5, 1, 5, projection='3d')
@@ -98,8 +92,6 @@ def graph(y_substrate, vegf, pedf, fib, pro, x_vector, y_vector, model, current_
     ax.set_xlabel('mm', labelpad=12)
     ax.set_ylabel('mm', labelpad=12)
     ax.set_zlabel('uM', labelpad=12)
-    plt.xticks(np.arange(0, 0.2, 0.05))
-    plt.yticks(np.arange(0, 0.2, 0.05))
 
     # Save and close the file so the program can run unattended
     fig.subplots_adjust(hspace=0.7)

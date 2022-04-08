@@ -18,9 +18,9 @@ def update_pedf(y_substrate, density_cap, density_ecm, ec_old, pedf, pedf_old, k
     # Update the PEDF inside the parent blood vessel
     for x in range(x_steps-1):
         pedf_old[0][x] = pedf[0][x]
-        density = density_cap * (ec_old[0][x] + ec_old[0][x+1]) / 2
+        density = density_cap * (ec_old[0][x] + ec_old[0][x+1]) * 0.5
         pedf[0][x] = pedf_old[0][x] + k * (-K36 * pedf_old[0][x] * density / (1 + pedf_old[0][x]) + K37
-                                           * ((pedf_old[1][x] + pedf_old[1][x+1]) / 2 - pedf_old[0][x]))
+                                           * (round((pedf_old[1][x] + pedf_old[1][x+1]) * 0.5, 10) - pedf_old[0][x]))
         if pedf[0][x] < 0:
             pedf[0][x] = 0
 
@@ -52,21 +52,21 @@ def update_pedf(y_substrate, density_cap, density_ecm, ec_old, pedf, pedf_old, k
         for x in range(x_steps-1):
             p[y_substrate-1][x] = K38 * h \
                                     * ((1 - cos(2 * pi * x_coordinate(x, y_substrate - 1, x_steps, x_length))) ** M0) \
-                                    + (pedf[y_substrate-2][x] + pedf[y_substrate-2][x+1]) / 2
+                                    + round((pedf[y_substrate-2][x] + pedf[y_substrate-2][x+1]) * 0.5, 10)
 
         # Update the PEDF interior points (Crank-Nicolson Approximation)
         for y in range(y_substrate-2, 1, -1):
             if y % 2 == 0:
                 for x in range(1, x_steps-2):
-                    density = density_ecm * (ec_old[y//2][x] + ec_old[y//2][x+1]) / 2
+                    density = density_ecm * (ec_old[y//2][x] + ec_old[y//2][x+1]) * 0.5
                     p[y][x] = RELAX1 \
                               * k / (h * h + 2 * K39 * k) \
-                              * ((K39 / 2)
+                              * ((K39 * 0.5)
                                  * (pedf[y][x+1] + pedf[y][x-1]
-                                    + (pedf[y+1][x] + pedf[y+1][x+1]) / 2 + (pedf[y-1][x] + pedf[y-1][x+1]) / 2
+                                    + round((pedf[y+1][x] + pedf[y+1][x+1]) * 0.5, 10) + round((pedf[y-1][x] + pedf[y-1][x+1]) * 0.5, 10)
                                     + pedf_old[y][x+1] + pedf_old[y][x-1]
-                                    + (pedf_old[y+1][x] + pedf_old[y+1][x+1]) / 2
-                                    + (pedf_old[y-1][x] + pedf_old[y-1][x+1]) / 2)
+                                    + round((pedf_old[y+1][x] + pedf_old[y+1][x+1]) * 0.5, 10)
+                                    + round((pedf_old[y-1][x] + pedf_old[y-1][x+1]) * 0.5), 10)
                                  + (h * h / k - 2 * K39 - h * h * K36 * density / (1 + pedf_old[y][x]))
                                  * pedf_old[y][x]) \
                               + (1 - RELAX1) * pedf[y][x]
@@ -74,15 +74,15 @@ def update_pedf(y_substrate, density_cap, density_ecm, ec_old, pedf, pedf_old, k
                 p[y][x_steps-2] = p[y][x_steps-3]
             else:
                 for x in range(1, x_steps-1):
-                    density = density_ecm * (ec_old[(y-1)//2][x] + ec_old[(y+1)//2][x]) / 2
+                    density = density_ecm * (ec_old[(y-1)//2][x] + ec_old[(y+1)//2][x]) * 0.5
                     p[y][x] = RELAX1 \
                               * k / (h * h + 2 * K39 * k) \
-                              * ((K39 / 2)
+                              * ((K39 * 0.5)
                                  * (pedf[y][x+1] + pedf[y][x-1]
-                                    + (pedf[y+1][x-1] + pedf[y+1][x]) / 2 + (pedf[y-1][x-1] + pedf[y-1][x]) / 2
+                                    + round((pedf[y+1][x-1] + pedf[y+1][x]) * 0.5, 10) + round((pedf[y-1][x-1] + pedf[y-1][x]) * 0.5, 10)
                                     + pedf_old[y][x+1] + pedf_old[y][x-1]
-                                    + (pedf_old[y+1][x-1] + pedf_old[y+1][x]) / 2
-                                    + (pedf_old[y-1][x-1] + pedf_old[y-1][x]) / 2)
+                                    + round((pedf_old[y+1][x-1] + pedf_old[y+1][x]) * 0.5, 10)
+                                    + round((pedf_old[y-1][x-1] + pedf_old[y-1][x]) * 0.5), 10)
                                  + (h * h / k - 2 * K39 - h * h * K36 * density / (1 + pedf_old[y][x]))
                                  * pedf_old[y][x]) \
                               + (1 - RELAX1) * pedf[y][x]
@@ -91,7 +91,7 @@ def update_pedf(y_substrate, density_cap, density_ecm, ec_old, pedf, pedf_old, k
 
         # Update the PEDF on the parent blood vessel wall
         for x in range(1, x_steps-1):
-            p[1][x] = 1 / (K40 + h) * (K40 * (pedf[2][x] + pedf[2][x-1]) / 2 + h * (pedf[0][x] + pedf[0][x-1]) / 2)
+            p[1][x] = 1 / (K40 + h) * (K40 * round((pedf[2][x] + pedf[2][x-1]) * 0.5, 10) + h * round((pedf[0][x] + pedf[0][x-1]) * 0.5, 10))
             p[1][0] = p[1][1]
             p[1][x_steps-1] = p[1][x_steps-2]
 

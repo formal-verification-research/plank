@@ -53,11 +53,11 @@ def simulation(x_length, y_steps, y_substrate, file_events, total_time, total_nu
             update_pro(y_substrate, density_cap, density_ecm, ec_old, pro, pro_old, k, vegf_old, pedf_old)
 
         # Print a notice to the screen so we know how far along the simulation is
-        os.system('cls')
-        completion = int(current_time_step / total_number_time_steps * 100)
-        print("Time Progress = " + str(completion) + "%" + "\n")
+        completion = current_time_step / total_number_time_steps * 100
+        print("Time Progress = " + str(completion) + "%")
         alive_cells = number_of_cells - deaths
         print("Alive EC: " + str(alive_cells))
+        print("Time step: " + str(current_time_step) + "\n\n")
 
         # Create a graph to show the progression of the simulation every specified amount of time
         if current_time_step % graphing == 0:

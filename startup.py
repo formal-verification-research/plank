@@ -54,11 +54,11 @@ def startup():
                 y_vector.append(y)
 
     # Create EC and Substrate Arrays
-    x_position = zeros((max_cells_allowed, total_number_time_steps))  # X position vector
-    y_position = zeros((max_cells_allowed, total_number_time_steps))  # Y position vector
-    death_time = zeros(max_cells_allowed)  # Death array
-    birth_time = zeros(max_cells_allowed)  # Birth array
-    divide_time = zeros(max_cells_allowed)  # Divide array
+    x_position = zeros((max_cells_allowed, total_number_time_steps), dtype=int)  # X position vector
+    y_position = zeros((max_cells_allowed, total_number_time_steps), dtype=int)  # Y position vector
+    death_time = zeros(max_cells_allowed, dtype=int)  # Death array
+    birth_time = zeros(max_cells_allowed, dtype=int)  # Birth array
+    divide_time = zeros(max_cells_allowed, dtype=int)  # Divide array
     vegf = zeros((y_substrate, x_steps))  # VEGF array
     pedf = zeros((y_substrate, x_steps))  # PEDF array
     pro = zeros((y_substrate, x_steps))  # Pro array
@@ -86,7 +86,7 @@ def startup():
     for x in range(int(0.5 * x_steps / number_of_cells), x_steps, int(x_steps / number_of_cells)):
         x_position[cell_number][0] = x
         y_position[cell_number][0] = 0
-        ec[0][x] += 1
+        ec[0][x] = 1
         death_time[cell_number] = total_number_time_steps - 1  # Set the death time of all EC to the max time
         cell_number += 1
 
