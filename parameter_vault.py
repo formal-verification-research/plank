@@ -26,7 +26,7 @@ V0 = 6.8442 * 10**-6  # uM*mm^2/h
 
 # Basic Parameters
 division = 1  # How many simulated hours must pass before an EC is permitted to divide again
-graph_time = 1  # How often a graph is created in simulated hours
+graph_time = 1  # How often a graph is created in simulation hours
 L = 0.201  # The physical length of the x domain in mm
 max_cells_allowed = 100  # How many total EC are allowed in the simulation
 number_of_cells = 5  # How many EC the model starts with in the parent blood vessel
@@ -34,7 +34,7 @@ simulation_time = 48  # The maximum time the simulation will last in hours
 threshold_perc = 60  # The percentage that the fib must drop to in the blood vessel wall before the EC can escape
 time_step_duration = 8  # How much time passes in each time step of the discrete model in seconds
 tolerance = 0.001  # Used to determine when the iteration method is close enough to the true value
-x_steps = 201  # How many mesh points lie along the x axis for the substrate and EC matrices
+x_steps = 21  # How many mesh points lie along the x axis for the substrate and EC matrices
 
 
 # Diffusion Parameters

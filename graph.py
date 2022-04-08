@@ -1,6 +1,8 @@
-# Description
-# graph turns the different substrate matrices and the workspace matrix into a graph for better visual 
-# interpretation of the results
+"""
+Description:
+The graph file takes the different substrate matrices and the model matrix into a graph for better visual
+interpretation of the results
+"""
 
 
 # Imports
@@ -9,20 +11,21 @@ from matplotlib import pyplot as plt
 from mpl_toolkits import mplot3d
 from matplotlib.colors import ListedColormap, LinearSegmentedColormap
 from matplotlib import cm
-from parameter_vault import V1, F0, VE, L, DP
+from parameter_vault import V1, F0, L, DP, x_steps
 from math import floor
 
 
 # Function
-def graph(y_substrate, x_steps, vegf, pedf, fib, pro, x_vector, y_vector, workspace, current_time_step,
-          total_number_time_steps, total_time):
+def graph(y_substrate, vegf, pedf, fib, pro, x_vector, y_vector, model, current_time_step, total_number_time_steps,
+          total_time):
 
-    vegf_z = []  # vegf height data for the 3D graph
-    pedf_z = []  # pedf height data for the 3D graph
-    fib_z = []  # fib height data for the 3D graph
-    pro_z = []  # pro height data for the 3D graph
-    x_graph = []  # x axis used in the graphs
-    y_graph = []  # y axis used in the graphs
+    # Create the height data for the 3D graph
+    vegf_z = []
+    pedf_z = []
+    fib_z = []
+    pro_z = []
+    x_graph = []
+    y_graph = []
 
     # Add the appropriate info for odd and even lines to the 3D vector
     for y in range(y_substrate):
@@ -54,7 +57,7 @@ def graph(y_substrate, x_steps, vegf, pedf, fib, pro, x_vector, y_vector, worksp
     # Create the EC color map
     new_paired = cm.get_cmap('Paired', 7)
     ax = fig.add_subplot(5, 1, 1)
-    ax.imshow(workspace, cmap=new_paired)
+    ax.imshow(model, cmap=new_paired)
     ax.title.set_text('Angiogenesis')
 
     # Create the vegf 3D graph
@@ -64,8 +67,8 @@ def graph(y_substrate, x_steps, vegf, pedf, fib, pro, x_vector, y_vector, worksp
     ax.set_xlabel('mm', labelpad=12)
     ax.set_ylabel('mm', labelpad=12)
     ax.set_zlabel('uM', labelpad=12)
-    plt.xticks(np.arange(0, 0.06, 0.05))
-    plt.yticks(np.arange(0, 0.06, 0.05))
+    plt.xticks(np.arange(0, 0.2, 0.05))
+    plt.yticks(np.arange(0, 0.2, 0.05))
 
     # Create the pedf 3D graph
     ax = fig.add_subplot(5, 1, 3, projection='3d')
@@ -74,8 +77,8 @@ def graph(y_substrate, x_steps, vegf, pedf, fib, pro, x_vector, y_vector, worksp
     ax.set_xlabel('mm', labelpad=12)
     ax.set_ylabel('mm', labelpad=12)
     ax.set_zlabel('uM', labelpad=12)
-    plt.xticks(np.arange(0, 0.06, 0.05))
-    plt.yticks(np.arange(0, 0.06, 0.05))
+    plt.xticks(np.arange(0, 0.2, 0.05))
+    plt.yticks(np.arange(0, 0.2, 0.05))
 
     # Create the fib 3D graph
     ax = fig.add_subplot(5, 1, 4, projection='3d')
@@ -85,8 +88,8 @@ def graph(y_substrate, x_steps, vegf, pedf, fib, pro, x_vector, y_vector, worksp
     ax.set_xlabel('mm', labelpad=12)
     ax.set_ylabel('mm', labelpad=12)
     ax.set_zlabel('uM', labelpad=12)
-    plt.xticks(np.arange(0, 0.06, 0.05))
-    plt.yticks(np.arange(0, 0.06, 0.05))
+    plt.xticks(np.arange(0, 0.2, 0.05))
+    plt.yticks(np.arange(0, 0.2, 0.05))
 
     # Create the protease 3D graph
     ax = fig.add_subplot(5, 1, 5, projection='3d')
@@ -95,8 +98,8 @@ def graph(y_substrate, x_steps, vegf, pedf, fib, pro, x_vector, y_vector, worksp
     ax.set_xlabel('mm', labelpad=12)
     ax.set_ylabel('mm', labelpad=12)
     ax.set_zlabel('uM', labelpad=12)
-    plt.xticks(np.arange(0, 0.06, 0.05))
-    plt.yticks(np.arange(0, 0.06, 0.05))
+    plt.xticks(np.arange(0, 0.2, 0.05))
+    plt.yticks(np.arange(0, 0.2, 0.05))
 
     # Save and close the file so the program can run unattended
     fig.subplots_adjust(hspace=0.7)

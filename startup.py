@@ -10,7 +10,7 @@ from numpy import zeros
 from numpy import ones
 from numpy import linspace
 from parameter_vault import x_steps, simulation_time, DP, L, max_cells_allowed, number_of_cells, threshold_perc, \
-    division, time_step_duration
+    division, time_step_duration, graph_time
 
 
 # Function
@@ -32,6 +32,7 @@ def startup():
     density_ecm = x_steps * (y_steps - 1) / number_of_cells  # Density of cells in the ECM
     threshold = threshold_perc / 100  # Threshold percentage as an amount of Fibronectin
     child = division * 3600 / time_step_duration  # Minimum amount of time permitted between EC divisions in time steps
+    graphing = graph_time * 3600 / time_step_duration  # How frequently a graph is made in time steps
 
     # Create vectors used for 3D graphs
     x_vector = []
@@ -67,8 +68,8 @@ def startup():
     pro_old = zeros((y_substrate, x_steps))  # Old Pro array
     fib_old = ones((y_substrate, x_steps))  # Old Fib array
     model = zeros((y_steps, x_steps))  # EC array for graphing
-    ec = zeros((y_steps, x_steps))  # EC array
-    ec_old = zeros((y_steps, x_steps))  # Old EC array
+    ec = zeros((y_steps, x_steps), dtype=int)  # EC array
+    ec_old = zeros((y_steps, x_steps), dtype=int)  # Old EC array
 
     # Trying to create different colors for the different starting EC
     cell_lineage = zeros(max_cells_allowed)
@@ -92,4 +93,4 @@ def startup():
     return start_time, x_length, y_length, y_steps, y_substrate, file_events, total_time, total_number_time_steps, k, \
            h, lam, x_vector, y_vector, x_position, y_position, death_time, birth_time, divide_time, vegf, pedf, pro, \
            fib, vegf_old, pedf_old, pro_old, fib_old, model, ec, ec_old, density_cap, density_ecm, cell_lineage, \
-           cell_tracker, cell_number, threshold, child
+           cell_tracker, cell_number, threshold, child, graphing, number_of_cells

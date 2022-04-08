@@ -9,6 +9,7 @@ VEGF source, and then predicts changes caused by the introduction of PEDF to the
 # Imports
 from startup import startup
 from simulation import simulation
+from close import close
 
 
 # Function
@@ -18,20 +19,18 @@ def main():
     start_time, x_length, y_length, y_steps, y_substrate, file_events, total_time, total_number_time_steps, k, h, \
     lam, x_vector, y_vector, x_position, y_position, death_time, birth_time, divide_time, vegf, pedf, pro, \
     fib, vegf_old, pedf_old, pro_old, fib_old, model, ec, ec_old, density_cap, density_ecm, cell_lineage, \
-    cell_tracker, cell_number, threshold, child \
+    cell_tracker, cell_number, threshold, child, graphing, number_of_cells \
         = startup()
 
-
-
-
     # Run the simulation
-    simulation(start_time, x_length, y_length, y_steps, y_substrate, file_events, total_time, total_number_time_steps,
+    cell_tracker, file_events \
+        = simulation(x_length, y_steps, y_substrate, file_events, total_time, total_number_time_steps,
                k, h, lam, x_vector, y_vector, x_position, y_position, death_time, birth_time, divide_time, vegf, pedf,
                pro, fib, vegf_old, pedf_old, pro_old, fib_old, model, ec, ec_old, density_cap, density_ecm,
-               cell_lineage, cell_tracker, cell_number, threshold, child)
+               cell_lineage, cell_tracker, threshold, child, graphing, number_of_cells)
 
-    # Finish up and the end
-    end()
+    # Take the information gathered during the simulation and save the data outputs
+    close(cell_tracker, x_length, start_time, file_events)
 
     return
 

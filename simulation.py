@@ -10,13 +10,15 @@ from update_vegf import update_vegf
 from update_pedf import update_pedf
 from update_fib import update_fib
 from update_pro import update_pro
+from graph import graph
+import os
 
 
 # Function
-def simulation(start_time, x_length, y_length, y_steps, y_substrate, file_events, total_time, total_number_time_steps,
+def simulation(x_length, y_steps, y_substrate, file_events, total_time, total_number_time_steps,
                k, h, lam, x_vector, y_vector, x_position, y_position, death_time, birth_time, divide_time, vegf, pedf,
                pro, fib, vegf_old, pedf_old, pro_old, fib_old, model, ec, ec_old, density_cap, density_ecm,
-               cell_lineage, cell_tracker, cell_number, number_of_cells, threshold, child):
+               cell_lineage, cell_tracker, threshold, child, graphing, number_of_cells):
 
     # Start the 'for-loop' that will take the simulation through the time steps
     for current_time_step in range(total_number_time_steps - 1):
@@ -41,9 +43,6 @@ def simulation(start_time, x_length, y_length, y_steps, y_substrate, file_events
             break
 
         # Update the substrate matrices, this is the part of the simulation that takes so long for the PC to run
-
-
-
         vegf, vegf_old = \
             update_vegf(y_substrate, density_cap, density_ecm, ec_old, vegf, vegf_old, k, h, x_length)
         pedf, pedf_old = \
@@ -51,15 +50,21 @@ def simulation(start_time, x_length, y_length, y_steps, y_substrate, file_events
         fib, fib_old = \
             update_fib(y_substrate, density_cap, ec_old, fib, fib_old, k, pro, h)
         pro, pro_old = \
-            update_pro(y_substrate, x_steps, density_scale, occupied_old, pro, pro_old, k, vegf_old, pedf_old)
+            update_pro(y_substrate, density_cap, density_ecm, ec_old, pro, pro_old, k, vegf_old, pedf_old)
 
-        print("Current Time Step = " + str(current_time_step))
+        # Print a notice to the screen so we know how far along the simulation is
+        os.system('cls')
+        completion = int(current_time_step / total_number_time_steps * 100)
+        print("Time Progress = " + str(completion) + "%" + "\n")
+        alive_cells = number_of_cells - deaths
+        print("Alive EC: " + str(alive_cells))
 
-        if current_time_step % graph_time == 0:
-            graph(y_substrate, x_steps, vegf, pedf, fib, pro, x_vector, y_vector, workspace, current_time_step,
+        # Create a graph to show the progression of the simulation every specified amount of time
+        if current_time_step % graphing == 0:
+            graph(y_substrate, vegf, pedf, fib, pro, x_vector, y_vector, model, current_time_step,
                   total_number_time_steps, total_time)
 
-    graph(y_substrate, x_steps, vegf, pedf, fib, pro, x_vector, y_vector, workspace, current_time_step,
-          total_number_time_steps, total_time)
+    graph(y_substrate, vegf, pedf, fib, pro, x_vector, y_vector, model, current_time_step, total_number_time_steps,
+          total_time)
 
-    return
+    return cell_tracker, file_events
