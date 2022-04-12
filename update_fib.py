@@ -14,10 +14,16 @@ def update_fib(y_substrate, density_cap, ec_old, fib, fib_old, k, pro, h):
 
     # Update the Fibronectin concentration inside the parent blood vessel using Plank Eq 48, 51 Pgs 150-151
     for x in range(x_steps-1):
+        fib_old[0][x] = fib[0][x]
         density = density_cap * (ec_old[0][x] + ec_old[0][x+1]) * 0.5
         ca = pro[0][x] / (1 + K6 * fib[0][x])
         fib[0][x] = fib_old[0][x] + k \
                     * ((K4 * fib_old[0][x] * (1 - fib_old[0][x]) * density) - (K5 * ca * fib_old[0][x]))
+
+    # Set Fibronectin for the previous time step
+    for y in range(1, y_substrate):
+        for x in range(x_steps):
+            fib_old[y][x] = fib[y][x]
 
     # Create a Fibronectin array to help with the ECM equations
     f = zeros((y_substrate, x_steps))
@@ -37,7 +43,7 @@ def update_fib(y_substrate, density_cap, ec_old, fib, fib_old, k, pro, h):
 
         # Update the Fibronectin at the RPE layer using Plank Eq 66, 71, Pg 179
         for x in range(1, x_steps-2):
-            f[y_substrate-1][x] = round(f[y_substrate-2][x] + f[y_substrate-2][x+1] * 0.5, 10)
+            f[y_substrate-1][x] = (f[y_substrate-2][x] + f[y_substrate-2][x+1]) * 0.5
         f[y_substrate-1][0] = f[y_substrate-1][1]
         f[y_substrate-1][x_steps-2] = f[y_substrate-1][x_steps-3]
 
@@ -46,33 +52,33 @@ def update_fib(y_substrate, density_cap, ec_old, fib, fib_old, k, pro, h):
             if y % 2 == 0:
                 for x in range(1, x_steps-2):
                     f[y][x] = RELAX2 * k / (h * h + 2 * K22 * k) \
-                              * (K22 * 0.5 * (fib[y][x+1] + fib[y][x-1]
-                                            + round((fib[y+1][x] + fib[y+1][x+1]) * 0.5, 10) + round((fib[y-1][x] + fib[y-1][x+1]) * 0.5, 10)
+                              * (K22 * 0.5 * (f[y][x+1] + f[y][x-1]
+                                            + (f[y+1][x] + f[y+1][x+1]) * 0.5 + (f[y-1][x] + f[y-1][x+1]) * 0.5
                                             + fib_old[y][x+1] + fib_old[y][x-1]
-                                            + round((fib_old[y+1][x] + fib_old[y+1][x+1]) * 0.5, 10)
-                                            + round((fib_old[y-1][x] + fib_old[y-1][x+1]) * 0.5, 10))
+                                            + (fib_old[y+1][x] + fib_old[y+1][x+1]) * 0.5
+                                            + (fib_old[y-1][x] + fib_old[y-1][x+1]) * 0.5)
                                  + (h * h / k - 2 * K22 + K23 * h * h * (1 - fib_old[y][x])
                                     - K5 * h * h * pro[y][x] / (1 + K6 * fib_old[y][x]) / (1 + K6 * fib_old[y][x]))
-                                 * fib_old[y][x]) + (1 - RELAX2) * fib[y][x]
+                                 * fib_old[y][x]) + (1 - RELAX2) * f[y][x]
                 f[y][0] = f[y][1]
                 f[y][x_steps-2] = f[y][x_steps-3]
             else:
                 for x in range(1, x_steps-1):
                     f[y][x] = RELAX2 * k / (h * h + 2 * K22 * k) \
-                              * (K22 * 0.5 * (fib[y][x+1] + fib[y][x-1]
-                                            + round((fib[y+1][x] + fib[y+1][x-1]) * 0.5, 10) + round((fib[y-1][x] + fib[y-1][x-1]) * 0.5, 10)
+                              * (K22 * 0.5 * (f[y][x+1] + f[y][x-1]
+                                            + (f[y+1][x] + f[y+1][x-1]) * 0.5 + (f[y-1][x] + f[y-1][x-1]) * 0.5
                                             + fib_old[y][x+1] + fib_old[y][x-1]
-                                            + round((fib_old[y+1][x] + fib_old[y+1][x-1]) * 0.5, 10)
-                                            + round((fib_old[y-1][x] + fib_old[y-1][x-1]) * 0.5, 10))
+                                            + (fib_old[y+1][x] + fib_old[y+1][x-1]) * 0.5
+                                            + (fib_old[y-1][x] + fib_old[y-1][x-1]) * 0.5)
                                  + (h * h / k - 2 * K22 + K23 * h * h * (1 - fib_old[y][x])
                                     - K5 * h * h * pro[y][x] / (1 + K6 * fib_old[y][x]) / (1 + K6 * fib_old[y][x]))
-                                 * fib_old[y][x]) + (1-RELAX2) * fib[y][x]
+                                 * fib_old[y][x]) + (1-RELAX2) * f[y][x]
                 f[y][0] = f[y][1]
                 f[y][x_steps-1] = f[y][x_steps-2]
 
         # Update the Fibronectin inside the blood vessel wall using Plank Eq 62, 71 Pg 179
         for x in range(1, x_steps-1):
-            f[1][x] = round((f[2][x] + f[2][x-1]) * 0.5, 10)
+            f[1][x] = (f[2][x] + f[2][x-1]) * 0.5
         f[1][0] = f[1][1]
         f[1][x_steps-1] = f[1][x_steps-2]
 

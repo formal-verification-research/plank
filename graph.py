@@ -50,7 +50,7 @@ def graph(y_substrate, vegf, pedf, fib, pro, x_vector, y_vector, model, current_
 
     # Create the overall file
     hours = current_time_step / total_number_time_steps * total_time * L * L / DP
-    file_name = "Time = " + str(floor(hours)) + " Hours" + ".png"
+    file_name = "Time = " + str(round(hours, 1)) + " Hours" + ".png"
     file = open(file_name, "a+")
     fig = plt.figure(figsize=plt.figaspect(10))
 

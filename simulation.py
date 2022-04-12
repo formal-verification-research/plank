@@ -11,7 +11,7 @@ from update_pedf import update_pedf
 from update_fib import update_fib
 from update_pro import update_pro
 from graph import graph
-import os
+from os import system
 
 
 # Function
@@ -54,13 +54,13 @@ def simulation(x_length, y_steps, y_substrate, file_events, total_time, total_nu
 
         # Print a notice to the screen so we know how far along the simulation is
         completion = current_time_step / total_number_time_steps * 100
-        print("Time Progress = " + str(completion) + "%")
+        print("Time Progress = " + str(round(completion, 3)) + "%")
         alive_cells = number_of_cells - deaths
         print("Alive EC: " + str(alive_cells))
         print("Time step: " + str(current_time_step) + "\n\n")
 
         # Create a graph to show the progression of the simulation every specified amount of time
-        if current_time_step % graphing == 0:
+        if current_time_step % graphing == 0 or current_time_step== 0:
             graph(y_substrate, vegf, pedf, fib, pro, x_vector, y_vector, model, current_time_step,
                   total_number_time_steps, total_time)
 
