@@ -5,6 +5,16 @@
 
 # Stored values
 L = 0.05  # Length of the x domain (mm)
+x_steps = 21  # Nodes in the x domain
+number_of_cells = 5  # How many EC to start with
+tolerance = 0.001  # Accuracy tolerance of the substrate updaters
+max_cells_allowed = 100  # How many total cells are allowed in the experiment
+graph_time = 450  # How often a graph is created in amount of time steps
+total_time = 0.06912  # Dimension-less time the simulation lasts. 48 hours = 0.06912, plank pg 150.
+total_number_time_steps = 21600  # How many time steps
+threshold = 0.6  # Level that fib has to drop to before EC can leave the parent capillary
+child = 450  # How long between divisions in time steps
+anastomotic = True  # Anastomosis
 DP = 3.6 * 10**-6  # EC Diffusion Coefficient (mm^2/h)
 DV = 3.6 * 10**-5  # VEGF Diffusion Coefficient (mm^2/h) plank=3.6 * 10**-5, skeletal muscle=0.374
 DF = 3.6 * 10**-10  # Fibronectin Diffusion Coefficient (mm^2/h)

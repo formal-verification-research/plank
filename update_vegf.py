@@ -7,7 +7,7 @@ from numpy import zeros
 from math import cos
 from math import pi
 from x_coordinate import x_coordinate
-from the_vault import K1, K2, K35, K21, M0, K33, RELAX1
+from parameter_vault import K1, K2, K35, K21, M0, K33, RELAX1
 
 
 # Function

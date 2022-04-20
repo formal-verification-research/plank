@@ -9,7 +9,7 @@ from matplotlib import pyplot as plt
 from mpl_toolkits import mplot3d
 from matplotlib.colors import ListedColormap, LinearSegmentedColormap
 from matplotlib import cm
-from the_vault import V1, F0, VE, L, DP
+from parameter_vault import V1, F0, VE, L, DP
 from math import floor
 
 

@@ -9,26 +9,12 @@ from start import arrays
 from start import parent_vessel
 from simulation import simulation
 from end import end
-
-
-# This control_center lists the variables that are allowed to be modified by the user. The variables are passed into
-# the main function. These variables are changeable because the user might want to test different ideas.
-from the_vault import L  # L can be changed; L must be in the_vault
-x_steps = 201  # Nodes in the x domain
-number_of_cells = 5  # How many EC to start with
-tolerance = 0.001  # Accuracy tolerance of the substrate updaters
-max_cells_allowed = 100  # How many total cells are allowed in the experiment
-graph_time = 450  # How often a graph is created in amount of time steps
-total_time = 0.06912  # Dimension-less time the simulation lasts. 48 hours = 0.06912, plank pg 150.
-total_number_time_steps = 21600  # How many time steps
-threshold = 0.6  # Level that fib has to drop to before EC can leave the parent capillary
-child = 450  # How long between divisions in time steps
-anastomotic = True  # Anastomosis
+from parameter_vault import x_steps, number_of_cells, tolerance, max_cells_allowed, graph_time, total_time, \
+    total_number_time_steps, threshold, child, anastomotic, L
 
 
 # Function
-def main(x_steps, number_of_cells, tolerance, max_cells_allowed, graph_time, total_time, total_number_time_steps,
-         threshold, child, anastomotic, L):
+def main():
 
     # Create the starting terms and parameters
     start_time, x_length, y_length, y_steps, y_substrate, file_events, k, h, lam, x_vector, y_vector \
@@ -57,5 +43,4 @@ def main(x_steps, number_of_cells, tolerance, max_cells_allowed, graph_time, tot
     return
 
 
-main(x_steps, number_of_cells, tolerance, max_cells_allowed, graph_time, total_time, total_number_time_steps,
-     threshold, child, anastomotic, L)
+main()
