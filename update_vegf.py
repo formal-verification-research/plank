@@ -18,9 +18,9 @@ def update_vegf(y_substrate, density_cap, density_ecm, ec_old, vegf, vegf_old, k
     # Update the VEGF inside the parent blood vessel using Plank Eq 46
     for x in range(x_steps-1):
         vegf_old[0][x] = vegf[0][x]
-        density = density_cap * (ec_old[0][x] + ec_old[0][x+1]) * 0.5
+        density = density_cap * (ec_old[0][x] + ec_old[0][x+1]) / 2
         vegf[0][x] = vegf_old[0][x] + k * (-K1 * vegf_old[0][x] * density / (1 + vegf_old[0][x]) + K2
-                                           * ((vegf_old[1][x] + vegf_old[1][x+1]) * 0.5 - vegf_old[0][x]))
+                                           * ((vegf_old[1][x] + vegf_old[1][x+1]) / 2 - vegf_old[0][x]))
         if vegf[0][x] < 0:
             vegf[0][x] = 0
 
@@ -57,25 +57,26 @@ def update_vegf(y_substrate, density_cap, density_ecm, ec_old, vegf, vegf_old, k
                 for x in range(x_steps):
                     vegf[y][x] = v[y][x]
 
-        # Update the VEGF source, which is the RPE layer, using Plank Eq 65 and 70 on Pg 179
+        # Update the VEGF source, which is the RPE layer and just outside, using Plank Eq 65 and 70 on Pg 179
         for x in range(x_steps-1):
             v[y_substrate-1][x] = K35 * h \
                                     * ((1 - cos(2 * pi * x_coordinate(x, y_substrate - 1, x_steps, x_length))) ** M0) \
-                                    + (v[y_substrate-2][x] + v[y_substrate-2][x+1]) * 0.5
+                                    + v[y_substrate-3][x]
+        for x in range(x_steps):
+            v[y_substrate-2][x] = K35 * h \
+                                    * ((1 - cos(2 * pi * x_coordinate(x, y_substrate - 2, x_steps, x_length))) ** M0) \
+                                    + v[y_substrate-4][x]
 
         # Update the VEGF interior points using Plank Eq 53, 70 Pgs 178-179 (Crank-Nicolson Approximation)
-        for y in range(y_substrate-2, 1, -1):
+        for y in range(y_substrate-3, 2, -1):
             if y % 2 == 0:
                 for x in range(1, x_steps-2):
-                    density = density_ecm * (ec_old[y//2][x] + ec_old[y//2][x+1]) * 0.5
+                    density = density_ecm * (ec_old[y//2][x] + ec_old[y//2][x+1]) / 2
                     v[y][x] = RELAX1 \
                               * k / (h * h + 2 * K21 * k) \
-                              * ((K21 * 0.5)
-                                 * (v[y][x+1] + v[y][x-1]
-                                    + (v[y+1][x] + v[y+1][x+1]) * 0.5 + (v[y-1][x] + v[y-1][x+1]) * 0.5
-                                    + vegf_old[y][x+1] + vegf_old[y][x-1]
-                                    + (vegf_old[y+1][x] + vegf_old[y+1][x+1]) * 0.5
-                                    + (vegf_old[y-1][x] + vegf_old[y-1][x+1]) * 0.5)
+                              * ((K21 / 2)
+                                 * (v[y][x+1] + v[y][x-1] + v[y+2][x] + v[y-2][x]
+                                    + vegf_old[y][x+1] + vegf_old[y][x-1] + vegf_old[y+2][x] + vegf_old[y-2][x])
                                  + (h * h / k - 2 * K21 - h * h * K1 * density / (1 + vegf_old[y][x]))
                                  * vegf_old[y][x]) \
                               + (1 - RELAX1) * v[y][x]
@@ -83,15 +84,12 @@ def update_vegf(y_substrate, density_cap, density_ecm, ec_old, vegf, vegf_old, k
                 v[y][x_steps-2] = v[y][x_steps-3]
             else:
                 for x in range(1, x_steps-1):
-                    density = density_ecm * (ec_old[(y-1)//2][x] + ec_old[(y+1)//2][x]) * 0.5
+                    density = density_ecm * (ec_old[(y-1)//2][x] + ec_old[(y+1)//2][x]) / 2
                     v[y][x] = RELAX1 \
                               * k / (h * h + 2 * K21 * k) \
-                              * ((K21 * 0.5)
-                                 * (v[y][x+1] + v[y][x-1]
-                                    + (v[y+1][x-1] + v[y+1][x]) * 0.5 + (v[y-1][x-1] + v[y-1][x]) * 0.5
-                                    + vegf_old[y][x+1] + vegf_old[y][x-1]
-                                    + (vegf_old[y+1][x-1] + vegf_old[y+1][x]) * 0.5
-                                    + (vegf_old[y-1][x-1] + vegf_old[y-1][x]) * 0.5)
+                              * ((K21 / 2)
+                                 * (v[y][x+1] + v[y][x-1] + v[y+2][x] + v[y-2][x]
+                                    + vegf_old[y][x+1] + vegf_old[y][x-1] + vegf_old[y+2][x] + vegf_old[y-2][x])
                                  + (h * h / k - 2 * K21 - h * h * K1 * density / (1 + vegf_old[y][x]))
                                  * vegf_old[y][x]) \
                               + (1 - RELAX1) * v[y][x]
@@ -99,8 +97,12 @@ def update_vegf(y_substrate, density_cap, density_ecm, ec_old, vegf, vegf_old, k
                 v[y][x_steps-1] = v[y][x_steps-2]
 
         # Update the VEGF on the parent blood vessel wall using Plank Eq 61, 70 Pgs 137, 179
+        for x in range(1, x_steps-2):
+            v[2][x] = 1 / (K33 + h) * (K33 * v[4][x] + h * v[0][x])
+            v[2][0] = v[2][1]
+            v[2][x_steps-2] = v[2][x_steps-3]
         for x in range(1, x_steps-1):
-            v[1][x] = 1 / (K33 + h) * (K33 * (v[2][x] + v[2][x-1]) * 0.5 + h * (v[0][x] + v[0][x-1]) * 0.5)
+            v[1][x] = 1 / (K33 + h) * (K33 * v[3][x] + h * (v[0][x-1] + v[0][x]) / 2)
             v[1][0] = v[1][1]
             v[1][x_steps-1] = v[1][x_steps-2]
 

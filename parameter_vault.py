@@ -18,23 +18,23 @@ anastomotic = True
 # Exponent for VEGF and PEDF
 M0 = 12
 # PEDF
-D0 = 6.8442 * 10**-4  # uM*mm^2/h
+D0 = 4  # uM*mm^2/h
 # VEGF
-SIGMA = 4.97512 * 10**-3
-V0 = 6.8442 * 10**-6  # uM*mm^2/h
+SIGMA = 1.514705513 * 10**-3
+V0 = 0.04  # uM*mm^2/h
 
 
 # Basic Parameters
 division = 1  # How many simulated hours must pass before an EC is permitted to divide again
 graph_time = 1  # How often a graph is created in simulation hours
-L = 0.2  # The physical length of the x domain in mm
+L = 0.05  # The physical length of the x domain in mm
 max_cells_allowed = 100  # How many total EC are allowed in the simulation
 number_of_cells = 5  # How many EC the model starts with in the parent blood vessel
 simulation_time = 48  # The maximum time the simulation will last in hours
 threshold_perc = 60  # The percentage that the fib must drop to in the blood vessel wall before the EC can escape
 time_step_duration = 8  # How much time passes in each time step of the discrete model in seconds
 tolerance = 0.001  # Used to determine when the iteration method is close enough to the true value
-x_steps = 201  # How many mesh points lie along the x axis for the substrate and EC matrices
+x_steps = 21  # How many mesh points lie along the x axis for the substrate and EC matrices
 
 
 # Diffusion Parameters
@@ -43,9 +43,9 @@ DP = 3.6 * 10**-6  # mm^2/h
 # Fibronectin
 DF = 3.6 * 10**-10  # mm^2/h
 # PEDF
-DD = 6 * 10**-1  # mm^2/h
+DD = 5 * 10**-5  # mm^2/h
 # VEGF
-DV = 3.74 * 10**-1  # mm^2/h
+DV = 3.6 * 10**-5  # mm^2/h
 
 
 # Initial Factors
@@ -134,12 +134,12 @@ K2 = L**2 * B1 / DP
 K3 = L**2 * MU / DP
 K4 = 4 * L**2 / (DP * TF)
 K5 = L**2 * LAMDA3 / (DP * V1)
-K6 = f0 * V3
+K6 = F0 * V3
 K8 = DP * TIV / L**2
 K10 = ALPHA1 * V1
 K11 = ALPHA2 * V1
-K12 = BETA1 / f0
-K13 = BETA2 / f0
+K12 = BETA1 / F0
+K13 = BETA2 / F0
 K14 = DELTA1 * V1
 K15 = DELTA2 * V1
 K17 = DP / DP
@@ -152,8 +152,8 @@ K25 = A / V1
 K26 = LAMDA0 / (V1 * M1)
 K27 = ALPHA3 * V1
 K28 = ALPHA4 * V1
-K29 = BETA3 / f0
-K30 = BETA4 / f0
+K29 = BETA3 / F0
+K30 = BETA4 / F0
 K31 = DELTA3 * V1
 K32 = DELTA4 * V1
 K33 = DV / (L * PSI)

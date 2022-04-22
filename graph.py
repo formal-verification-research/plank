@@ -11,7 +11,7 @@ from matplotlib import pyplot as plt
 from mpl_toolkits import mplot3d
 from matplotlib.colors import ListedColormap, LinearSegmentedColormap
 from matplotlib import cm
-from parameter_vault import V1, F0, L, DP, x_steps
+from parameter_vault import V1, f0, L, DP, x_steps
 from math import floor
 
 
@@ -33,13 +33,13 @@ def graph(y_substrate, vegf, pedf, fib, pro, x_vector, y_vector, model, current_
             for x in range(x_steps-1):
                 vegf_z.append(vegf[y][x] / V1)
                 pedf_z.append(pedf[y][x] / V1)
-                fib_z.append(fib[y][x] * F0)
+                fib_z.append(fib[y][x] * f0)
                 pro_z.append(pro[y][x] / V1)
         else:
             for x in range(x_steps):
                 vegf_z.append(vegf[y][x] / V1)
                 pedf_z.append(pedf[y][x] / V1)
-                fib_z.append(fib[y][x] * F0)
+                fib_z.append(fib[y][x] * f0)
                 pro_z.append(pro[y][x] / V1)
 
     # Create the x and y axis for the graphs

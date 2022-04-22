@@ -26,20 +26,20 @@ def proliferation(y_steps, file_events, total_number_time_steps, k, x_position, 
     surrounding_points = 0  # Nodes surrounding the EC
     # EC location conditions
     if x > 0:  # Left
-        pro0 += pro[2 * y][x - 1] / (1 + K6 * fib[2 * y][x - 1])
-        pro1 += pro_old[2 * y][x - 1] / (1 + K6 * fib_old[2 * y][x - 1])
+        pro0 += pro[2*y][x-1] / (1 + K6 * fib[2*y][x-1])
+        pro1 += pro_old[2*y][x-1] / (1 + K6 * fib_old[2*y][x-1])
         surrounding_points += 1
     if x < x_steps - 1:  # Right
-        pro0 += pro[2 * y][x] / (1 + K6 * fib[2 * y][x])
-        pro1 += pro_old[2 * y][x] / (1 + K6 * fib_old[2 * y][x])
+        pro0 += pro[2*y][x] / (1 + K6 * fib[2*y][x])
+        pro1 += pro_old[2*y][x] / (1 + K6 * fib_old[2*y][x])
         surrounding_points += 1
     if y > 0:  # Up
-        pro0 += pro[2 * y - 1][x] / (1 + K6 * fib[2 * y - 1][x])
-        pro1 += pro_old[2 * y - 1][x] / (1 + K6 * fib_old[2 * y - 1][x])
+        pro0 += pro[2*y-1][x] / (1 + K6 * fib[2*y-1][x])
+        pro1 += pro_old[2*y-1][x] / (1 + K6 * fib_old[2*y-1][x])
         surrounding_points += 1
     if y < y_steps - 1:  # Down
-        pro0 += pro[2 * y + 1][x - 1] / (1 + K6 * fib[2 * y + 1][x - 1])
-        pro1 += pro_old[2 * y + 1][x - 1] / (1 + K6 * fib_old[2 * y + 1][x - 1])
+        pro0 += pro[2*y+1][x-1] / (1 + K6 * fib[2*y+1][x-1])
+        pro1 += pro_old[2*y+1][x-1] / (1 + K6 * fib_old[2*y+1][x-1])
         surrounding_points += 1
     # Find the average values
     pro0 = pro0 / surrounding_points
@@ -74,8 +74,8 @@ def proliferation(y_steps, file_events, total_number_time_steps, k, x_position, 
         if number_of_cells >= max_cells_allowed:
             print("The max cell limit has been reached, no more divisions")
         else:
-            x_position[number_of_cells][current_time_step + 1] = x
-            y_position[number_of_cells][current_time_step + 1] = y
+            x_position[number_of_cells][current_time_step+1] = x
+            y_position[number_of_cells][current_time_step+1] = y
             ec[y][x] += 1
             cell_lineage[number_of_cells] = cell_lineage[cell]
             death_time[number_of_cells] = total_number_time_steps - 1

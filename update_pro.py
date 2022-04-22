@@ -21,7 +21,7 @@ def update_pro(y_substrate, density_cap, density_ecm, ec_old, pro, pro_old, k, v
 
     # Update the Protease in the parent blood vessel using Plank Eq 47 Pg 150
     for x in range(x_steps-1):
-        density = density_cap * (ec_old[0][x] + ec_old[0][x+1]) * 0.5
+        density = density_cap * (ec_old[0][x] + ec_old[0][x+1]) / 2
         desensitize = vegf_old[0][x] - pedf_old[0][x]
         if desensitize < 0:
             desensitize = 0
@@ -39,14 +39,14 @@ def update_pro(y_substrate, density_cap, density_ecm, ec_old, pro, pro_old, k, v
     for y in range(2, y_substrate):
         if y % 2 == 0:
             for x in range(x_steps-1):
-                density = density_ecm * (ec_old[y//2][x] + ec_old[y//2][x+1]) * 0.5
+                density = density_ecm * (ec_old[y//2][x] + ec_old[y//2][x+1]) / 2
                 desensitize = vegf_old[y][x] - pedf_old[y][x]
                 if desensitize < 0:
                     desensitize = 0
                 pro[y][x] = pro_old[y][x] + k * (K1 * desensitize * density / (vegf_old[y][x] + 1) - K3 * pro_old[y][x])
         else:
             for x in range(x_steps):
-                density = density_ecm * (ec_old[(y-1)//2][x] + ec_old[(y+1)//2][x]) * 0.5
+                density = density_ecm * (ec_old[(y-1)//2][x] + ec_old[(y+1)//2][x]) / 2
                 desensitize = vegf_old[y][x] - pedf_old[y][x]
                 if desensitize < 0:
                     desensitize = 0
