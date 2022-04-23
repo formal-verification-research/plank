@@ -13,7 +13,8 @@ from parameter_vault import anastomotic
 
 
 # Function
-def anastomosis(y_position, model, file_events, death_time, ec, cell, current_time_step, x_position, cell_lineage):
+def anastomosis(y_position, model, file_events, death_time, ec, cell, current_time_step, x_position, cell_lineage,
+                total_number_time_steps):
 
     # Set the lengthy index value to a simple variable to make indexing easier within this function
     y = y_position[cell][current_time_step]
@@ -36,6 +37,7 @@ def anastomosis(y_position, model, file_events, death_time, ec, cell, current_ti
                 model[y1][x1] = cell_lineage[cell]
 
     # Set the EC back so it can be distinguished from the capillary on the model array
-    model[y1][x1] = 100
+    if death_time[cell] == total_number_time_steps - 1:
+        model[y1][x1] = 100
 
     return model, file_events, death_time, ec

@@ -20,8 +20,8 @@ M0 = 12
 # PEDF
 D0 = 4  # uM*mm^2/h
 # VEGF
-SIGMA = 1.514705513 * 10**-3
-V0 = 0.04  # uM*mm^2/h
+SIGMA = 1.514705513 * 10**-3  # plank = 1.514705513 * 10**-3; vargis = 4.97512 * 10**-3
+V0 = 0.04  # uM*mm^2/h, plank = 0.04; vargis = 6.8442 * 10**-6
 
 
 # Basic Parameters
@@ -34,7 +34,7 @@ simulation_time = 48  # The maximum time the simulation will last in hours
 threshold_perc = 60  # The percentage that the fib must drop to in the blood vessel wall before the EC can escape
 time_step_duration = 8  # How much time passes in each time step of the discrete model in seconds
 tolerance = 0.001  # Used to determine when the iteration method is close enough to the true value
-x_steps = 21  # How many mesh points lie along the x axis for the substrate and EC matrices
+x_steps = 201  # How many mesh points lie along the x axis for the substrate and EC matrices
 
 
 # Diffusion Parameters
@@ -45,7 +45,7 @@ DF = 3.6 * 10**-10  # mm^2/h
 # PEDF
 DD = 5 * 10**-5  # mm^2/h
 # VEGF
-DV = 3.6 * 10**-5  # mm^2/h
+DV = 3.6 * 10**-5  # mm^2/h, plank = 3.6 * 10**-5; vargis = 0.374
 
 
 # Initial Factors

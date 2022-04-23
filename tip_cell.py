@@ -79,7 +79,7 @@ def tip_cell(y_steps, file_events, total_number_time_steps, k, lam, x_position, 
         # Use the anastomosis function to merge any capillaries if an EC happens to hit another capillary
         model, file_events, death_time, ec \
             = anastomosis(y_position, model, file_events, death_time, ec, cell, current_time_step, x_position,
-                          cell_lineage)
+                          cell_lineage, total_number_time_steps)
 
     return ec, ec_old, cell_tracker, death_time, model, file_events, number_of_cells, x_position, y_position, \
            cell_lineage, birth_time, divide_time

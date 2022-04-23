@@ -12,7 +12,6 @@ from mpl_toolkits import mplot3d
 from matplotlib.colors import ListedColormap, LinearSegmentedColormap
 from matplotlib import cm
 from parameter_vault import V1, f0, L, DP, x_steps
-from math import floor
 
 
 # Function
@@ -55,9 +54,8 @@ def graph(y_substrate, vegf, pedf, fib, pro, x_vector, y_vector, model, current_
     fig = plt.figure(figsize=plt.figaspect(10))
 
     # Create the EC color map
-    new_paired = cm.get_cmap('Paired', 7)
     ax = fig.add_subplot(5, 1, 1)
-    ax.imshow(model, cmap=new_paired)
+    ax.imshow(model, cmap='viridis')
     ax.title.set_text('Angiogenesis')
 
     # Create the vegf 3D graph

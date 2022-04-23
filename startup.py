@@ -73,10 +73,10 @@ def startup():
 
     # Trying to create different colors for the different starting EC
     cell_lineage = zeros(max_cells_allowed)
-    cl = 10
+    cl = 20
     for i in range(number_of_cells):
         cell_lineage[i] = cl
-        cl += 10
+        cl += 15
 
     # Track the EC for use in data outputs such as speed and distance
     cell_tracker = [[[], [], []] for i in range(max_cells_allowed)]
