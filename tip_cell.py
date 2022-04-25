@@ -24,7 +24,6 @@ def tip_cell(y_steps, file_events, total_number_time_steps, k, lam, x_position, 
     y = y_position[cell][current_time_step]
     x_position[cell][current_time_step + 1] = x
     y_position[cell][current_time_step + 1] = y
-    ec_old[y][x] = ec[y][x]
 
     # Perform the following actions if the EC is alive, which means the death time is still set at the end
     if death_time[cell] == total_number_time_steps - 1:

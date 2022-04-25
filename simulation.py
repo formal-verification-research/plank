@@ -11,6 +11,7 @@ from update_pedf import update_pedf
 from update_fib import update_fib
 from update_pro import update_pro
 from graph import graph
+from parameter_vault import x_steps
 
 
 # Function
@@ -21,6 +22,11 @@ def simulation(x_length, y_steps, y_substrate, file_events, total_time, total_nu
 
     # Start the 'for-loop' that will take the simulation through the time steps
     for current_time_step in range(total_number_time_steps - 1):
+
+        # Copy the current EC array into the previous one
+        for x in range(x_steps):
+            for y in range(y_steps):
+                ec_old[y][x] = ec[y][x]
 
         # Start the 'for-loop' that will cycle through each EC for each time step
         for cell in range(number_of_cells):
