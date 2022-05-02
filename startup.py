@@ -20,8 +20,8 @@ def startup():
     start_time = time.time()  # Time that the code started running
     x_length = 1  # L
     y_length = 0.5  # Depth, 1/2 of L
-    y_steps = int(x_steps * y_length + 0.5)  # y_steps is used for the ec arrays and has 1/2 the steps = 101
-    y_substrate = x_steps  # y_substrate is used for substrate arrays, same amount of nodes as x_steps = 201
+    y_steps = int(x_steps * (y_length / x_length) + 0.5)  # y_steps is used for ec arrays and has 1/2 the steps = 101
+    y_substrate = y_steps * 2 - 1  # y_substrate is used for substrate arrays, same amount of nodes as x_steps = 201
     file_events = open("EC_Events.txt", "w")  # Stores info on EC divisions, deaths, and leaving the parent blood vessel
     total_time = simulation_time * DP / (L ** 2)  # Time
     total_number_time_steps = int(simulation_time * 3600 / time_step_duration)  # The time steps used in the simulation
@@ -29,7 +29,7 @@ def startup():
     h = x_length / x_steps  # The distance between mesh points
     lam = (x_length ** 2) / (h ** 2)  # Size ratio between simulation length and step size (Plank paper pg 150).
     density_cap = x_steps / number_of_cells  # Density of cells in the capillary
-    density_ecm = x_steps * (y_steps - 1) / number_of_cells  # Density of cells in the ECM
+    density_ecm = x_steps * (y_substrate / 2 - 1) / number_of_cells  # Density of cells in the ECM
     threshold = threshold_perc / 100  # Threshold percentage as an amount of Fibronectin
     child = division * 3600 / time_step_duration  # Minimum amount of time permitted between EC divisions in time steps
     graphing = graph_time * 3600 / time_step_duration  # How frequently a graph is made in time steps

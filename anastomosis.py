@@ -19,8 +19,8 @@ def anastomosis(y_position, model, file_events, death_time, ec, cell, current_ti
     # Set the lengthy index value to a simple variable to make indexing easier within this function
     y = y_position[cell][current_time_step]
     x = x_position[cell][current_time_step]
-    y1 = y_position[cell][current_time_step + 1]
-    x1 = x_position[cell][current_time_step + 1]
+    y1 = y_position[cell][current_time_step+1]
+    x1 = x_position[cell][current_time_step+1]
 
     # Set the previous point where the EC was to be a capillary trail mark on the model now
     model[y][x] = cell_lineage[cell]
@@ -40,4 +40,4 @@ def anastomosis(y_position, model, file_events, death_time, ec, cell, current_ti
     if death_time[cell] == total_number_time_steps - 1:
         model[y1][x1] = 100
 
-    return model, file_events, death_time, ec
+    return

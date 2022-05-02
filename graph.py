@@ -6,10 +6,8 @@ interpretation of the results
 
 
 # Imports
-import numpy as np
 from matplotlib import pyplot as plt
 from mpl_toolkits import mplot3d
-from matplotlib.colors import ListedColormap, LinearSegmentedColormap
 from matplotlib import cm
 from parameter_vault import V1, f0, L, DP, x_steps
 
@@ -60,7 +58,7 @@ def graph(y_substrate, vegf, pedf, fib, pro, x_vector, y_vector, model, current_
 
     # Create the vegf 3D graph
     ax = fig.add_subplot(5, 1, 2, projection='3d')
-    ax.plot_trisurf(x_graph, y_graph, vegf_z, cmap='Greens', edgecolor='none')
+    ax.plot_trisurf(x_graph, y_graph, vegf_z, cmap='viridis', edgecolor='none')
     ax.title.set_text('VEGF')
     ax.set_xlabel('mm', labelpad=12)
     ax.set_ylabel('mm', labelpad=12)
@@ -68,7 +66,7 @@ def graph(y_substrate, vegf, pedf, fib, pro, x_vector, y_vector, model, current_
 
     # Create the pedf 3D graph
     ax = fig.add_subplot(5, 1, 3, projection='3d')
-    ax.plot_trisurf(x_graph, y_graph, pedf_z, cmap='Blues', edgecolor='none')
+    ax.plot_trisurf(x_graph, y_graph, pedf_z, cmap='viridis', edgecolor='none')
     ax.title.set_text('PEDF')
     ax.set_xlabel('mm', labelpad=12)
     ax.set_ylabel('mm', labelpad=12)
@@ -85,7 +83,7 @@ def graph(y_substrate, vegf, pedf, fib, pro, x_vector, y_vector, model, current_
 
     # Create the protease 3D graph
     ax = fig.add_subplot(5, 1, 5, projection='3d')
-    ax.plot_trisurf(x_graph, y_graph, pro_z, cmap='magma', edgecolor='none')
+    ax.plot_trisurf(x_graph, y_graph, pro_z, cmap='viridis', edgecolor='none')
     ax.title.set_text('Protease')
     ax.set_xlabel('mm', labelpad=12)
     ax.set_ylabel('mm', labelpad=12)
