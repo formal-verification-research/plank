@@ -16,14 +16,14 @@ from update_pedf import update_pedf
 from update_fib import update_fib
 from update_pro import update_pro
 from graph import graph
-from parameter_vault import x_steps
+from parameter_vault import x_steps, threshold
 
 
 # Function
 def simulation(x_length, y_steps, y_substrate, file_events, total_time, total_number_time_steps,
                k, h, lam, x_vector, y_vector, x_position, y_position, death_time, birth_time, divide_time, vegf, pedf,
                pro, fib, vegf_old, pedf_old, pro_old, fib_old, model, ec, ec_old, density_cap, density_ecm,
-               cell_lineage, cell_tracker, threshold, child, graphing, number_of_cells):
+               cell_lineage, cell_tracker, child, graphing, number_of_cells):
 
     # Start the 'for-loop' that will take the simulation through the time steps
     for current_time_step in range(total_number_time_steps - 1):
