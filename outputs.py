@@ -15,8 +15,6 @@ def outputs(cell_tracker, x_length):
     # Create the file and get the individual EC data only if they traveled more than 1 space
     file_outputs = open("Outputs.txt", "w")
     for cell in range(len(cell_tracker)):
-        if len(cell_tracker[cell][0]) < 2:
-            continue
 
         # Create the distance vector and find distances with the pythagorean formula
         distances = []
@@ -26,6 +24,8 @@ def outputs(cell_tracker, x_length):
 
         # Calculate all the different output information that we are interested in
         distance_accumulated = sum(distances)
+        if distance_accumulated == 0:  # Cell never moved, skip onto the next cell
+            continue
         distance_euclidean = sqrt((cell_tracker[cell][1][-1] - cell_tracker[cell][1][0]) ** 2
                                   + (cell_tracker[cell][2][-1] - cell_tracker[cell][2][0]) ** 2)
         directness = distance_euclidean / distance_accumulated
