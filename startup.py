@@ -10,7 +10,7 @@ from numpy import zeros
 from numpy import ones
 from numpy import linspace
 from parameter_vault import x_steps, simulation_time, DP, L, max_cells_allowed, number_of_cells, division, \
-    time_step_duration, graph_time
+    time_step_duration
 
 
 # Function
@@ -31,7 +31,6 @@ def startup():
     density_cap = x_steps / number_of_cells  # Density of cells in the capillary
     density_ecm = x_steps * (y_substrate / 2 - 1) / number_of_cells  # Density of cells in the ECM
     child = division * 3600 / time_step_duration  # Minimum amount of time permitted between EC divisions in time steps
-    graphing = graph_time * 3600 / time_step_duration  # How frequently a graph is made in time steps
 
     # Create vectors used for 3D graphs
     x_vector = []
@@ -92,4 +91,4 @@ def startup():
     return start_time, x_length, y_length, y_steps, y_substrate, file_events, total_time, total_number_time_steps, k, \
            h, lam, x_vector, y_vector, x_position, y_position, death_time, birth_time, divide_time, vegf, pedf, pro, \
            fib, vegf_old, pedf_old, pro_old, fib_old, model, ec, ec_old, density_cap, density_ecm, cell_lineage, \
-           cell_tracker, cell_number, child, graphing, number_of_cells
+           cell_tracker, cell_number, child, number_of_cells

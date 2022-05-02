@@ -26,7 +26,7 @@ V0 = 0.04  # uM*mm^2/h, plank = 0.04; vargis = 6.8442 * 10**-6
 
 # Basic Parameters
 division = 1  # How many simulated hours must pass before an EC is permitted to divide again
-graph_time = 1  # How often a graph is created in simulation hours
+graph_time = 450  # How often a graph is created in amount of time step
 L = 0.05  # The physical length of the x domain in mm
 max_cells_allowed = 100  # How many total EC are allowed in the simulation
 number_of_cells = 5  # How many EC the model starts with in the parent blood vessel

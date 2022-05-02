@@ -19,7 +19,7 @@ def main():
     start_time, x_length, y_length, y_steps, y_substrate, file_events, total_time, total_number_time_steps, k, h, \
     lam, x_vector, y_vector, x_position, y_position, death_time, birth_time, divide_time, vegf, pedf, pro, \
     fib, vegf_old, pedf_old, pro_old, fib_old, model, ec, ec_old, density_cap, density_ecm, cell_lineage, \
-    cell_tracker, cell_number, child, graphing, number_of_cells \
+    cell_tracker, cell_number, child, number_of_cells \
         = startup()
 
     # Run the simulation
@@ -27,7 +27,7 @@ def main():
         = simulation(x_length, y_steps, y_substrate, file_events, total_time, total_number_time_steps,
                k, h, lam, x_vector, y_vector, x_position, y_position, death_time, birth_time, divide_time, vegf, pedf,
                pro, fib, vegf_old, pedf_old, pro_old, fib_old, model, ec, ec_old, density_cap, density_ecm,
-               cell_lineage, cell_tracker, child, graphing, number_of_cells)
+               cell_lineage, cell_tracker, child, number_of_cells)
 
     # Take the information gathered during the simulation and save the data outputs
     close(cell_tracker, x_length, start_time, file_events)
