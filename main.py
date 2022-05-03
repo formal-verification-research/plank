@@ -23,8 +23,7 @@ def main():
         = startup()
 
     # Run the simulation
-    cell_tracker, file_events \
-        = simulation(x_length, y_steps, y_substrate, file_events, total_time, total_number_time_steps,
+    simulation(x_length, y_steps, y_substrate, file_events, total_time, total_number_time_steps,
                k, h, lam, x_vector, y_vector, x_position, y_position, death_time, birth_time, divide_time, vegf, pedf,
                pro, fib, vegf_old, pedf_old, pro_old, fib_old, model, ec, ec_old, density_cap, density_ecm,
                cell_lineage, cell_tracker, child, number_of_cells)

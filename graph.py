@@ -58,19 +58,19 @@ def graph(y_substrate, vegf, pedf, fib, pro, x_vector, y_vector, model, current_
 
     # Create the vegf 3D graph
     ax = fig.add_subplot(5, 1, 2, projection='3d')
-    ax.plot_trisurf(x_graph, y_graph, vegf_z, cmap='viridis', edgecolor='none')
+    ax.plot_trisurf(x_graph, y_graph, vegf_z, cmap='summer', edgecolor='none')
     ax.title.set_text('VEGF')
     ax.set_xlabel('mm', labelpad=12)
     ax.set_ylabel('mm', labelpad=12)
-    ax.set_zlabel('uM', labelpad=12)
+    ax.set_zlabel('uM', labelpad=2)
 
     # Create the pedf 3D graph
     ax = fig.add_subplot(5, 1, 3, projection='3d')
-    ax.plot_trisurf(x_graph, y_graph, pedf_z, cmap='viridis', edgecolor='none')
+    ax.plot_trisurf(x_graph, y_graph, pedf_z, cmap='cool', edgecolor='none')
     ax.title.set_text('PEDF')
     ax.set_xlabel('mm', labelpad=12)
     ax.set_ylabel('mm', labelpad=12)
-    ax.set_zlabel('uM', labelpad=12)
+    ax.set_zlabel('uM', labelpad=2)
 
     # Create the fib 3D graph
     ax = fig.add_subplot(5, 1, 4, projection='3d')
@@ -79,15 +79,15 @@ def graph(y_substrate, vegf, pedf, fib, pro, x_vector, y_vector, model, current_
     ax.title.set_text('Fibronectin')
     ax.set_xlabel('mm', labelpad=12)
     ax.set_ylabel('mm', labelpad=12)
-    ax.set_zlabel('uM', labelpad=12)
+    ax.set_zlabel('uM', labelpad=2)
 
     # Create the protease 3D graph
     ax = fig.add_subplot(5, 1, 5, projection='3d')
-    ax.plot_trisurf(x_graph, y_graph, pro_z, cmap='viridis', edgecolor='none')
+    ax.plot_trisurf(x_graph, y_graph, pro_z, cmap='hot', edgecolor='none')
     ax.title.set_text('Protease')
     ax.set_xlabel('mm', labelpad=12)
     ax.set_ylabel('mm', labelpad=12)
-    ax.set_zlabel('uM', labelpad=12)
+    ax.set_zlabel('uM', labelpad=2)
 
     # Save and close the file so the program can run unattended
     fig.subplots_adjust(hspace=0.7)
