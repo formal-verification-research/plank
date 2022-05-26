@@ -1,0 +1,111 @@
+
+
+Time: 1245
+Cell: 1
+Left the capillary
+
+
+Time: 1247
+Cell: 1 divided
+Probability of Division: 0.9365039689313835
+Random Number: 0.3680264865151587
+
+Time: 1412
+Cell: 5 died
+Probability of Death: 0.0022764265967242826
+Random Number: 0.0002036850672313406
+
+Time: 1425
+Cell: 2
+Left the capillary
+
+
+Time: 1425
+Cell: 3
+Left the capillary
+
+
+Time: 1427
+Cell: 2 divided
+Probability of Division: 0.964221260228266
+Random Number: 0.264964462417403
+
+Time: 1427
+Cell: 3 divided
+Probability of Division: 0.964221260228266
+Random Number: 0.7261069245841609
+
+Time: 1466
+Cell: 7 died
+Probability of Death: 0.005722028899399639
+Random Number: 0.0004387282974116502
+
+Time: 1533
+Cell: 3 died
+Probability of Death: 0.0028641308782233646
+Random Number: 0.00010191956212324271
+
+Time: 1600
+Cell: 0
+Left the capillary
+
+
+Time: 1602
+Cell: 0 divided
+Probability of Division: 0.9118576536327924
+Random Number: 0.29555981103158946
+
+Time: 1610
+Cell: 4
+Left the capillary
+
+
+Time: 1612
+Cell: 4 divided
+Probability of Division: 0.8874475863986229
+Random Number: 0.45509525435638354
+
+Time: 1719
+Cell: 1 died
+Probability of Death: 0.010226968699186725
+Random Number: 0.007951841126172088
+
+Time: 1719
+Cell: 8 died
+Probability of Death: 0.006553320460614559
+Random Number: 0.0015075179972346975
+
+Time: 1794
+Cell: 6 died
+Probability of Death: 0.0010742976625408894
+Random Number: 0.0008446036256091194
+
+Time: 1999
+Cell: 0 died
+Probability of Death: 0.006068770036155373
+Random Number: 0.004612651982772054
+
+Time: 2081
+Cell: 2 died
+Probability of Death: 0.00615166462856128
+Random Number: 0.005647216247740117
+
+Time: 2099
+Cell: 9 died
+Probability of Death: 0.008523137523004603
+Random Number: 0.0033914637620207078
+
+Time: 2125
+Cell: 4 divided
+Probability of Division: 0.12569120751852422
+Random Number: 0.056243699175556605
+
+Time: 2302
+Cell: 10 died
+Probability of Death: 0.002048346929218056
+Random Number: 0.0003663024668966175
+
+Time: 2357
+Cell: 4 died
+Probability of Death: 0.0053360524987130335
+Random Number: 0.0044510298291789985

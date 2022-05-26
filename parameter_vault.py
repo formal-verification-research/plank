@@ -34,7 +34,7 @@ simulation_time = 48  # The maximum time the simulation will last in hours
 threshold = 0.6  # The amount that the fib must drop to in the blood vessel wall before the EC can escape
 time_step_duration = 8  # How much time passes in each time step of the discrete model in seconds
 tolerance = 0.001  # Used to determine when the iteration method is close enough to the true value
-x_steps = 201  # How many mesh points lie along the x axis for the substrate and EC matrices
+x_steps = 21  # How many mesh points lie along the x axis for the substrate and EC matrices
 
 
 # Diffusion Parameters

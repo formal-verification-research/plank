@@ -104,14 +104,12 @@ def simulation(x_length, y_steps, y_substrate, file_events, total_time, total_nu
             break
 
         # Update the substrate matrices, this is the part of the simulation that takes so long for the PC to run
-        vegf, vegf_old = \
-            update_vegf(y_substrate, density_cap, density_ecm, ec_old, vegf, vegf_old, k, h, x_length)
-        pedf, pedf_old = \
-            update_pedf(y_substrate, density_cap, density_ecm, ec_old, pedf, pedf_old, k, h, x_length)
+        vegf = update_vegf(y_substrate, density_cap, density_ecm, ec_old, vegf, vegf_old, k, h, x_length)
+        pedf = update_pedf(y_substrate, density_cap, density_ecm, ec_old, pedf, pedf_old, k, h, x_length)
         fib, fib_old = \
             update_fib(y_substrate, density_cap, ec_old, fib, fib_old, k, pro, h)
         pro, pro_old = \
-            update_pro(y_substrate, density_cap, density_ecm, ec_old, pro, pro_old, k, vegf_old, pedf_old)
+            update_pro(y_substrate, density_cap, density_ecm, ec_old, pro, pro_old, k, vegf, pedf)
 
         # Print a notice to the screen so we know how far along the simulation is
         completion = current_time_step / total_number_time_steps * 100
