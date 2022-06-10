@@ -24,6 +24,9 @@ def simulation(x_length, y_steps, y_substrate, file_events, total_time, total_nu
                k, h, lam, x_vector, y_vector, x_position, y_position, death_time, birth_time, divide_time, vegf, pedf,
                pro, fib, vegf_old, pedf_old, pro_old, fib_old, model, ec, ec_old, density_cap, density_ecm,
                cell_lineage, cell_tracker, child, number_of_cells):
+    tip_cell = 0
+    firsttip = 0
+    file_tipcell = open("Tip-Cell_test", 'w')
 
     # Start the 'for-loop' that will take the simulation through the time steps
     for current_time_step in range(total_number_time_steps - 1):
@@ -87,6 +90,21 @@ def simulation(x_length, y_steps, y_substrate, file_events, total_time, total_nu
                         file_events.write("Cell: " + str(cell) + "\n")
                         file_events.write("Left the capillary" + "\n")
 
+                        # TipCell test
+                        tip_cell += 1
+                        if tip_cell == 1:
+                            firsttip = current_time_step
+                            file_tipcell.write("Time first cell left:  " + str(current_time_step) + "\n")
+                        if tip_cell == 5:
+                            lasttip = current_time_step
+                            timeforalltip = lasttip - firsttip
+                            file_tipcell.write("Time last cell left: " + str(current_time_step) + "\n")
+                            file_tipcell.write("Time for all Tipcells to leave: " + str(timeforalltip))
+
+
+
+
+
                 # Use the move function to carry out the move decision made by the random number generator
                 move(cell, current_time_step, stay, left, right, up, random_num, y_position, x_position, ec)
 
@@ -125,7 +143,13 @@ def simulation(x_length, y_steps, y_substrate, file_events, total_time, total_nu
             graph(y_substrate, vegf, pedf, fib, pro, x_vector, y_vector, model, current_time_step,
                   total_number_time_steps, total_time)
 
+        if tip_cell == 5:
+            file_tipcell.close()
+            break
+
     graph(y_substrate, vegf, pedf, fib, pro, x_vector, y_vector, model, current_time_step, total_number_time_steps,
           total_time)
 
+
+    file_tipcell.close()
     return
