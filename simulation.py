@@ -93,12 +93,12 @@ def simulation(x_length, y_steps, y_substrate, file_events, total_time, total_nu
                         # TipCell test
                         tip_cell += 1
                         if tip_cell == 1:
-                            firsttip = current_time_step * .08 /3600   # 8 seconds per time step divided by 3600 seconds/hour
-                            file_tipcell.write("Time first cell left:  " + str(current_time_step) + "\n")
+                            firsttip = current_time_step * 8 /3600   # 8 seconds per time step divided by 3600 seconds/hour
+                            file_tipcell.write("Time first cell left:  " + str(firsttip) + "\n")
                         if tip_cell == 5:
-                            lasttip = current_time_step * .08 /3600    # 8 seconds per time step divided by 3600 seconds/hour
+                            lasttip = current_time_step * 8 /3600    # 8 seconds per time step divided by 3600 seconds/hour
                             timeforalltip = lasttip - firsttip
-                            file_tipcell.write("Time last cell left: " + str(current_time_step) + "\n")
+                            file_tipcell.write("Time last cell left: " + str(lasttip) + "\n")
                             file_tipcell.write("Time for all Tipcells to leave: " + str(timeforalltip))
 
 

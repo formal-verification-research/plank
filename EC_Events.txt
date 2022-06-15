@@ -1,0 +1,65 @@
+
+
+Time: 1158
+Cell: 2
+Left the capillary
+
+
+Time: 1160
+Cell: 2 divided
+Probability of Division: 0.9678367309213296
+Random Number: 0.5893666098869363
+
+Time: 1176
+Cell: 3
+Left the capillary
+
+
+Time: 1181
+Cell: 1
+Left the capillary
+
+
+Time: 1183
+Cell: 1 divided
+Probability of Division: 0.9705144899671707
+Random Number: 0.9272530282972371
+
+Time: 1192
+Cell: 3 divided
+Probability of Division: 0.03174559762196709
+Random Number: 0.012932858308374318
+
+Time: 1274
+Cell: 5 died
+Probability of Death: 0.008559324390799495
+Random Number: 0.004767312567638071
+
+Time: 1340
+Cell: 7 died
+Probability of Death: 0.004419257450654007
+Random Number: 0.004089791466713066
+
+Time: 1358
+Cell: 2 died
+Probability of Death: 0.010234854277844142
+Random Number: 0.002557408949808715
+
+Time: 1382
+Cell: 3 died
+Probability of Death: 0.003985401373762619
+Random Number: 0.003543673169204564
+
+Time: 1396
+Cell: 0
+Left the capillary
+
+
+Time: 1398
+Cell: 0 divided
+Probability of Division: 0.9611477979587179
+Random Number: 0.5617308340176622
+
+Time: 1473
+Cell: 4
+Left the capillary
