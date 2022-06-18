@@ -21,7 +21,7 @@ M0 = 12
 D0 = 4  # uM*mm^2/h
 # VEGF
 SIGMA = 1.514705513 * 10**-3  # plank = 1.514705513 * 10**-3; vargis = 4.97512 * 10**-3
-V0 = 0.04  # uM*mm^2/h, plank = 0.04; vargis = 6.8442 * 10**-6
+V0 = 2.75 * 10 ** -4 #0.04   uM*mm^2/h, plank = 0.04; vargis = 6.8442 * 10**-6
 
 
 # Basic Parameters
@@ -66,7 +66,7 @@ MU = 4.56  # 1/h, Protease Decay Rate
 VE = 1  # 1/uM, Inhibitor Equilibrium Constant
 # VEGF
 LAMDA1 = 74.769231  # 1/h
-V1 = 0.007692309  # 1/uM
+V1 = 3.75 * 10 ** -4  # 0.007692309   1/uM
 
 
 # Over-relaxation Variables used for VEGF and PEDF Iteration
@@ -157,7 +157,7 @@ K30 = BETA4 / F0
 K31 = DELTA3 * V1
 K32 = DELTA4 * V1
 K33 = DV / (L * PSI)
-K35 = V0 * SIGMA * V1 / DV
+K35 = V0 * SIGMA * L ** 2 / DV / V1
 K36 = L**2 * LAMDA2 * DELTAE * P0 / DP
 K37 = L**2 * B2 / DP
 K38 = D0 * SIGMA * D1 / DD
