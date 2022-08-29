@@ -71,6 +71,14 @@ def simulation(x_length, y_steps, y_substrate, file_events, total_time, total_nu
                 up, T = prob_move(x, y, 2, pro, fib, vegf, y_steps, lam, k)
                 random_num = random()
 
+                print("Cell: " + str(cell))
+                print("P(Stay) " + str(stay))
+                print("P(Left) " + str(left))
+                print("P(Right) " + str(right))
+                print("P(Up) " + str(up))
+                print("Random Number: " + str(random_num))
+                print()
+
                 # Perform the following action only if the EC is in the parent blood vessel
                 if y == 0:
 
