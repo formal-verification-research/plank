@@ -1,0 +1,121 @@
+
+
+Time: 5519
+Cell: 0
+Left the capillary
+
+
+Time: 5521
+Cell: 0 divided
+Probability of Division: 0.9739235256980859
+Random Number: 0.18777126896665597
+
+Time: 5552
+Cell: 1
+Left the capillary
+
+
+Time: 5553
+Cell: 2
+Left the capillary
+
+
+Time: 5554
+Cell: 1 divided
+Probability of Division: 0.9771602347023334
+Random Number: 0.2204901636826353
+
+Time: 5555
+Cell: 2 divided
+Probability of Division: 0.9761429487324136
+Random Number: 0.02775071667736173
+
+Time: 5575
+Cell: 1 died
+Probability of Death: 0.010130342567702986
+Random Number: 0.0009694170200088559
+
+Time: 5587
+Cell: 3
+Left the capillary
+
+
+Time: 5589
+Cell: 3 divided
+Probability of Division: 0.9729141718882035
+Random Number: 0.9539942919161106
+
+Time: 5614
+Cell: 4
+Left the capillary
+
+
+Time: 5616
+Cell: 4 divided
+Probability of Division: 0.9681091557848185
+Random Number: 0.6359192772785666
+
+Time: 5665
+Cell: 4 died
+Probability of Death: 0.010217302394667628
+Random Number: 0.008838118730306044
+
+Time: 5704
+Cell: 2 died
+Probability of Death: 0.010228614981375938
+Random Number: 0.0012465642281989098
+
+Time: 5705
+Cell: 9 died
+Probability of Death: 0.010217693151199433
+Random Number: 0.008262254994739537
+
+Time: 5772
+Cell: 0 died
+Probability of Death: 0.010168012903132646
+Random Number: 0.007749841695924853
+
+Time: 5798
+Cell: 6 died
+Probability of Death: 0.010221188111189201
+Random Number: 0.001022586189107777
+
+Time: 5806
+Cell: 7 died
+Probability of Death: 0.010126653048126641
+Random Number: 0.0006207450012759574
+
+Time: 5862
+Cell: 8 died
+Probability of Death: 0.01022595237211471
+Random Number: 0.00857815003583684
+
+Time: 6009
+Cell: 5 divided
+Probability of Division: 0.9584363810434154
+Random Number: 0.19598545736849482
+
+Time: 6165
+Cell: 10 died
+Probability of Death: 0.010229891966312655
+Random Number: 0.0023025015839299723
+
+Time: 6166
+Cell: 5 died
+Probability of Death: 0.010172406386084415
+Random Number: 0.009256086098901384
+
+Time: 6223
+Cell: 3 divided
+Probability of Division: 0.9822760976587805
+Random Number: 0.07125463599173831
+
+Time: 6448
+Cell: 11 died
+Probability of Death: 0.0030903762061196037
+Random Number: 0.002112283670030024
+
+Time: 6452
+Cell: 3 died
+Probability of Death: 0.010229737806489246
+Random Number: 5.568346240758526e-05
