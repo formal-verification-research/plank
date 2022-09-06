@@ -69,17 +69,8 @@ def simulation(x_length, y_steps, y_substrate, file_events, total_time, total_nu
                 left, T = prob_move(x, y, 0, pro, fib, vegf, y_steps, lam, k)
                 right, T = prob_move(x, y, 1, pro, fib, vegf, y_steps, lam, k)
                 up, T = prob_move(x, y, 2, pro, fib, vegf, y_steps, lam, k)
-                down, T = prob_move(x, y, 3, pro, fib, vegf, y_steps, lam, k)
+
                 random_num = random()
-                
-                file_events.write("Cell: " + str(cell) + " at timestep " + str(current_time_step) + "\n")
-                file_events.write("P(Stay) " + str(stay) + "\n")
-                file_events.write("P(Left) " + str(left) + "\n")
-                file_events.write("P(Right) " + str(right) + "\n")
-                file_events.write("P(Up) " + str(up) + "\n")
-                file_events.write("P(Down) " + str(down) + "\n")
-                file_events.write("Random Number: " + str(random_num) + "\n")
-                file_events.write("\n")
 
                 # Perform the following action only if the EC is in the parent blood vessel
                 if y == 0:
@@ -121,7 +112,7 @@ def simulation(x_length, y_steps, y_substrate, file_events, total_time, total_nu
         fib, fib_old = \
             update_fib(y_substrate, density_cap, ec_old, fib, fib_old, k, pro, h)
         pro, pro_old = \
-            update_pro(y_substrate, density_cap, density_ecm, ec_old, pro, pro_old, k, vegf_old, pedf_old)
+            update_pro(y_substrate, density_cap, density_ecm, ec_old, pro, pro_old, k, vegf_old, pedf_old, current_time_step, total_number_time_steps)
 
         # Print a notice to the screen so we know how far along the simulation is
         completion = current_time_step / total_number_time_steps * 100

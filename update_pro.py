@@ -12,7 +12,7 @@ from parameter_vault import K1, K3, x_steps
 
 
 # Function
-def update_pro(y_substrate, density_cap, density_ecm, ec_old, pro, pro_old, k, vegf_old, pedf_old):
+def update_pro(y_substrate, density_cap, density_ecm, ec_old, pro, pro_old, k, vegf_old, pedf_old, current_time_step, total_number_time_steps):
 
     # Place the Protease into the previous time step array
     for y in range(y_substrate):
@@ -22,7 +22,10 @@ def update_pro(y_substrate, density_cap, density_ecm, ec_old, pro, pro_old, k, v
     # Update the Protease in the parent blood vessel using Plank Eq 47 Pg 150
     for x in range(x_steps-1):
         density = density_cap * (ec_old[0][x] + ec_old[0][x+1]) / 2
-        desensitize = vegf_old[0][x] - pedf_old[0][x]
+        if current_time_step / total_number_time_steps < .25:
+            desensitize = vegf_old[0][x] - pedf_old[0][x]
+        else:
+            desensitize = vegf_old[0][x]
         if desensitize < 0:
             desensitize = 0
         pro[0][x] = pro_old[0][x] + k * (K1 * desensitize * density / (vegf_old[0][x] + 1) - K3 * pro_old[0][x])
@@ -30,7 +33,10 @@ def update_pro(y_substrate, density_cap, density_ecm, ec_old, pro, pro_old, k, v
     # Update the Protease in the parent blood vessel wall using Plank Eq 54 Pg 151
     for x in range(x_steps):
         density = density_ecm * ec_old[1][x]
-        desensitize = vegf_old[1][x] - pedf_old[1][x]
+        if current_time_step / total_number_time_steps < .25:
+            desensitize = vegf_old[1][x] - pedf_old[1][x]
+        else:
+            desensitize = vegf_old[1][x]
         if desensitize < 0:
             desensitize = 0
         pro[1][x] = pro_old[1][x] + k * (K1 * desensitize * density / (vegf_old[1][x] + 1) - K3 * pro_old[1][x])
