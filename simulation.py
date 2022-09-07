@@ -108,7 +108,7 @@ def simulation(x_length, y_steps, y_substrate, file_events, total_time, total_nu
         vegf, vegf_old = \
             update_vegf(y_substrate, density_cap, density_ecm, ec_old, vegf, vegf_old, k, h, x_length)
         pedf, pedf_old = \
-            update_pedf(y_substrate, density_cap, density_ecm, ec_old, pedf, pedf_old, k, h, x_length)
+            update_pedf(y_substrate, density_cap, density_ecm, ec_old, pedf, pedf_old, k, h, x_length, current_time_step, total_number_time_steps)
         fib, fib_old = \
             update_fib(y_substrate, density_cap, ec_old, fib, fib_old, k, pro, h)
         pro, pro_old = \

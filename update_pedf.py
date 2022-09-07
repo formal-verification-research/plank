@@ -13,7 +13,7 @@ from parameter_vault import K36, K37, K38, K39, M0, K40, RELAX1, x_steps, tolera
 
 
 # Function
-def update_pedf(y_substrate, density_cap, density_ecm, ec_old, pedf, pedf_old, k, h, x_length):
+def update_pedf(y_substrate, density_cap, density_ecm, ec_old, pedf, pedf_old, k, h, x_length, current_time_step, total_number_time_steps):
 
     # Create new PEDF arrays to help iterate in the ECM iterative equations
     p = zeros((y_substrate, x_steps))
@@ -117,12 +117,19 @@ def update_pedf(y_substrate, density_cap, density_ecm, ec_old, pedf, pedf_old, k
             for x in range(x_steps-1):
                 pedf_old[y][x] = pedf[y][x]
                 pedf[y][x] = p[y][x]
+                if current_time_step / total_number_time_steps > .25:
+                    pedf_old[y][x] = pedf[y][x] * .15
+                    pedf[y][x] = p[y][x] * .15
+
                 if pedf[y][x] < 0:
                     pedf[y][x] = 0
         else:
             for x in range(x_steps):
                 pedf_old[y][x] = pedf[y][x]
                 pedf[y][x] = p[y][x]
+                if current_time_step / total_number_time_steps > .25:
+                    pedf_old[y][x] = pedf[y][x] * .15
+                    pedf[y][x] = p[y][x] * .15
                 if pedf[y][x] < 0:
                     pedf[y][x] = 0
 
