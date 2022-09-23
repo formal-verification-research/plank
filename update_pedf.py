@@ -117,9 +117,9 @@ def update_pedf(y_substrate, density_cap, density_ecm, ec_old, pedf, pedf_old, k
             for x in range(x_steps-1):
                 pedf_old[y][x] = pedf[y][x]
                 pedf[y][x] = p[y][x]
-                if current_time_step / total_number_time_steps > .25:
-                    pedf_old[y][x] = pedf[y][x] * .15
-                    pedf[y][x] = p[y][x] * .15
+                if current_time_step / total_number_time_steps > .05:
+                    pedf_old[y][x] = pedf[y][x] * .99
+                    pedf[y][x] = p[y][x] * .99
 
                 if pedf[y][x] < 0:
                     pedf[y][x] = 0
@@ -127,9 +127,9 @@ def update_pedf(y_substrate, density_cap, density_ecm, ec_old, pedf, pedf_old, k
             for x in range(x_steps):
                 pedf_old[y][x] = pedf[y][x]
                 pedf[y][x] = p[y][x]
-                if current_time_step / total_number_time_steps > .25:
-                    pedf_old[y][x] = pedf[y][x] * .15
-                    pedf[y][x] = p[y][x] * .15
+                if current_time_step / total_number_time_steps > .05:
+                    pedf_old[y][x] = pedf[y][x] * .99
+                    pedf[y][x] = p[y][x] * .99
                 if pedf[y][x] < 0:
                     pedf[y][x] = 0
 
