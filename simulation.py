@@ -52,7 +52,7 @@ def simulation(x_length, y_steps, y_substrate, file_events, total_time, total_nu
                 cell_tracker[cell][1].append(x)
                 cell_tracker[cell][2].append(y)
 
-                # Kill the EC if it reaches the RPE layer so it doesn't start backtracking
+                # Kill the EC if it reaches the RPE layer, so it doesn't start backtracking
                 if y == y_steps - 1:
                     death_time[cell] = current_time_step
                     ec[y][x] -= 1
@@ -106,7 +106,7 @@ def simulation(x_length, y_steps, y_substrate, file_events, total_time, total_nu
 
         # Update the substrate matrices, this is the part of the simulation that takes so long for the PC to run
         vegf, vegf_old = \
-            update_vegf(y_substrate, density_cap, density_ecm, ec_old, vegf, vegf_old, k, h, x_length)
+            update_vegf(y_substrate, density_cap, density_ecm, ec_old, vegf, vegf_old, k, h, x_length, current_time_step, total_number_time_steps)
         pedf, pedf_old = \
             update_pedf(y_substrate, density_cap, density_ecm, ec_old, pedf, pedf_old, k, h, x_length, current_time_step, total_number_time_steps)
         fib, fib_old = \
@@ -114,7 +114,7 @@ def simulation(x_length, y_steps, y_substrate, file_events, total_time, total_nu
         pro, pro_old = \
             update_pro(y_substrate, density_cap, density_ecm, ec_old, pro, pro_old, k, vegf_old, pedf_old, current_time_step, total_number_time_steps)
 
-        # Print a notice to the screen so we know how far along the simulation is
+        # Print a notice to the screen, so we know how far along the simulation is
         completion = current_time_step / total_number_time_steps * 100
         alive_cells = number_of_cells - deaths
         print("Time Progress = " + str(round(completion, 3)) + "%")

@@ -13,7 +13,7 @@ from parameter_vault import K1, K2, K35, K21, M0, K33, RELAX1, x_steps, toleranc
 
 
 # Function
-def update_vegf(y_substrate, density_cap, density_ecm, ec_old, vegf, vegf_old, k, h, x_length):
+def update_vegf(y_substrate, density_cap, density_ecm, ec_old, vegf, vegf_old, k, h, x_length, current_time_step, total_number_time_steps):
 
     # Create new VEGF arrays to help iterate in the ECM iterative equations
     v = zeros((y_substrate, x_steps))
@@ -116,12 +116,18 @@ def update_vegf(y_substrate, density_cap, density_ecm, ec_old, vegf, vegf_old, k
             for x in range(x_steps-1):
                 vegf_old[y][x] = vegf[y][x]
                 vegf[y][x] = v[y][x]
+                if current_time_step / total_number_time_steps > .05:
+                    vegf_old[y][x] = vegf[y][x]/.1
+                    vegf[y][x] = v[y][x]/.1
                 if vegf[y][x] < 0:
                     vegf[y][x] = 0
         else:
             for x in range(x_steps):
                 vegf_old[y][x] = vegf[y][x]
                 vegf[y][x] = v[y][x]
+                if current_time_step / total_number_time_steps > .05:
+                    vegf_old[y][x] = vegf[y][x]/.1
+                    vegf[y][x] = v[y][x]/.1
                 if vegf[y][x] < 0:
                     vegf[y][x] = 0
 
