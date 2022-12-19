@@ -16,7 +16,8 @@ from update_pedf import update_pedf
 from update_fib import update_fib
 from update_pro import update_pro
 from graph import graph
-from parameter_vault import x_steps, threshold, graph_time
+from parameter_vault import x_steps, threshold, graph_time, data_time
+from data_collection import data_collection
 
 
 # Function
@@ -24,9 +25,11 @@ def simulation(x_length, y_steps, y_substrate, file_events, total_time, total_nu
                k, h, lam, x_vector, y_vector, x_position, y_position, death_time, birth_time, divide_time, vegf, pedf,
                pro, fib, vegf_old, pedf_old, pro_old, fib_old, model, ec, ec_old, density_cap, density_ecm,
                cell_lineage, cell_tracker, child, number_of_cells):
+    nodes = 0
     tip_cell = 0
     firsttip = 0
     file_tipcell = open("Tip-Cell_test", 'w')
+
 
     # Start the 'for-loop' that will take the simulation through the time steps
     for current_time_step in range(total_number_time_steps - 1):
@@ -61,10 +64,10 @@ def simulation(x_length, y_steps, y_substrate, file_events, total_time, total_nu
                     ec[y][x] -= 1
 
                 # Run the proliferation function to see if the EC will possibly divide or die
-                number_of_cells = \
+                number_of_cells, nodes = \
                     proliferation(y_steps, file_events, total_number_time_steps, k, x_position, y_position,
                                     death_time, birth_time, divide_time, pro, fib, pro_old, fib_old, model, ec,
-                                  cell_lineage, number_of_cells, child, cell, current_time_step, x, y)
+                                  cell_lineage, number_of_cells, child, cell, current_time_step, x, y, nodes)
 
             # Find the probability that the EC will stay or move. Generate the random number that decides the EC outcome
             if death_time[cell] == total_number_time_steps - 1:
@@ -143,13 +146,13 @@ def simulation(x_length, y_steps, y_substrate, file_events, total_time, total_nu
             graph(y_substrate, vegf, pedf, fib, pro, x_vector, y_vector, model, current_time_step,
                   total_number_time_steps, total_time)
 
-        if tip_cell == 5:
-            file_tipcell.close()
-            break
+        # Gain numbers for coverage
+        if current_time_step % data_time == 0:
+            data_collection(model, x_steps, current_time_step, nodes)
+
 
     graph(y_substrate, vegf, pedf, fib, pro, x_vector, y_vector, model, current_time_step, total_number_time_steps,
           total_time)
-
 
     file_tipcell.close()
     return

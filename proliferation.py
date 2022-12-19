@@ -18,7 +18,7 @@ from parameter_vault import x_steps, max_cells_allowed
 # Function
 def proliferation(y_steps, file_events, total_number_time_steps, k, x_position, y_position, death_time, birth_time,
                   divide_time, pro, fib, pro_old, fib_old, model, ec, cell_lineage, number_of_cells, child, cell,
-                  current_time_step, x, y):
+                  current_time_step, x, y, nodes):
 
     # Find the surrounding pro values at the current and previous time steps
     pro0 = 0  # pro values at current time step
@@ -87,5 +87,6 @@ def proliferation(y_steps, file_events, total_number_time_steps, k, x_position, 
             file_events.write("Cell: " + str(cell) + " divided" + "\n")
             file_events.write("Probability of Division: " + str(divide_prob) + "\n")
             file_events.write("Random Number: " + str(random_prob))
+            nodes += 1
 
-    return number_of_cells
+    return number_of_cells, nodes
