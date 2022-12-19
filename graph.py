@@ -54,7 +54,7 @@ def graph(y_substrate, vegf, pedf, fib, pro, x_vector, y_vector, model, current_
     # Create the EC color map
     ax = fig.add_subplot(5, 1, 1)
     ax.imshow(model, cmap='viridis')
-    ax.title.set_text('Angiogenesis')
+    #ax.title.set_text('Angiogenesis')
 
     # Create the vegf 3D graph
     ax = fig.add_subplot(5, 1, 2, projection='3d')
