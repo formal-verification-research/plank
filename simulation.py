@@ -154,5 +154,7 @@ def simulation(x_length, y_steps, y_substrate, file_events, total_time, total_nu
     graph(y_substrate, vegf, pedf, fib, pro, x_vector, y_vector, model, current_time_step, total_number_time_steps,
           total_time)
 
+    data_collection(model, x_steps, current_time_step, nodes)
+
     file_tipcell.close()
     return
