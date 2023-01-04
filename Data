@@ -9,72 +9,142 @@ Blood vessel coverage (% of area):  0.0
 Number of nodes: 0
 
 Time: 1.0
-Density:  7
-Blood vessel coverage (% of area):  3.0303030303030303
+Density:  0
+Blood vessel coverage (% of area):  0.0
 Number of nodes: 0
 
 Time: 1.5
-Density:  13
-Blood vessel coverage (% of area):  5.627705627705628
-Number of nodes: 4
+Density:  194
+Blood vessel coverage (% of area):  0.9556179498546871
+Number of nodes: 5
 
 Time: 2.0
-Density:  16
-Blood vessel coverage (% of area):  6.926406926406926
+Density:  376
+Blood vessel coverage (% of area):  1.8521255110585686
 Number of nodes: 5
 
 Time: 2.5
-Density:  19
-Blood vessel coverage (% of area):  8.225108225108226
-Number of nodes: 6
+Density:  496
+Blood vessel coverage (% of area):  2.4432293975666224
+Number of nodes: 9
 
 Time: 3.0
-Density:  23
-Blood vessel coverage (% of area):  9.956709956709958
+Density:  604
+Blood vessel coverage (% of area):  2.9752228954238706
 Number of nodes: 9
 
 Time: 3.5
-Density:  26
-Blood vessel coverage (% of area):  11.255411255411255
-Number of nodes: 9
-
-Time: 4.0
-Density:  30
-Blood vessel coverage (% of area):  12.987012987012985
-Number of nodes: 10
-
-Time: 4.5
-Density:  31
-Blood vessel coverage (% of area):  13.41991341991342
-Number of nodes: 11
-
-Time: 5.0
-Density:  32
-Blood vessel coverage (% of area):  13.852813852813853
-Number of nodes: 11
-
-Time: 5.5
-Density:  32
-Blood vessel coverage (% of area):  13.852813852813853
+Density:  649
+Blood vessel coverage (% of area):  3.1968868528643912
 Number of nodes: 12
 
+Time: 4.0
+Density:  707
+Blood vessel coverage (% of area):  3.482587064676617
+Number of nodes: 12
+
+Time: 4.5
+Density:  791
+Blood vessel coverage (% of area):  3.8963597852322547
+Number of nodes: 15
+
+Time: 5.0
+Density:  866
+Blood vessel coverage (% of area):  4.265799714299788
+Number of nodes: 15
+
+Time: 5.5
+Density:  913
+Blood vessel coverage (% of area):  4.497315403182109
+Number of nodes: 19
+
 Time: 6.0
-Density:  32
-Blood vessel coverage (% of area):  13.852813852813853
-Number of nodes: 13
+Density:  1002
+Blood vessel coverage (% of area):  4.935717452342249
+Number of nodes: 19
 
 Time: 6.5
-Density:  32
-Blood vessel coverage (% of area):  13.852813852813853
-Number of nodes: 13
+Density:  1079
+Blood vessel coverage (% of area):  5.315009112851583
+Number of nodes: 24
 
 Time: 7.0
-Density:  33
-Blood vessel coverage (% of area):  14.285714285714285
-Number of nodes: 13
+Density:  1158
+Blood vessel coverage (% of area):  5.704152504802719
+Number of nodes: 24
 
 Time: 7.5
-Density:  33
-Blood vessel coverage (% of area):  14.285714285714285
-Number of nodes: 14
+Density:  1184
+Blood vessel coverage (% of area):  5.832225013546131
+Number of nodes: 27
+
+Time: 8.0
+Density:  1242
+Blood vessel coverage (% of area):  6.1179252253583565
+Number of nodes: 27
+
+Time: 8.5
+Density:  1293
+Blood vessel coverage (% of area):  6.369144377124279
+Number of nodes: 29
+
+Time: 9.0
+Density:  1332
+Blood vessel coverage (% of area):  6.561253140239397
+Number of nodes: 29
+
+Time: 9.5
+Density:  1345
+Blood vessel coverage (% of area):  6.625289394611103
+Number of nodes: 31
+
+Time: 10.0
+Density:  1378
+Blood vessel coverage (% of area):  6.787842963400818
+Number of nodes: 31
+
+Time: 10.5
+Density:  1427
+Blood vessel coverage (% of area):  7.029210383724941
+Number of nodes: 34
+
+Time: 11.0
+Density:  1442
+Blood vessel coverage (% of area):  7.103098369538446
+Number of nodes: 34
+
+Time: 11.5
+Density:  1447
+Blood vessel coverage (% of area):  7.127727698142948
+Number of nodes: 35
+
+Time: 12.0
+Density:  1448
+Blood vessel coverage (% of area):  7.132653563863848
+Number of nodes: 35
+
+Time: 12.5
+Density:  1455
+Blood vessel coverage (% of area):  7.167134623910153
+Number of nodes: 36
+
+Time: 13.0
+Density:  1463
+Blood vessel coverage (% of area):  7.206541549677356
+Number of nodes: 36
+
+Time: 13.5
+Density:  1484
+Blood vessel coverage (% of area):  7.309984729816266
+Number of nodes: 37
+
+Time: 14.0
+Density:  1495
+Blood vessel coverage (% of area):  7.364169252746171
+Number of nodes: 37
+
+Time: 14.088888888888889
+Density:  1499
+Blood vessel coverage (% of area):  7.383872715629772
+Number of nodes: 37
 
