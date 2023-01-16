@@ -1,311 +1,276 @@
 
 
-Time: 1655
-Cell: 0
-Left the capillary
-
-
-Time: 1657
-Cell: 0 divided
-Probability of Division: 0.9998962944642776
-Random Number: 0.10478297408366632
-
-Time: 1745
-Cell: 5 died
-Probability of Death: 0.010237093811000384
-Random Number: 0.0008687415066603865
-
-Time: 1764
-Cell: 1
-Left the capillary
-
-
-Time: 1766
-Cell: 1 divided
-Probability of Division: 0.9998088667391702
-Random Number: 0.6589146031366168
-
-Time: 1811
-Cell: 0 died
-Probability of Death: 0.010237064927430232
-Random Number: 0.0008719949589975906
-
-Time: 2140
-Cell: 1 died
-Probability of Death: 0.010237111951125236
-Random Number: 0.004855683400207145
-
-Time: 2177
+Time: 1260
 Cell: 3
 Left the capillary
 
 
-Time: 2179
+Time: 1262
 Cell: 3 divided
-Probability of Division: 0.9996900754862527
-Random Number: 0.6277637886211084
+Probability of Division: 0.9994140788951854
+Random Number: 0.8340960415695774
 
-Time: 2180
-Cell: 2
+Time: 1287
+Cell: 1
 Left the capillary
 
 
-Time: 2180
-Cell: 2
+Time: 1287
+Cell: 1
 Cell ran into another capillary
 
 
-Time: 2180
+Time: 1352
 Cell: 4
 Left the capillary
 
 
-Time: 2180
-Cell: 4
-Cell ran into another capillary
+Time: 1354
+Cell: 4 divided
+Probability of Division: 0.9994507902224437
+Random Number: 0.22817372190198848
 
+Time: 1376
+Cell: 5 died
+Probability of Death: 0.010236906519026381
+Random Number: 0.0018606459816017384
 
-Time: 2232
-Cell: 6 divided
-Probability of Division: 0.17294627519724248
-Random Number: 0.16143128303792564
+Time: 1416
+Cell: 4 died
+Probability of Death: 0.01023638128188858
+Random Number: 0.009625123274298986
 
-Time: 2621
+Time: 1534
 Cell: 6 died
-Probability of Death: 0.01023714448666074
-Random Number: 0.005159696598994068
+Probability of Death: 0.010237030348246289
+Random Number: 0.00976736304029302
 
-Time: 2634
-Cell: 3 divided
-Probability of Division: 0.38184467986626847
-Random Number: 0.28154795820641754
-
-Time: 2641
-Cell: 7 divided
-Probability of Division: 0.37966043536096167
-Random Number: 0.19604586238836608
-
-Time: 2698
-Cell: 8 divided
-Probability of Division: 0.11294399541114299
-Random Number: 0.0253990970906689
-
-Time: 2739
+Time: 1622
 Cell: 3 died
-Probability of Death: 0.010237117306953689
-Random Number: 0.008247506668821791
+Probability of Death: 0.010236982877402327
+Random Number: 0.00684240706492556
 
-Time: 2842
-Cell: 9 died
-Probability of Death: 0.010236927214009435
-Random Number: 0.005227288740739855
+Time: 1806
+Cell: 0
+Left the capillary
 
-Time: 2871
-Cell: 7 died
-Probability of Death: 0.0102371455733039
-Random Number: 0.004636324969519934
 
-Time: 3096
-Cell: 10 divided
-Probability of Division: 0.056760005080918115
-Random Number: 0.015630576706133326
+Time: 1808
+Cell: 0 divided
+Probability of Division: 0.9998472222204253
+Random Number: 0.021729127525666025
 
-Time: 3149
-Cell: 8 divided
-Probability of Division: 0.408334640468902
-Random Number: 0.08269597144822882
+Time: 1873
+Cell: 2
+Left the capillary
 
-Time: 3173
-Cell: 11 divided
-Probability of Division: 0.14046292398897214
-Random Number: 0.08427069669585774
 
-Time: 3193
+Time: 1875
+Cell: 2 divided
+Probability of Division: 0.9990814475264083
+Random Number: 0.5950877471701833
+
+Time: 1878
+Cell: 2 died
+Probability of Death: 0.010233499201843637
+Random Number: 0.00500859658358066
+
+Time: 1966
 Cell: 8 died
-Probability of Death: 0.010237140480861528
-Random Number: 0.009425529797936316
+Probability of Death: 0.010236798568274393
+Random Number: 0.006484942901653468
 
-Time: 3547
-Cell: 12 divided
-Probability of Division: 0.2223141502315225
-Random Number: 0.07341574680103413
+Time: 2259
+Cell: 0 divided
+Probability of Division: 0.5703471618132505
+Random Number: 0.1420846176622923
 
-Time: 3579
-Cell: 10 divided
-Probability of Division: 0.3453872382811634
-Random Number: 0.3115586797617841
+Time: 2280
+Cell: 7 divided
+Probability of Division: 0.14534933074954393
+Random Number: 0.1015339330077979
 
-Time: 3607
-Cell: 13 divided
-Probability of Division: 0.17325070796265216
-Random Number: 0.10926287193242168
-
-Time: 3623
-Cell: 11 divided
-Probability of Division: 0.1975211657473049
-Random Number: 0.07071668480302673
-
-Time: 3631
-Cell: 14 divided
-Probability of Division: 0.2635781060022749
-Random Number: 0.1339282568194221
-
-Time: 3707
-Cell: 15 died
-Probability of Death: 0.010236797774714907
-Random Number: 0.004257596919860607
-
-Time: 3816
-Cell: 19 died
-Probability of Death: 0.010236555350539528
-Random Number: 0.00782927819808621
-
-Time: 3863
-Cell: 13 died
-Probability of Death: 0.010237017009703073
-Random Number: 0.004441610578294619
-
-Time: 3871
-Cell: 11 died
-Probability of Death: 0.010237094561970849
-Random Number: 0.007637141084040011
-
-Time: 3901
-Cell: 14 died
-Probability of Death: 0.010231372843731538
-Random Number: 0.0013750912249282932
-
-Time: 4006
-Cell: 12 divided
-Probability of Division: 0.41994847017574977
-Random Number: 0.2650885445143921
-
-Time: 4030
-Cell: 16 divided
-Probability of Division: 0.7389629129920021
-Random Number: 0.7379050092717754
-
-Time: 4047
-Cell: 10 divided
-Probability of Division: 0.15622291409937364
-Random Number: 0.10055865829239263
-
-Time: 4065
+Time: 2468
 Cell: 10 died
-Probability of Death: 0.010237049650793532
-Random Number: 0.006641413762313975
+Probability of Death: 0.010236815136737538
+Random Number: 0.00014447811398832222
 
-Time: 4075
-Cell: 17 divided
-Probability of Division: 0.4364632830897585
-Random Number: 0.11454729533122365
+Time: 2715
+Cell: 9 divided
+Probability of Division: 0.09224651362718478
+Random Number: 0.028789274703061474
 
-Time: 4075
-Cell: 18 divided
-Probability of Division: 0.05897986924713439
-Random Number: 0.021895427996705963
+Time: 2731
+Cell: 7 divided
+Probability of Division: 0.5388316352479937
+Random Number: 0.2259306151077306
 
-Time: 4092
-Cell: 18 died
-Probability of Death: 0.010237029433449576
-Random Number: 0.00181838677026247
+Time: 2748
+Cell: 0 divided
+Probability of Division: 0.07597688335300196
+Random Number: 0.030703116018516163
 
-Time: 4275
-Cell: 20 died
-Probability of Death: 0.010234995230728077
-Random Number: 0.0009096977572842224
+Time: 3018
+Cell: 9 died
+Probability of Death: 0.010236496758011077
+Random Number: 0.0036342657134600387
 
-Time: 4459
+Time: 3058
+Cell: 7 died
+Probability of Death: 0.010237113364582287
+Random Number: 0.0073724496727127775
+
+Time: 3082
+Cell: 0 died
+Probability of Death: 0.010237068617078859
+Random Number: 0.00025985646595882983
+
+Time: 3169
+Cell: 11 divided
+Probability of Division: 0.17062654597755575
+Random Number: 0.08616729236906351
+
+Time: 3184
 Cell: 12 divided
-Probability of Division: 0.2983957919512413
-Random Number: 0.1958471277874667
+Probability of Division: 0.15470685130601536
+Random Number: 0.0825754338786494
 
-Time: 4482
-Cell: 21 divided
-Probability of Division: 0.3848115921213641
-Random Number: 0.252993630690008
+Time: 3206
+Cell: 13 divided
+Probability of Division: 0.4710162478247827
+Random Number: 0.3523256123692208
 
-Time: 4487
-Cell: 16 divided
-Probability of Division: 0.03458607054392082
-Random Number: 0.00628399981836425
+Time: 3249
+Cell: 12 died
+Probability of Death: 0.01023711786373424
+Random Number: 0.004830386296354461
 
-Time: 4498
-Cell: 22 divided
-Probability of Division: 0.1024486643219221
-Random Number: 0.023150049647682636
-
-Time: 4525
-Cell: 23 died
-Probability of Death: 0.010236827063856424
-Random Number: 0.009676031301962595
-
-Time: 4526
-Cell: 24 divided
-Probability of Division: 0.13491784509341018
-Random Number: 0.12904981487630007
-
-Time: 4528
-Cell: 17 divided
-Probability of Division: 0.23304034857215486
-Random Number: 0.046035353818664415
-
-Time: 4573
-Cell: 28 died
-Probability of Death: 0.010237047581911024
-Random Number: 0.007879302952708112
-
-Time: 4627
-Cell: 21 died
-Probability of Death: 0.010237078103938164
-Random Number: 0.009032755210316323
-
-Time: 4737
-Cell: 22 died
-Probability of Death: 0.010236824337442905
-Random Number: 0.007825079885008024
-
-Time: 4739
-Cell: 26 died
-Probability of Death: 0.010237055208001824
-Random Number: 0.004795021916841891
-
-Time: 4874
-Cell: 24 died
-Probability of Death: 0.010237116279969543
-Random Number: 0.009513882399983187
-
-Time: 4909
-Cell: 12 divided
-Probability of Division: 0.04142497382280193
-Random Number: 0.006227233245666097
-
-Time: 4938
-Cell: 16 divided
-Probability of Division: 0.18050234924400763
-Random Number: 0.01617989941611786
-
-Time: 4941
-Cell: 27 divided
-Probability of Division: 0.300337827103533
-Random Number: 0.2701766873054574
-
-Time: 4943
-Cell: 27 died
-Probability of Death: 0.01023699216147617
-Random Number: 0.0015855911314249793
-
-Time: 5056
-Cell: 32 died
-Probability of Death: 0.010237077426130716
-Random Number: 0.006854406983201389
-
-Time: 5257
-Cell: 33
-Cell ran into another capillary
-
-
-Time: 5313
+Time: 3329
 Cell: 16 died
-Probability of Death: 0.01023711117988763
-Random Number: 0.004915809164031448
+Probability of Death: 0.010237070579616545
+Random Number: 0.007059482487991153
+
+Time: 3488
+Cell: 11 died
+Probability of Death: 0.010236539239839984
+Random Number: 0.006029369452236644
+
+Time: 3627
+Cell: 14 divided
+Probability of Division: 0.07940070525836788
+Random Number: 0.0518168785211538
+
+Time: 3638
+Cell: 15 died
+Probability of Death: 0.01023706276855419
+Random Number: 0.00571063218820822
+
+Time: 3660
+Cell: 13 divided
+Probability of Division: 0.12327273095503058
+Random Number: 0.08979703825176444
+
+Time: 3986
+Cell: 18 died
+Probability of Death: 0.010236713010342076
+Random Number: 0.005599404001488395
+
+Time: 4106
+Cell: 14 divided
+Probability of Division: 0.08646485456812993
+Random Number: 0.002350951776489807
+
+Time: 4120
+Cell: 17 divided
+Probability of Division: 0.027512497600751126
+Random Number: 0.013407931866869505
+
+Time: 4135
+Cell: 13 divided
+Probability of Division: 0.09306119260632599
+Random Number: 0.05312505539193135
+
+Time: 4464
+Cell: 14 died
+Probability of Death: 0.010236986234008656
+Random Number: 0.009441396359587406
+
+Time: 4586
+Cell: 13 divided
+Probability of Division: 0.20016177868983653
+Random Number: 0.0020849616177153196
+
+Time: 4587
+Cell: 21 divided
+Probability of Division: 0.1209670026881123
+Random Number: 0.12009976217165486
+
+Time: 4680
+Cell: 22 died
+Probability of Death: 0.010236989178876112
+Random Number: 0.0032256880046738212
+
+Time: 5036
+Cell: 13 divided
+Probability of Division: 0.3718313880570472
+Random Number: 0.13931292539622264
+
+Time: 5043
+Cell: 23 divided
+Probability of Division: 0.11574270564818666
+Random Number: 0.05112184391017183
+
+Time: 5045
+Cell: 21 divided
+Probability of Division: 0.27790383303434235
+Random Number: 0.22294694267531956
+
+Time: 5489
+Cell: 24 divided
+Probability of Division: 0.08283803338651423
+Random Number: 0.01471531273104032
+
+Time: 5492
+Cell: 13 divided
+Probability of Division: 0.09677584619997992
+Random Number: 0.038894509444571845
+
+Time: 5495
+Cell: 21 divided
+Probability of Division: 0.11606163529644045
+Random Number: 0.05007340340506938
+
+Time: 5514
+Cell: 21 died
+Probability of Death: 0.010236961625429477
+Random Number: 0.00510724451449851
+
+Time: 5612
+Cell: 28 died
+Probability of Death: 0.010236490413898494
+Random Number: 0.008170628386687473
+
+Time: 5943
+Cell: 13 divided
+Probability of Division: 0.1708735341180481
+Random Number: 0.029903004577869874
+
+Time: 5948
+Cell: 29 divided
+Probability of Division: 0.04649368777595876
+Random Number: 0.017192737322324625
+
+Time: 6401
+Cell: 31 divided
+Probability of Division: 0.49810786624045805
+Random Number: 0.1736558229856977
+
+Time: 6450
+Cell: 32 died
+Probability of Death: 0.01023711071020567
+Random Number: 0.0018413780998948193
+
+Time: 6526
+Cell: 31 died
+Probability of Death: 0.010237111811352433
+Random Number: 0.0004864062382018419
