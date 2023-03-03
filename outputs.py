@@ -1,26 +1,31 @@
-# Description
-# data_outputs records the output values directness, distance, and velocity to be compared to in-vitro experiments
+"""
+Description:
+The outputs file records the values of directness, distance, and speed to be compared to in-vitro experiments
+"""
 
 
 # Imports
 from numpy import sqrt
+from parameter_vault import x_steps, L, time_step_duration
 
 
 # Function
-def data_outputs(cell_tracker, x_length, x_steps, L):
+def outputs(cell_tracker, x_length):
 
-    file_outputs = open("Data_Outputs.txt", "w")  # Create the file
-    for cell in range(len(cell_tracker)):  # Get individual data for each active EC
-        if len(cell_tracker[cell][0]) < 2:  # Skip if EC didn't go more than 1 space
-            continue
+    # Create the file and get the individual EC data only if they traveled more than 1 space
+    file_outputs = open("Outputs.txt", "w")
+    for cell in range(len(cell_tracker)):
 
-        distances = []  # Initialize vector to collect distance moved each time step
-        for time in range(1, len(cell_tracker[cell][0])):  # Calculate distance with pythagorean formula
+        # Create the distance vector and find distances with the pythagorean formula
+        distances = []
+        for time in range(1, len(cell_tracker[cell][0])):
             distances.append(sqrt((cell_tracker[cell][1][time] - cell_tracker[cell][1][time - 1]) ** 2
                                   + (cell_tracker[cell][2][time] - cell_tracker[cell][2][time - 1]) ** 2))
 
-        # Calculate outputs
+        # Calculate all the different output information that we are interested in
         distance_accumulated = sum(distances)
+        if distance_accumulated == 0:  # Cell never moved, skip onto the next cell
+            continue
         distance_euclidean = sqrt((cell_tracker[cell][1][-1] - cell_tracker[cell][1][0]) ** 2
                                   + (cell_tracker[cell][2][-1] - cell_tracker[cell][2][0]) ** 2)
         directness = distance_euclidean / distance_accumulated
@@ -28,19 +33,20 @@ def data_outputs(cell_tracker, x_length, x_steps, L):
         FMI_x = (cell_tracker[cell][1][-1] - cell_tracker[cell][1][0]) / distance_accumulated
         dist_accum_dimensionalized = distance_accumulated * (x_length / (x_steps-1)) * L * 1000  # um
         dist_euclid_dimensionalized = distance_euclidean * (x_length / (x_steps-1)) * L * 1000  # um
-        time_dimensionalized = (cell_tracker[cell][0][-1] - cell_tracker[cell][0][0]) * 8 / 60  # min, 8s = time step
-        velocity_euclidean = dist_euclid_dimensionalized / time_dimensionalized
-        velocity_accumulated = dist_accum_dimensionalized / time_dimensionalized
+        time_dimensionalized = (cell_tracker[cell][0][-1] - cell_tracker[cell][0][0]) * time_step_duration / 60  # min
+        speed_euclidean = dist_euclid_dimensionalized / time_dimensionalized
+        speed_accumulated = dist_accum_dimensionalized / time_dimensionalized
 
-        # Add outputs to the file
+        # Add the information outputs to the file
         file_outputs.write('Cell Number: ' + str(cell) + "\r\n")
         file_outputs.write('Directness: ' + str(directness) + "\r\n")
         file_outputs.write('Accumulated Distance (um): ' + str(dist_accum_dimensionalized) + "\r\n")
-        file_outputs.write('Accumulated Velocity (um/min): ' + str(velocity_accumulated) + "\r\n")
+        file_outputs.write('Accumulated Speed (um/min): ' + str(speed_accumulated) + "\r\n")
         file_outputs.write('Euclidean Distance (um): ' + str(dist_euclid_dimensionalized) + "\r\n")
-        file_outputs.write('Euclidean Velocity (um/min): ' + str(velocity_euclidean) + "\r\n")
+        file_outputs.write('Euclidean Speed (um/min): ' + str(speed_euclidean) + "\r\n")
         file_outputs.write('Time (min): ' + str(time_dimensionalized) + "\r\n\r\n")
 
-    file_outputs.close()  # Close the file
+    # Make sure to close the file so all the information will save
+    file_outputs.close()
 
     return
