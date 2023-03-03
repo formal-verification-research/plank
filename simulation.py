@@ -24,11 +24,12 @@ from data_collection import data_collection
 def simulation(x_length, y_steps, y_substrate, file_events, total_time, total_number_time_steps,
                k, h, lam, x_vector, y_vector, x_position, y_position, death_time, birth_time, divide_time, vegf, pedf,
                pro, fib, vegf_old, pedf_old, pro_old, fib_old, model, ec, ec_old, density_cap, density_ecm,
-               cell_lineage, cell_tracker, child, number_of_cells):
+               cell_lineage, cell_tracker, child, number_of_cells, tipcell_filename="Tip-Cell_test"):
     nodes = 0
+    divide_prob = 0
     tip_cell = 0
     firsttip = 0
-    file_tipcell = open("Tip-Cell_test", 'w')
+    file_tipcell = open(tipcell_filename, 'w')
 
 
     # Start the 'for-loop' that will take the simulation through the time steps
@@ -64,7 +65,7 @@ def simulation(x_length, y_steps, y_substrate, file_events, total_time, total_nu
                     ec[y][x] -= 1
 
                 # Run the proliferation function to see if the EC will possibly divide or die
-                number_of_cells, nodes = \
+                number_of_cells, nodes, divide_prob = \
                     proliferation(y_steps, file_events, total_number_time_steps, k, x_position, y_position,
                                     death_time, birth_time, divide_time, pro, fib, pro_old, fib_old, model, ec,
                                   cell_lineage, number_of_cells, child, cell, current_time_step, x, y, nodes)
@@ -146,15 +147,15 @@ def simulation(x_length, y_steps, y_substrate, file_events, total_time, total_nu
             graph(y_substrate, vegf, pedf, fib, pro, x_vector, y_vector, model, current_time_step,
                   total_number_time_steps, total_time)
 
-        # Gain numbers for coverage
+        # Gain numbers for coverage, nodes
         if current_time_step % data_time == 0:
-            data_collection(model, x_steps, current_time_step, nodes)
+            data_collection(model, x_steps, current_time_step, nodes, pro, vegf_old, pedf_old, divide_prob)
 
 
     graph(y_substrate, vegf, pedf, fib, pro, x_vector, y_vector, model, current_time_step, total_number_time_steps,
           total_time)
 
-    data_collection(model, x_steps, current_time_step, nodes)
+    data_collection(model, x_steps, current_time_step, nodes, pro, vegf_old, pedf_old, divide_prob)
 
     file_tipcell.close()
     return

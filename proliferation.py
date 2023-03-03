@@ -89,4 +89,4 @@ def proliferation(y_steps, file_events, total_number_time_steps, k, x_position, 
             file_events.write("Random Number: " + str(random_prob))
             nodes += 1
 
-    return number_of_cells, nodes
+    return number_of_cells, nodes, divide_prob
