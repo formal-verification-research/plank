@@ -53,7 +53,7 @@ def combineDensity():
     endDensity = []
     skipValue = []
     skipVal = False
-
+    ave_density = []
     for time, densityRow in allData.items():
         currentRow = [time]
         for value in currentRow:
@@ -75,7 +75,6 @@ def combineDensity():
                         pass
                     else:
                         density = endDensity[len(currentRow)-1]
-                        print(density)
             currentRow.append(density)
             if len(currentRow) == NUMBER_OF_RUNS + 1:
                 density_num = 0
@@ -88,14 +87,12 @@ def combineDensity():
                         else:
                             i = float(i)
                             density_num = (density_num + i)
-                            print("density_num")
-                            print(density_num)
                 currentRow.append(density_num/NUMBER_OF_RUNS)
-        #print(currentRow)
+                ave_density.append(density_num/NUMBER_OF_RUNS)
+
         if len(currentRow) == NUMBER_OF_RUNS + 2:
-            print('added a row')
             data.append(currentRow)
-    print(data)
+
     change_density_array = []
     change_density_array.append("AverageChangeinDensity")
     change_density_array.append(0)
@@ -126,6 +123,8 @@ def combineDensity():
     print(frame.tail(5))
     with pd.ExcelWriter(r"C:\Users\cassa\Desktop\Results\test\test_other.xlsx", mode="w", engine="openpyxl") as writer:
         frame.to_excel(writer, sheet_name="Aggregate Data")
+    return ave_density, change_density_array
+
 
 def combineNodes():
     file2 = r"C:\Users\cassa\Desktop\Results\test"
@@ -160,7 +159,7 @@ def combineNodes():
     endNodes = []
     skipValueNodes = []
     skipValNodes = False
-
+    ave_nodes = []
     for time, nodesRow in allData2.items():
         currentRowNodes = [time]
         for value in currentRowNodes:
@@ -189,7 +188,7 @@ def combineNodes():
                         i = float(i)
                         nodes_num = (nodes_num + i)
                 currentRowNodes.append(nodes_num/NUMBER_OF_RUNS)
-
+                ave_nodes.append(nodes_num/NUMBER_OF_RUNS)
         if len(currentRowNodes) == NUMBER_OF_RUNS + 2:
             data_nodes.append(currentRowNodes)
     change_nodes_array = []
@@ -223,9 +222,35 @@ def combineNodes():
     with pd.ExcelWriter(r"C:\Users\cassa\Desktop\Results\test\test_nodes.xlsx", mode="w", engine="openpyxl") as writer:
         frame.to_excel(writer, sheet_name="Aggregate Data")
 
-def combineAll():
-    combineDensity()
-    #combineNodes()
+    return ave_nodes, change_nodes_array
 
-combineAll()
+
+def combineAll():
+
+    ave_density, change_density_array = combineDensity()
+    ave_nodes, change_nodes_array = combineNodes()
+
+    density_nodes_array = [([float(0)]*4) * len(ave_density)]
+    density_nodes_array = np.reshape(density_nodes_array, (len(ave_density), 4))
+
+    for i in range(len(ave_density)):
+        density_nodes_array[i][0] = ave_density[i]
+    for i in range(len(ave_density)):
+        density_nodes_array[i][1] = change_density_array[i+1]
+    for i in range(len(ave_density)):
+        density_nodes_array[i][2] = ave_nodes[i]
+    for i in range(len(ave_density)):
+        density_nodes_array[i][3] = change_nodes_array[i+1]
+
+    headers3= ["Average Density over Time", "Change in Density", "Average Nodes over Time", "Change in Nodes"]
+    density_nodes = pd.DataFrame(density_nodes_array, index=None, columns=headers3)
+
+    print(density_nodes)
+
+    with pd.ExcelWriter(r"C:\Users\cassa\Desktop\Results\test\test_nodesanddensity.xlsx", mode="w", engine="openpyxl") \
+            as writer:
+        density_nodes.to_excel(writer, sheet_name="Aggregate Data")
+
+if __name__=="__main__":
+    combineAll()
 
