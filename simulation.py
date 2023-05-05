@@ -18,18 +18,18 @@ from update_pro import update_pro
 from graph import graph
 from parameter_vault import x_steps, threshold, graph_time, data_time
 from data_collection import data_collection
-
+import os
 
 # Function
 def simulation(x_length, y_steps, y_substrate, file_events, total_time, total_number_time_steps,
                k, h, lam, x_vector, y_vector, x_position, y_position, death_time, birth_time, divide_time, vegf, pedf,
                pro, fib, vegf_old, pedf_old, pro_old, fib_old, model, ec, ec_old, density_cap, density_ecm,
-               cell_lineage, cell_tracker, child, number_of_cells, tipcell_filename="Tip-Cell_test"):
+               cell_lineage, cell_tracker, child, number_of_cells, tipcell_filename="Tip-Cell_test", subfolder=""):
     nodes = 0
     divide_prob = 0
     tip_cell = 0
     firsttip = 0
-    file_tipcell = open(tipcell_filename, 'w')
+    file_tipcell = open(os.path.join(os.getcwd(), subfolder,tipcell_filename), 'w')
 
 
     # Start the 'for-loop' that will take the simulation through the time steps
@@ -155,7 +155,7 @@ def simulation(x_length, y_steps, y_substrate, file_events, total_time, total_nu
     graph(y_substrate, vegf, pedf, fib, pro, x_vector, y_vector, model, current_time_step, total_number_time_steps,
           total_time)
 
-    data_collection(model, x_steps, current_time_step, nodes, pro, vegf_old, pedf_old, divide_prob)
+    data_collection(model, x_steps, current_time_step, nodes, pro, vegf_old, pedf_old, divide_prob, subfolder=subfolder)
 
     file_tipcell.close()
     return

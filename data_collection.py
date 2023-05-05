@@ -1,6 +1,7 @@
 from numpy import count_nonzero
+import os
 
-def data_collection(model, x_steps, current_time_step, nodes, pro, vegf_old, pedf_old, divide_prob):
+def data_collection(model, x_steps, current_time_step, nodes, pro, vegf_old, pedf_old, divide_prob, subfolder=""):
 
     if current_time_step == 0:
         file_data = open("Data", 'w')
@@ -8,10 +9,10 @@ def data_collection(model, x_steps, current_time_step, nodes, pro, vegf_old, ped
         file_node = open("Nodes", 'w')
         file_densitynodes = open("DensityVSNodes", 'w')
     else:
-        file_data = open("Data", 'a')
-        file_density = open("Density", 'a')
-        file_node = open("Nodes", 'a')
-        file_densitynodes = open("DensityVSNodes", 'a')
+        file_data = open(os.path.join(os.getcwd(), subfolder, "Data"), 'a')
+        file_density = open(os.path.join(os.getcwd(), subfolder,"Density"), 'a')
+        file_node = open(os.path.join(os.getcwd(), subfolder,"Nodes"), 'a')
+        file_densitynodes = open(os.path.join(os.getcwd(), subfolder,"DensityVSNodes"), 'a')
 
     # Collects the percentage of Extra Cellular Matrix covered by a newly formed capillary
     density = count_nonzero(model[1:, ])

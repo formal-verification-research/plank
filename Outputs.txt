@@ -1,197 +1,128 @@
-Cell Number: 0
-Directness: 0.1312613658677388
-Accumulated Distance (um): 93.50000000000001
-Accumulated Speed (um/min): 0.9463562753036439
-Euclidean Distance (um): 12.27293770863358
-Euclidean Speed (um/min): 0.12422001729386214
-Time (min): 98.8
-
-Cell Number: 3
-Directness: 0.1838935358247571
-Accumulated Distance (um): 38.50000000000001
-Accumulated Speed (um/min): 0.94672131147541
-Euclidean Distance (um): 7.079901129253148
-Euclidean Speed (um/min): 0.1740959294078643
-Time (min): 40.666666666666664
-
-Cell Number: 4
-Directness: 0.10099277479719022
-Accumulated Distance (um): 186.25000000000003
-Accumulated Speed (um/min): 0.980263157894737
-Euclidean Distance (um): 18.80990430597668
-Euclidean Speed (um/min): 0.09899949634724568
-Time (min): 190.0
-
-Cell Number: 5
-Directness: 0.11246200607902736
-Accumulated Distance (um): 82.25
-Accumulated Speed (um/min): 0.940358231707317
-Euclidean Distance (um): 9.25
-Euclidean Speed (um/min): 0.10575457317073171
-Time (min): 87.46666666666667
-
-Cell Number: 6
-Directness: 0.1619047619047619
-Accumulated Distance (um): 26.250000000000004
-Accumulated Speed (um/min): 1.0307591623036652
-Euclidean Distance (um): 4.25
-Euclidean Speed (um/min): 0.16688481675392672
-Time (min): 25.466666666666665
-
-
-Cell Number: 20
-Directness: 0.1237412997457192
-Accumulated Distance (um): 57.50000000000001
-Accumulated Speed (um/min): 1.0099531615925061
-Euclidean Distance (um): 7.1151247353788545
-Euclidean Speed (um/min): 0.12497291689775507
-Time (min): 56.93333333333333
-
-Cell Number: 21
-Directness: 0.09197073783107179
-Accumulated Distance (um): 44.25000000000001
-Accumulated Speed (um/min): 0.9906716417910449
-Euclidean Distance (um): 4.0697051490249265
-Euclidean Speed (um/min): 0.09111280184384164
-Time (min): 44.666666666666664
-
-
-Cell Number: 24
-Directness: 0.10249393557537188
-Accumulated Distance (um): 79.75
-Accumulated Speed (um/min): 1.0224358974358974
-Euclidean Distance (um): 8.173891362135908
-Euclidean Speed (um/min): 0.1047934790017424
-Time (min): 78.0
-
-Cell Number: 25
-Directness: 0.1693299326026662
-Accumulated Distance (um): 38.50000000000001
-Accumulated Speed (um/min): 0.8967391304347828
-Euclidean Distance (um): 6.51920240520265
-Euclidean Speed (um/min): 0.15184477651869527
-Time (min): 42.93333333333333
-
-Cell Number: 26
-Directness: 0.0834140080652144
-Accumulated Distance (um): 180.25000000000003
-Accumulated Speed (um/min): 0.9796195652173915
-Euclidean Distance (um): 15.035374953754896
-Euclidean Speed (um/min): 0.0817139943138853
-Time (min): 184.0
-
-Cell Number: 27
-Directness: 0.12876968840942818
-Accumulated Distance (um): 14.000000000000002
-Accumulated Speed (um/min): 0.8467741935483871
-Euclidean Distance (um): 1.8027756377319946
-Euclidean Speed (um/min): 0.10903884905637062
-Time (min): 16.533333333333335
-
-Cell Number: 28
-Directness: 0.1312613349668231
-Accumulated Distance (um): 45.75000000000001
-Accumulated Speed (um/min): 0.980357142857143
-Euclidean Distance (um): 6.005206074732157
-Euclidean Speed (um/min): 0.12868298731568908
-Time (min): 46.666666666666664
-
-Cell Number: 31
-Directness: 0.15662812617315414
-Accumulated Distance (um): 32.75
-Accumulated Speed (um/min): 0.9670275590551181
-Euclidean Distance (um): 5.129571132170798
-Euclidean Speed (um/min): 0.1514637145326023
-Time (min): 33.86666666666667
-
-Cell Number: 32
-Directness: 0.16212829211388405
-Accumulated Distance (um): 33.0
-Accumulated Speed (um/min): 0.951923076923077
-Euclidean Distance (um): 5.350233639758174
-Euclidean Speed (um/min): 0.15433366268533194
-Time (min): 34.666666666666664
-
-Cell Number: 33
-Directness: 0.08333333333333333
-Accumulated Distance (um): 6.0
-Accumulated Speed (um/min): 1.0714285714285714
-Euclidean Distance (um): 0.5
-Euclidean Speed (um/min): 0.08928571428571429
-Time (min): 5.6
-
-Cell Number: 34
-Directness: 0.09222203802390513
-Accumulated Distance (um): 155.75000000000003
-Accumulated Speed (um/min): 0.9949957410562182
-Euclidean Distance (um): 14.363582422223226
-Euclidean Speed (um/min): 0.09176053506531022
-Time (min): 156.53333333333333
-
-Cell Number: 35
-Directness: 0.014373989364401724
-Accumulated Distance (um): 55.00000000000001
-Accumulated Speed (um/min): 1.0012135922330099
-Euclidean Distance (um): 0.790569415042095
-Euclidean Speed (um/min): 0.01439143352625173
-Time (min): 54.93333333333333
-
-Cell Number: 36
-Directness: 0.8089010988089465
-Accumulated Distance (um): 2.25
-Accumulated Speed (um/min): 0.7670454545454546
-Euclidean Distance (um): 1.8200274723201297
-Euclidean Speed (um/min): 0.6204639110182261
-Time (min): 2.933333333333333
-
-
-Cell Number: 39
-Directness: 0.1251597228456424
-Accumulated Distance (um): 60.75000000000001
-Accumulated Speed (um/min): 0.9735576923076924
-Euclidean Distance (um): 7.603453162872776
-Euclidean Speed (um/min): 0.12185021094347397
-Time (min): 62.4
-
-Cell Number: 40
-Directness: 0.45454545454545453
-Accumulated Distance (um): 2.7500000000000004
-Accumulated Speed (um/min): 1.0312500000000002
-Euclidean Distance (um): 1.2500000000000002
-Euclidean Speed (um/min): 0.4687500000000001
-Time (min): 2.6666666666666665
-
-Cell Number: 41
-Directness: 0.21209125149788172
-Accumulated Distance (um): 4.25
-Accumulated Speed (um/min): 0.9659090909090908
-Euclidean Distance (um): 0.9013878188659973
-Euclidean Speed (um/min): 0.20486086792409028
-Time (min): 4.4
-
-Cell Number: 42
-Directness: 0.2773500981126146
-Accumulated Distance (um): 3.2500000000000004
-Accumulated Speed (um/min): 0.8405172413793105
-Euclidean Distance (um): 0.9013878188659973
-Euclidean Speed (um/min): 0.23311753936189586
-Time (min): 3.8666666666666667
-
-Cell Number: 43
-Directness: 0.25
-Accumulated Distance (um): 2.0
-Accumulated Speed (um/min): 1.0714285714285714
-Euclidean Distance (um): 0.5
-Euclidean Speed (um/min): 0.26785714285714285
-Time (min): 1.8666666666666667
-
-
-Cell Number: 46
-Directness: 0.060647628994634994
-Accumulated Distance (um): 47.00000000000001
-Accumulated Speed (um/min): 1.010028653295129
-Euclidean Distance (um): 2.8504385627478452
-Euclidean Speed (um/min): 0.06125584303899381
-Time (min): 46.53333333333333
-
-
+Cell Number: 0
+Directness: 0.2748737083745107
+Accumulated Distance (um): 37.50000000000001
+Accumulated Speed (um/min): 0.09813328681088627
+Euclidean Distance (um): 10.307764064044152
+Euclidean Speed (um/min): 0.026974260460687766
+Time (min): 382.1333333333333
+
+Cell Number: 1
+Directness: 1.0
+Accumulated Distance (um): 2.5000000000000004
+Accumulated Speed (um/min): 0.07780082987551869
+Euclidean Distance (um): 2.5000000000000004
+Euclidean Speed (um/min): 0.07780082987551869
+Time (min): 32.13333333333333
+
+Cell Number: 2
+Directness: 0.3333333333333333
+Accumulated Distance (um): 7.500000000000002
+Accumulated Speed (um/min): 0.0922131147540984
+Euclidean Distance (um): 2.5000000000000004
+Euclidean Speed (um/min): 0.030737704918032793
+Time (min): 81.33333333333333
+
+Cell Number: 3
+Directness: 1.0
+Accumulated Distance (um): 5.000000000000001
+Accumulated Speed (um/min): 0.09894459102902377
+Euclidean Distance (um): 5.000000000000001
+Euclidean Speed (um/min): 0.09894459102902377
+Time (min): 50.53333333333333
+
+Cell Number: 4
+Directness: 0.3333333333333333
+Accumulated Distance (um): 7.500000000000002
+Accumulated Speed (um/min): 0.09648370497427103
+Euclidean Distance (um): 2.5000000000000004
+Euclidean Speed (um/min): 0.032161234991423676
+Time (min): 77.73333333333333
+
+Cell Number: 5
+Directness: 0.2
+Accumulated Distance (um): 12.5
+Accumulated Speed (um/min): 0.19369834710743802
+Euclidean Distance (um): 2.5000000000000004
+Euclidean Speed (um/min): 0.03873966942148761
+Time (min): 64.53333333333333
+
+Cell Number: 6
+Directness: 0.5150787536377127
+Accumulated Distance (um): 17.5
+Accumulated Speed (um/min): 0.157185628742515
+Euclidean Distance (um): 9.013878188659975
+Euclidean Speed (um/min): 0.08096297774245487
+Time (min): 111.33333333333333
+
+Cell Number: 7
+Directness: 1.0
+Accumulated Distance (um): 2.5000000000000004
+Accumulated Speed (um/min): 0.020161290322580648
+Euclidean Distance (um): 2.5000000000000004
+Euclidean Speed (um/min): 0.020161290322580648
+Time (min): 124.0
+
+Cell Number: 9
+Directness: 0.3333333333333333
+Accumulated Distance (um): 7.500000000000002
+Accumulated Speed (um/min): 0.21802325581395354
+Euclidean Distance (um): 2.5000000000000004
+Euclidean Speed (um/min): 0.07267441860465118
+Time (min): 34.4
+
+Cell Number: 10
+Directness: 0.7071067811865476
+Accumulated Distance (um): 5.000000000000001
+Accumulated Speed (um/min): 0.1194267515923567
+Euclidean Distance (um): 3.5355339059327386
+Euclidean Speed (um/min): 0.08444746590603674
+Time (min): 41.86666666666667
+
+Cell Number: 11
+Directness: 1.0
+Accumulated Distance (um): 2.5000000000000004
+Accumulated Speed (um/min): 0.12500000000000003
+Euclidean Distance (um): 2.5000000000000004
+Euclidean Speed (um/min): 0.12500000000000003
+Time (min): 20.0
+
+Cell Number: 12
+Directness: 0.7071067811865476
+Accumulated Distance (um): 10.000000000000002
+Accumulated Speed (um/min): 0.14506769825918764
+Euclidean Distance (um): 7.071067811865477
+Euclidean Speed (um/min): 0.10257835317019551
+Time (min): 68.93333333333334
+
+Cell Number: 13
+Directness: 1.0
+Accumulated Distance (um): 2.5000000000000004
+Accumulated Speed (um/min): 0.06377551020408163
+Euclidean Distance (um): 2.5000000000000004
+Euclidean Speed (um/min): 0.06377551020408163
+Time (min): 39.2
+
+Cell Number: 14
+Directness: 1.0
+Accumulated Distance (um): 2.5000000000000004
+Accumulated Speed (um/min): 0.024007682458386685
+Euclidean Distance (um): 2.5000000000000004
+Euclidean Speed (um/min): 0.024007682458386685
+Time (min): 104.13333333333334
+
+Cell Number: 15
+Directness: 0.3333333333333333
+Accumulated Distance (um): 15.000000000000004
+Accumulated Speed (um/min): 0.10089686098654711
+Euclidean Distance (um): 5.000000000000001
+Euclidean Speed (um/min): 0.0336322869955157
+Time (min): 148.66666666666666
+
+Cell Number: 17
+Directness: 1.0
+Accumulated Distance (um): 10.000000000000002
+Accumulated Speed (um/min): 0.1677852348993289
+Euclidean Distance (um): 10.000000000000002
+Euclidean Speed (um/min): 0.1677852348993289
+Time (min): 59.6
+

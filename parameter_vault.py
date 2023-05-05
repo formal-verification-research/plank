@@ -9,7 +9,7 @@ taken from the Plank Paper (Appendix B, pgs 180-181), but some have been decided
 Parameters (Ordered according to group and alphabet to make them simple to find and understand)
 '''
 # Number of runs that will be taken with the data combined and averaged
-NUMBER_OF_RUNS = 35
+NUMBER_OF_RUNS = 10
 
 # Anastomosis Toggle (True/False)
 anastomotic = True

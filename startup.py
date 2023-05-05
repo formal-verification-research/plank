@@ -11,10 +11,11 @@ from numpy import ones
 from numpy import linspace
 from parameter_vault import x_steps, simulation_time, DP, L, max_cells_allowed, number_of_cells, division, \
     time_step_duration
+import os
 
 
 # Function
-def startup():
+def startup(subfolder = ""):
 
     # Define Important Non-dimensionalized Terms
     start_time = time.time()  # Time that the code started running
@@ -22,7 +23,7 @@ def startup():
     y_length = 0.5  # Depth, 1/2 of L
     y_steps = int(x_steps * (y_length / x_length) + 0.5)  # y_steps is used for ec arrays and has 1/2 the steps = 101
     y_substrate = y_steps * 2 - 1  # y_substrate is used for substrate arrays, same amount of nodes as x_steps = 201
-    file_events = open("EC_Events.txt", "w")  # Stores info on EC divisions, deaths, and leaving the parent blood vessel
+    file_events = open(os.path.join(os.getcwd(), subfolder, "EC_Events.txt"), "w")  # Stores info on EC divisions, deaths, and leaving the parent blood vessel
     total_time = simulation_time * DP / (L ** 2)  # Time
     total_number_time_steps = int(simulation_time * 3600 / time_step_duration)  # The time steps used in the simulation
     k = total_time / total_number_time_steps  # The time step interval
